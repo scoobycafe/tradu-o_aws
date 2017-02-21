@@ -1,0 +1,221 @@
+1
+00:00:01,561 --> 00:00:09,461
+So at the very highest level AWS is a public cloud platform, which I suppose begs the question, what is 
+
+2
+00:00:09,561 --> 00:00:16,461
+a public cloud platform? And you know what? I don't want to get into a religious war here, so don't expect this 
+
+3
+00:00:16,561 --> 00:00:22,461
+to be some like Q-rated Wikipedia style uber definition, I'm just trying to get the ball rolling for the 
+
+4
+00:00:22,561 --> 00:00:29,461
+course here. Anyway, so back in the day, right, Amazon was running probably the biggest online retail website 
+
+5
+00:00:29,561 --> 00:00:33,461
+in the world and the website itself was the crops of their business, right? 
+
+6
+00:00:33,561 --> 00:00:41,461
+So they invested in it. It was high performance, highly available, all of that stuff, and it had 
+
+7
+00:00:41,561 --> 00:00:48,461
+spare capacity. So one day, and I'm cutting this story horrifically short here and I'm leaving out names 
+
+8
+00:00:48,561 --> 00:00:55,461
+that absolutely deserve mentioning, but one day, let's just call them the folks at Amazon, had the idea, 
+
+9
+00:00:55,561 --> 00:01:03,461
+well the admittedly brilliant and game changing idea, hey why don't we sell some of this spare capacity 
+
+10
+00:01:03,561 --> 00:01:15,461
+to customers. Oh my goodness. I mean, it is so simple in hindsight, but what a revolutionary idea that was. 
+
+11
+00:01:15,561 --> 00:01:21,461
+The idea, yeah, that there's this mahoosive web scale infrastructure out there that's highly available, 
+
+12
+00:01:21,561 --> 00:01:28,461
+high performing, and whatever else, and you can buy or actually, I should say, rent, slices of it. 
+
+13
+00:01:28,561 --> 00:01:33,461
+I mean, who wouldn't want some of that? So let's say you're a startup or in fact you're any business that 
+
+14
+00:01:33,561 --> 00:01:39,461
+needs to grow, but you don't want to lay down a bunch of capital to build your own data center and buy your 
+
+15
+00:01:39,561 --> 00:01:44,461
+own servers and storage, instead you can just go and rent some of it from Amazon. 
+
+16
+00:01:44,561 --> 00:01:49,461
+They'll be more than happy to sell you a bunch of compute and storage, the full shebang, and guess what? 
+
+17
+00:01:49,561 --> 00:01:57,461
+They probably build and manage it better than you do. Okay, well let's say business is good and you're expecting 
+
+18
+00:01:57,561 --> 00:02:02,461
+a spike in business next month and you think maybe you need to double or triple or quadruple your needs, 
+
+19
+00:02:02,561 --> 00:02:08,461
+but then you're projecting that maybe a month or so after that you don't need it anymore. 
+
+20
+00:02:08,561 --> 00:02:14,461
+No sweat. That's what this stuff is all about. It's elastic. You can just spin up more virtual machines 
+
+21
+00:02:14,561 --> 00:02:20,461
+or consume more storage space or whatever and pay for what you use and then if you stop using it, 
+
+22
+00:02:20,561 --> 00:02:26,461
+you stop paying. And don't forget, it's all built on top of world class infrastructure. 
+
+23
+00:02:26,561 --> 00:02:30,461
+I'll have some of that, thanks. Now while we're on, 
+
+24
+00:02:30,561 --> 00:02:38,461
+AWS as a cloud platform, okay, is architected into regions and availability zones. 
+
+25
+00:02:38,561 --> 00:02:43,461
+So, at a global level AWS has got data centers in strategic locations around the world. 
+
+26
+00:02:43,561 --> 00:02:49,461
+This map is not bang up-to-date because it doesn't have the EU central region in Frankfurt, but it gives you 
+
+27
+00:02:49,561 --> 00:02:55,461
+the idea, right. In certain strategic locations Amazon builds data centers. 
+
+28
+00:02:55,561 --> 00:03:02,461
+These locations then get called regions. And now to every region Amazon offers certain AWS services. 
+
+29
+00:03:02,561 --> 00:03:10,461
+I live in the UK, so my closest AWS region is Ireland EU West. If I lived in Chicago, then it would be 
+
+30
+00:03:10,561 --> 00:03:17,461
+Northern Virginia, US East. The idea being, right, well there's actually a few architectural design decisions 
+
+31
+00:03:17,561 --> 00:03:24,461
+behind it all, but probably the simplest yeah is that regions closer to where you are going to be faster, 
+
+32
+00:03:24,561 --> 00:03:32,461
+but also, and I suppose, well maybe more important, every region is fully independent, so fully isolated 
+
+33
+00:03:32,561 --> 00:03:41,461
+from all other regions. Meaning, if a service in a region or in fact if the entire region itself goes down, 
+
+34
+00:03:41,561 --> 00:03:45,461
+other regions shouldn't be impacted. Then if we drill down a bit, 
+
+35
+00:03:45,561 --> 00:03:52,461
+within each region, and this is the standard way of drawing an AWS region, within each region we've got 
+
+36
+00:03:52,561 --> 00:03:58,461
+two or more availability zones. If we use Ireland, EU-West as an example, it's got three availability zones. 
+
+37
+00:03:58,561 --> 00:04:04,461
+Each connected, yeah, by a high speed, low latency network links. 
+
+38
+00:04:04,561 --> 00:04:12,461
+Now then, each availability zone is physically isolated from the rest, meaning if one of them goes down, 
+
+39
+00:04:12,561 --> 00:04:18,461
+I don't know a power issue or rock falls from space onto it, whatever, other availability zones in that region 
+
+40
+00:04:18,561 --> 00:04:27,461
+won't be affected. But, and even AWS has buts, there have been plenty of services outages, okay, where issues 
+
+41
+00:04:27,561 --> 00:04:34,461
+have started in one availability zone and rippled over into other availability zones, causing the effected service 
+
+42
+00:04:34,561 --> 00:04:41,461
+to choke and become unavailable across the entire region. So that's why I was careful to say, right, 
+
+43
+00:04:41,561 --> 00:04:47,461
+availability zones are highly available and isolated from a physical perspective. 
+
+44
+00:04:47,561 --> 00:04:53,461
+From a logical service and API perspective, they're often still coupled in some way, certainly at least 
+
+45
+00:04:53,561 --> 00:05:01,461
+more coupled than regions. So I guess then, for like uber high availability, you might want to be spreading 
+
+46
+00:05:01,561 --> 00:05:06,461
+your services across regions, though actually I'm saying that, that's a bit of a two-edged sword 
+
+47
+00:05:06,561 --> 00:05:10,461
+because we don't have these nice low latency links between regions. 
+
+48
+00:05:10,561 --> 00:05:16,461
+Anyway, feels like we're starting to get into the weeds, too early for that, so back to the picture. 
+
+49
+00:05:16,561 --> 00:05:22,461
+It's like this in all regions, okay. They've all got at least two availability zones, actually I'm saying that, 
+
+50
+00:05:22,561 --> 00:05:27,461
+all the ones that I have used have. I think that's pretty standard architecture actually. 
+
+51
+00:05:27,561 --> 00:05:33,461
+Now then, okay, so as we spin up resources, so like virtual machines, which AWS calls instances, 
+
+52
+00:05:33,561 --> 00:05:37,461
+we pick which region and which availability zone we want to spin them up in. 
+
+53
+00:05:37,561 --> 00:05:43,461
+This way we can make our apps and our infrastructure highly available by spreading them over availability zones 
+
+54
+00:05:43,561 --> 00:05:50,461
+and regions. And I reckon that's a half decent quick look at AWS. 
+
+55
+00:05:50,561 --> 00:05:54,561
+So what about VPCs? 
+
+

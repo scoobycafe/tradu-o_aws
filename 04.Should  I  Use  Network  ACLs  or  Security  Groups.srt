@@ -1,0 +1,109 @@
+1
+00:00:00,599 --> 00:00:08,195
+Anybody else with a question? Yeah, good day mate. Brad here from Australia. 
+
+2
+00:00:08,295 --> 00:00:13,195
+These security groups and network access control lists, they sound a bit similar, mate. 
+
+3
+00:00:13,295 --> 00:00:20,195
+Which of the two should I be using? Hi Brad. Just real quick actually, did you by any chance see England 
+
+4
+00:00:20,295 --> 00:00:24,195
+play Australia in the Ashes recently? That's cricket for anyone out there who doesn't know. 
+
+5
+00:00:24,295 --> 00:00:31,195
+Anyway, the answer to that question is simple. Both. You should definitely use both. 
+
+6
+00:00:31,295 --> 00:00:37,195
+And more, right. The idea being, there's no single technology that on its own is going to keep your 
+
+7
+00:00:37,295 --> 00:00:43,195
+infrastructure safe. We really do need to deploy multiple layers of security, defense in-depth, yeah. 
+
+8
+00:00:43,295 --> 00:00:49,195
+So we protected the subnet level with NACLs and we've protected the instance level with security groups. 
+
+9
+00:00:49,295 --> 00:00:55,195
+Yeah, they might take a bit of learning and yeah, no doubt, they're going to be a bit of a pain at first, 
+
+10
+00:00:55,295 --> 00:00:59,195
+in fact you're probably going to find yourself tripping over them from time to time, you know, like 
+
+11
+00:00:59,295 --> 00:01:04,195
+you're going to be wondering something's not working or why you can't connect to an instance or something, yeah. 
+
+12
+00:01:04,295 --> 00:01:08,195
+And it's going to turn out to be because of a NACL rule or a security group rule. 
+
+13
+00:01:08,295 --> 00:01:12,195
+And you might even be tempted to turn the blasted things off. But don't. 
+
+14
+00:01:12,295 --> 00:01:19,195
+Honestly, don't. They are proper insurance policies. And you know Murphy's law says that the day that you 
+
+15
+00:01:19,295 --> 00:01:22,195
+cancel your home insurance your house is going to burn to the ground? 
+
+16
+00:01:22,295 --> 00:01:28,195
+Well don't let the equivalent happen to your VPC. Get to know NACLs and get to know security groups 
+
+17
+00:01:28,295 --> 00:01:35,195
+and use them properly. And this is a good idea s well, right, have some standards, yeah, and maybe document them 
+
+18
+00:01:35,295 --> 00:01:42,195
+and who knows, even stick to them, yeah. Just so that you've got a bit of a pattern to how you use them, 
+
+19
+00:01:42,295 --> 00:01:46,195
+and I'm talking simple things like what's your strategy for applying security groups, yeah? 
+
+20
+00:01:46,295 --> 00:01:53,195
+Is it one per instance or one per instance type like web servers or one security group per application tier 
+
+21
+00:01:53,295 --> 00:01:57,195
+or whatever, yeah? Just do it, right. I can't stress this enough. 
+
+22
+00:01:57,295 --> 00:02:04,195
+Security is not optional anymore and NACLs and security groups really do complement each other. 
+
+23
+00:02:04,295 --> 00:02:09,195
+So don't cheat and just try to use one. You know what, right, these are just the basics, the minimum, yeah. 
+
+24
+00:02:09,295 --> 00:02:15,195
+You can totally use like third party tools as well, intrusion prevention systems, you can encrypt 
+
+25
+00:02:15,295 --> 00:02:20,195
+bits and pieces, you might want to run antivirus, SC Linus, AppArmor. 
+
+26
+00:02:20,295 --> 00:02:26,195
+There's tons of stuff. Take security seriously. But yeah, of the two major things that we've covered 
+
+27
+00:02:26,295 --> 00:02:29,295
+in the course, NACLs and security groups, use them both and use them wisely. 
+
+

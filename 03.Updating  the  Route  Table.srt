@@ -1,0 +1,141 @@
+1
+00:00:00,599 --> 00:00:08,033
+So let's hit our public subnet and let's add some internet gateway action to its route table. 
+
+2
+00:00:08,133 --> 00:00:16,033
+Ah, right, see how it's currently using the podcast local-RT route table, in fact, yeah, it's associated with 
+
+3
+00:00:16,133 --> 00:00:26,033
+two subnets, so our public and our private subnets. What we want to do then is create a new route table. 
+
+4
+00:00:26,133 --> 00:00:33,033
+And we'll call this one podcast-public-RT and what we'll do is we'll use this one for any subnets that need 
+
+5
+00:00:33,133 --> 00:00:39,033
+access to the internet and we'll keep the local one for private subnets that don't need hooking directly up 
+
+6
+00:00:39,133 --> 00:00:54,033
+to the internet. Okay so associated with our VPC (Loading), and I think first up, yeah, we'll add a new route first. 
+
+7
+00:00:54,133 --> 00:01:02,033
+Now the easiest way to add a route pointing to our internet gateway is to add a default route like this. 
+
+8
+00:01:02,133 --> 00:01:09,033
+So that's what all of those zeros is, a catchall route that will get taken if there's not a more specific route. 
+
+9
+00:01:09,133 --> 00:01:15,033
+A bit like auto's directions if you've ever driven in France, which I'm sure most of you probably haven't, 
+
+10
+00:01:15,133 --> 00:01:21,033
+so I don't know why I'm saying it. The point being though, when an instance comes to send packets to a destination, 
+
+11
+00:01:21,133 --> 00:01:27,033
+and this is the high level, right, it looks at the route table and it says, okay which route do I need to take? 
+
+12
+00:01:27,133 --> 00:01:34,033
+If there's a match on the route table it sends the packets to whatever is listed in the target here, 
+
+13
+00:01:34,133 --> 00:01:43,033
+but if there's no match then it sends data to whatever's listed as the target for the 0.0.0.0/0 default route, 
+
+14
+00:01:43,133 --> 00:01:50,033
+kind of if there aren't any matches then send it this way, the all other routes or all other directions 
+
+15
+00:01:50,133 --> 00:01:59,033
+that you often get on road signs. So, all these zeros represents our all other destinations default route. 
+
+16
+00:01:59,133 --> 00:02:05,033
+So, we want to point this to the internet gateway and see how it suggests that for us and it even includes 
+
+17
+00:02:05,133 --> 00:02:08,033
+our friendly name that we gave it, cool. And that's pretty much it. 
+
+18
+00:02:08,133 --> 00:02:16,033
+That's our road sign right there. Local traffic, so anything that matches our 10.0 network, hit the local route. 
+
+19
+00:02:16,133 --> 00:02:22,033
+Anything and everything else, head for the internet gateway. Magic, super simple. 
+
+20
+00:02:22,133 --> 00:02:26,033
+But let's just take a step back for a sec and draw this out because I'm aware that I've maybe waffled a bit 
+
+21
+00:02:26,133 --> 00:02:29,033
+and I might have distracted you. 
+
+22
+00:02:29,133 --> 00:02:35,033
+So we've created an internet gateway for our VPC, that superman style internet gateway to end all 
+
+23
+00:02:35,133 --> 00:02:41,033
+internet gateways. Well, that's our road or our route to the internet. 
+
+24
+00:02:41,133 --> 00:02:48,033
+Then, inside our public subnet we updated the road signs. We created a route table entry that said, hey 
+
+25
+00:02:48,133 --> 00:02:53,033
+for anything that you don't see above, so anything that doesn't match our 10.0 network, head over to the 
+
+26
+00:02:53,133 --> 00:03:00,033
+internet gateway. But we only added that rule to the route table of our public subnet. 
+
+27
+00:03:00,133 --> 00:03:05,033
+Our private subnet still knows nothing about it. Not hard at all, right? 
+
+28
+00:03:05,133 --> 00:03:14,033
+Now hopefully not flogging a dead horse here, but how this routing table stuff works is the most specific routes 
+
+29
+00:03:14,133 --> 00:03:20,033
+get precedence over the less specific ones. Any by specific I suppose I mean the subnet mask bit, right. 
+
+30
+00:03:20,133 --> 00:03:29,033
+So let's say we had two routes that were similar, 10.0.0.0/16 and 10.0.0.0/24. 
+
+31
+00:03:29,133 --> 00:03:39,033
+Well the /24 route is the most specific because it includes more bits in the mask, 24 rather than 16, right. 
+
+32
+00:03:39,133 --> 00:03:45,033
+Well what this means, our default route here is as unspecific as it gets, right. 
+
+33
+00:03:45,133 --> 00:03:51,033
+So that route is only ever going to get picked if there's literally nothing else that even comes close to matching. 
+
+34
+00:03:51,133 --> 00:03:58,033
+Good stuff and all and it really is, but even that's not enough to give our instances direct access to the internet. 
+
+35
+00:03:58,133 --> 00:04:01,133
+We've one more thing to configure, public IPs. 
+
+

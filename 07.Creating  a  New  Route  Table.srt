@@ -1,0 +1,193 @@
+1
+00:00:00,599 --> 00:00:05,874
+Now every VPC gets an implied router, it's just there. 
+
+2
+00:00:05,974 --> 00:00:14,874
+It can neither be created nor can it be destroyed, a bit like NRG app, that's how fundamental this AWS stuff is, 
+
+3
+00:00:14,974 --> 00:00:20,874
+not quite, but anyway. It's just there and it just works. I don't really like that personally. 
+
+4
+00:00:20,974 --> 00:00:26,874
+I like to know the detail, but Amazon aren't giving a lot away about this stuff. 
+
+5
+00:00:26,974 --> 00:00:31,874
+Also, every subnet needs a route table. 
+
+6
+00:00:31,974 --> 00:00:36,874
+So if we've got three subnets here, they all need a subnet. They all need a subnet, I mean they all need 
+
+7
+00:00:36,974 --> 00:00:43,874
+a route table. But each subnet can only have one route table. So we can't say, hey subnet 1 over here, 
+
+8
+00:00:43,974 --> 00:00:52,874
+he or she can have 3 route tables, uh-uh, our survey says uh-uh, but a single route table on the other hand, 
+
+9
+00:00:52,974 --> 00:00:56,874
+totally possible for that to be associated with multiple subnets. 
+
+10
+00:00:56,974 --> 00:01:00,874
+Now then, let's jump back to our AWS console. 
+
+11
+00:01:00,974 --> 00:01:06,874
+Okay, when a VPC gets created it automatically gets a main route table. 
+
+12
+00:01:06,974 --> 00:01:13,874
+See how some of these are tagged as main route tables? Well, when it comes to route tables, it's dead easy 
+
+13
+00:01:13,974 --> 00:01:20,874
+to flip back and forth between being a main route table and being a non-main route table. 
+
+14
+00:01:20,974 --> 00:01:26,874
+We just right click the one that's not the main, this one, and we say set as main table. 
+
+15
+00:01:26,974 --> 00:01:30,874
+Now I'm not going to do that because this one's actually an alive VPC where I'm doing some testing on 
+
+16
+00:01:30,974 --> 00:01:37,874
+Docker Trusted Registry, but if I did click set as main table, then this one up here, which is currently 
+
+17
+00:01:37,974 --> 00:01:43,874
+the main table for that VPC, it's going to get demoted to being a non-main table. 
+
+18
+00:01:43,974 --> 00:01:50,874
+You know, not that it's actually a demotion, but you get, right how a VPC can only have one main table. 
+
+19
+00:01:50,974 --> 00:01:54,874
+They should have probably called it the default route table or something, I don't know. 
+
+20
+00:01:54,974 --> 00:02:00,874
+But what does a main table mean? Well it just means that anytime a new subnet gets created it automatically 
+
+21
+00:02:00,974 --> 00:02:07,874
+gets linked to the VPC's main route table. So if we pick our podcast one again, and I'm going to name it actually 
+
+22
+00:02:07,974 --> 00:02:16,874
+while we're here (Typing), okay, then if I hit Subnet Associations down here, see how it's got two associations? 
+
+23
+00:02:16,974 --> 00:02:22,874
+Our public and our private subnets. But look, see how they're not explicit associations? 
+
+24
+00:02:22,974 --> 00:02:28,874
+That means we didn't manually create them. They just got associated by default because this is the VPC's 
+
+25
+00:02:28,974 --> 00:02:36,874
+main route table, yeah. Well I'm not a fan of that, okay. Mainly because see up here the 0 subnets, 
+
+26
+00:02:36,974 --> 00:02:42,874
+this could be misleading. I mean, not massively so, right, because we can see here it says explicitly 
+
+27
+00:02:42,974 --> 00:02:46,874
+associated subnets, so there are 0 explicitly associated subnets. 
+
+28
+00:02:46,974 --> 00:02:51,874
+But I don't know, it's entirely possible that someone comes along and thinks, ah, this route table is not 
+
+29
+00:02:51,974 --> 00:02:57,874
+associated with any subnets, so let me go and mess with it. Not ideal, no. 
+
+30
+00:02:57,974 --> 00:03:08,874
+So let's edit here, select our public and private, save that. Look that's tons better, well in my opinion it is. 
+
+31
+00:03:08,974 --> 00:03:15,874
+Anyway, every subnet needs a route table and every new subnet gets the VPC's main route table. 
+
+32
+00:03:15,974 --> 00:03:20,874
+And that's okay and we are free to modify and tweak the main route table. 
+
+33
+00:03:20,974 --> 00:03:23,874
+There's nothing super special about it that stops us doing that and you know what? 
+
+34
+00:03:23,974 --> 00:03:30,874
+You might choose to do that, but again, I'm not a fan. I prefer to leave the main table as it is 
+
+35
+00:03:30,974 --> 00:03:35,874
+and then to create a new one and put my funky new custom rules in the new one. 
+
+36
+00:03:35,974 --> 00:03:42,874
+This way, right, anything funky that I do, it doesn't get automatically applied to new subnets and that's 
+
+37
+00:03:42,974 --> 00:03:50,874
+probably a good idea. So I'd create a new one, give it a meaningful name obviously, 10 lashes for anybody 
+
+38
+00:03:50,974 --> 00:03:59,874
+not naming their stuff, put it in the podcast VPC, and create (Loading). 
+
+39
+00:03:59,974 --> 00:04:07,874
+And if we find it now, yeah, see how it's got a default local route, in fact, yeah, see how you can't even 
+
+40
+00:04:07,974 --> 00:04:17,874
+delete that route? It's etched in stone. Then if we go and associate it with a subnet (Loading), 
+
+41
+00:04:17,974 --> 00:04:28,874
+again, we'll pick our two, save them, lovely. So, a new route table in our VPC, not the main table, 
+
+42
+00:04:28,974 --> 00:04:34,874
+meaning any changes we make to it don't get automatically associated with any new subnets that we create, 
+
+43
+00:04:34,974 --> 00:04:39,874
+but it is associated with our two subnets. That's the way I like to rock and roll. 
+
+44
+00:04:39,974 --> 00:04:47,874
+I don't know, okay, you might go about it differently, but in my head, right, this keeps things nice and clean. 
+
+45
+00:04:47,974 --> 00:04:51,874
+Now then, we've only touched the tip of the iceberg when it comes to routing. 
+
+46
+00:04:51,974 --> 00:04:55,874
+But we'll take what we've learned so far, right, and we'll build on that in the next module when we look at 
+
+47
+00:04:55,974 --> 00:05:01,874
+how to get out to the internet and the likes. But first up, let's quickly recap the main points that we've learned 
+
+48
+00:05:01,974 --> 00:05:05,974
+in this module. 
+
+

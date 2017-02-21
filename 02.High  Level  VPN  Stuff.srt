@@ -1,0 +1,205 @@
+1
+00:00:01,000 --> 00:00:07,915
+So here's the deal, right, so far we've configured this like uber network, our data center for ourselves, right, 
+
+2
+00:00:08,015 --> 00:00:14,915
+inside of Amazon Web Services and a module or two back we put a couple of public facing web servers in there 
+
+3
+00:00:15,015 --> 00:00:19,915
+and then we stuck a load balancer in front of them, all good stuff. 
+
+4
+00:00:20,015 --> 00:00:25,915
+Oh, and we've seen a few times as well how we can connect to our instances using SSH or if they're Windows, 
+
+5
+00:00:26,015 --> 00:00:33,915
+yeah that would be RDP, but the thing to note, right, all of this kind of access has come into our VPC 
+
+6
+00:00:34,015 --> 00:00:40,915
+through its internet gateway, so all using publically routable IPs and unless we use secure protocols 
+
+7
+00:00:41,015 --> 00:00:47,915
+like SSH or HTTPS, then it's all totally unencrypted. So, we're talking over the internet, right, 
+
+8
+00:00:48,015 --> 00:00:55,915
+and then wide open for anyone to look at. Now, okay, all we've done so far, right, is a bit of HTTP action 
+
+9
+00:00:56,015 --> 00:01:02,915
+to a static webpage or two with like 0 sensitive content, but there's like absolutely nothing stopping us 
+
+10
+00:01:03,015 --> 00:01:08,915
+from hosting, I don't know, mail servers or database servers or whatever in our VPC. 
+
+11
+00:01:09,015 --> 00:01:16,915
+In fact, we probably want to do stuff like that, but of course, as soon as we do, then the kind of traffic 
+
+12
+00:01:17,015 --> 00:01:21,915
+we're going to be sending is almost certainly going to be more sensitive. 
+
+13
+00:01:22,015 --> 00:01:25,915
+Well, if that's the case then we want to connect to those services from outside of AWS, so probably 
+
+14
+00:01:26,015 --> 00:01:29,915
+from our corporate office, yeah, well we've got a couple of options. 
+
+15
+00:01:30,015 --> 00:01:36,915
+We can either secure each and every connection type, so maybe configure our client so that they only talk 
+
+16
+00:01:37,015 --> 00:01:41,915
+to the mail servers over secure protocols or the same for our database servers, yeah, only allow clients 
+
+17
+00:01:42,015 --> 00:01:48,915
+to talk to them via secure protocols, or we can configure a secure virtual private network, a VPN, 
+
+18
+00:01:49,015 --> 00:01:54,915
+or a tunnel. So that would go from our corporate office all the way to our VPC. 
+
+19
+00:01:55,015 --> 00:01:59,915
+That way, right, everything that we send between our office and the VPC goes through this tunnel 
+
+20
+00:02:00,015 --> 00:02:06,915
+and is therefore automatically encrypted and nice and secure. And you know what? 
+
+21
+00:02:07,015 --> 00:02:12,915
+Of the two options, I don't know like 99. whatever % of the time, option 2 is going to be the one 
+
+22
+00:02:13,015 --> 00:02:19,915
+and that's the deal with AWS VPNs. We take our office, so branch office, home office, corporate HQ, 
+
+23
+00:02:20,015 --> 00:02:24,915
+whatever, right, and we lash it up to our VPC over a VPN connection. 
+
+24
+00:02:25,015 --> 00:02:30,915
+And boom, right, in one fell swoop we've made all communications between the two secure. 
+
+25
+00:02:31,015 --> 00:02:37,915
+How come? Well like we just said, this connection between the two sites here, it's secure, IPsec secure, 
+
+26
+00:02:38,015 --> 00:02:45,915
+if that means anything to you. Basically, all traffic, so in both directions, is encrypted using IPsec. 
+
+27
+00:02:46,015 --> 00:02:51,915
+And I think we've hinted at this, but let's just be clear right now, we sometimes call this connection here 
+
+28
+00:02:52,015 --> 00:02:56,915
+the tunnel. I don't know, how's about this for an analogy, so we're connecting via the internet, yeah, 
+
+29
+00:02:57,015 --> 00:03:02,915
+and we know everyone's on the internet including the bad guys. Well, to keep the bad guys from spying 
+
+30
+00:03:03,015 --> 00:03:10,915
+on our chatter, we create this tunnel and then you can only get in and out of the tunnel from either end. 
+
+31
+00:03:11,015 --> 00:03:15,915
+But each end is already secure, right, or it should be, so in our VPC we'll be using things like NACLs 
+
+32
+00:03:16,015 --> 00:03:21,915
+and security groups and the likes, and then over in our remote office we'll be using similar stuff, 
+
+33
+00:03:22,015 --> 00:03:28,915
+or we should be. The point being, the bad guys out here are outside of our tunnel and from outside, 
+
+34
+00:03:29,015 --> 00:03:33,915
+you can't see or get in, so a bit like, and I did say we were going to get an analogy here, so I don't know, 
+
+35
+00:03:34,015 --> 00:03:39,915
+a bit like you know how famous people travel around in big old cars with blacked out windows so you can't 
+
+36
+00:03:40,015 --> 00:03:44,915
+see in from the outside? Well it's a bit like that. We're all using the same roads and the likes, 
+
+37
+00:03:45,015 --> 00:03:49,915
+but you can see straight into the likes of my car, right? So you can see who's inside, what the kids are 
+
+38
+00:03:50,015 --> 00:03:55,915
+watching on their iPads or DVD players, probably see my wife having a sleep in the passenger seat, 
+
+39
+00:03:56,015 --> 00:04:00,915
+but cars with blacked out windows, good luck seeing what's going on inside of them. 
+
+40
+00:04:01,015 --> 00:04:07,915
+Well a VPN tunnel it's a bit like that. We're all traveling about on the internet, yeah, but VPN tunnels 
+
+41
+00:04:08,015 --> 00:04:15,915
+are encrypted so if you're on the outside you can't see in. Okay, now in a way, right, the office location here, 
+
+42
+00:04:16,015 --> 00:04:24,915
+well it becomes almost like just another subnet within our VPC and that is massive, right? 
+
+43
+00:04:25,015 --> 00:04:30,915
+It literally means that resources in each network, so from either end of the tunnel, can access resources 
+
+44
+00:04:31,015 --> 00:04:39,915
+in the other network as if they were set right by each other, the key being using private IPs, yes. 
+
+45
+00:04:40,015 --> 00:04:46,915
+No more having to assign public IPs to resources that you only want to use internally. 
+
+46
+00:04:47,015 --> 00:04:54,915
+And also, this VPN, right, it's a permanent, always up, highly available, encrypted tunnel between the office here 
+
+47
+00:04:55,015 --> 00:05:02,915
+and our AWS VPC. Now that is a far cry, okay, from the flaky old VPN connections that I relied on 
+
+48
+00:05:03,015 --> 00:05:08,915
+as an IT support engineer all those years ago back in the early days of my career. 
+
+49
+00:05:09,015 --> 00:05:14,915
+The kind of VPNs we're working with here with AWS, they are rock solid, they're nothing like the VPNs 
+
+50
+00:05:15,015 --> 00:05:20,915
+of the bad old days. Anyway, that's the high level, okay. Now, let's go and drill down a bit to the actual 
+
+51
+00:05:21,015 --> 00:05:24,015
+bits and pieces that we need to get it all working. 
+
+

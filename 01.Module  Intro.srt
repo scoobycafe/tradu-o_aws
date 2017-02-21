@@ -1,0 +1,157 @@
+1
+00:00:00,5 --> 00:00:08,4
+Okay then, so in this module we're going to rock and roll with VPNs, virtual private networks. 
+
+2
+00:00:08,5 --> 00:00:16,4
+But right off the bat, I want to take a sec to define a VPN and then outline how we're going to tackle things. 
+
+3
+00:00:16,5 --> 00:00:22,4
+So a VPN, okay, it's an acronym for virtual private network. And back in the day, right, so like when I was 
+
+4
+00:00:22,5 --> 00:00:28,4
+resetting passwords, changing backup tapes, and you know what, pretty much making coffees for my superiors, 
+
+5
+00:00:28,5 --> 00:00:35,4
+technical superiors yeah, well back then, VPNs were nasty things. 
+
+6
+00:00:35,5 --> 00:00:41,4
+I mean, I shutter just thinking about them. So the idea was, when people weren't in the office, 
+
+7
+00:00:41,5 --> 00:00:47,4
+but maybe needed access to company services, I don't know like email or maybe a database or whatever, 
+
+8
+00:00:47,5 --> 00:00:53,4
+well we needed a way to give them a connection from wherever they were back to the office and that connection 
+
+9
+00:00:53,5 --> 00:01:00,4
+had to be secure. So it was a bit like this, right? Well in fact, actually when I graduated into being trusted 
+
+10
+00:01:00,5 --> 00:01:06,4
+enough to be on the IT support on-call router it was exactly like this. 
+
+11
+00:01:06,5 --> 00:01:12,4
+So I don't know what it was, it was like once every 4 or 5 weeks I'd be anointed with the possession of the 
+
+12
+00:01:12,5 --> 00:01:19,4
+on-call mobile phone and a laptop, the likes of which would be almost unrecognizable these days, 
+
+13
+00:01:19,5 --> 00:01:25,4
+a proper honking piece of plastic, but you know what? Doubled as a pretty good weight for dead lifting. 
+
+14
+00:01:25,5 --> 00:01:30,4
+But it had a build in modem and then, right, whenever there was a problem with any of the company's server 
+
+15
+00:01:30,5 --> 00:01:37,4
+infrastructure outside of office hours, I'd fire up the laptop, then obviously I'd wait 5 minutes for it to boot, 
+
+16
+00:01:37,5 --> 00:01:43,4
+then I'd dial back to the office where we had a good old Nortel Contivity VPN concentrator. 
+
+17
+00:01:43,5 --> 00:01:50,4
+Now then, this combination of the laptop with the Nortel VPN Client, the internet, and let's just call 
+
+18
+00:01:50,5 --> 00:01:57,4
+it a VPN router here, this combo let us create what's called an encrypted tunnel from my laptop all the way 
+
+19
+00:01:57,5 --> 00:02:07,4
+through the internet to the corporate network, basically a secure, shall we call it, virtual private network. 
+
+20
+00:02:07,5 --> 00:02:14,4
+And while it was good in theory, right, in practice probably due to like the 56K modem speeds and the likes, 
+
+21
+00:02:14,5 --> 00:02:21,4
+it was a pig, seriously, it was absolutely pants. Now I don't want to waffle okay, so story time is over, 
+
+22
+00:02:21,5 --> 00:02:29,4
+but the principle is this, VPNs are all about tunneling a secure connection over the internet from one point 
+
+23
+00:02:29,5 --> 00:02:36,4
+to another. And back then when I was cutting my teeth in IT, it was from a laptop back to the office. 
+
+24
+00:02:36,5 --> 00:02:42,4
+Now these days, right, fast forward like, I don't know, 20 years or whatever and VPNs are a boatload more 
+
+25
+00:02:42,5 --> 00:02:48,4
+than just that. In fact, what we're going to be talking about in this module, while it's kind of like 
+
+26
+00:02:48,5 --> 00:02:54,4
+what I just talked about, it's different too. So we're going to be talking about hooking up 
+
+27
+00:02:54,5 --> 00:03:01,4
+two locations via the internet, so maybe a corporate office or an existing corporate data center, 
+
+28
+00:03:01,5 --> 00:03:09,4
+and hooking it up back to AWS via the internet using a VPN. And we're going to be configuring, right, 
+
+29
+00:03:09,5 --> 00:03:15,4
+what is an always up VPN, not like me on the on-call laptop, right, where I only fired it up like, I don't know 
+
+30
+00:03:15,5 --> 00:03:19,4
+what it was, maybe once a week or so when something information office broke. 
+
+31
+00:03:19,5 --> 00:03:27,4
+No, what we're going to be doing here is a totally different beast, an always up, reliable VPN connection. 
+
+32
+00:03:27,5 --> 00:03:32,4
+Anyway, okay, hopefully that does us like 1000 foot view primer on VPNs. 
+
+33
+00:03:32,5 --> 00:03:36,4
+Now how we're going to go about this is pretty much like this. 
+
+34
+00:03:36,5 --> 00:03:41,4
+We'll do a little bit more high level stuff, okay. Then we'll outline the major components that make up 
+
+35
+00:03:41,5 --> 00:03:50,4
+an AWS VPN. After that, we'll lash one up. Then we'll talk about something called direct connect, 
+
+36
+00:03:50,5 --> 00:03:58,4
+it's like a VPN, but it's also not like one. More of a full blown leased line DWDM type uber connection 
+
+37
+00:03:58,5 --> 00:04:04,4
+into AWS. I know, it probably makes no sense explained like that, but no sweat, right, on my honor 
+
+38
+00:04:04,5 --> 00:04:08,4
+I'll give it the full treatment later in the module. That's good for now though. 
+
+39
+00:04:08,5 --> 00:04:12,5
+Let's crack on. 
+
+

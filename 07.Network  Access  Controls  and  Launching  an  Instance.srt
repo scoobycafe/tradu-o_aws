@@ -1,0 +1,165 @@
+1
+00:00:00,599 --> 00:00:03,9
+Now I reckon we have a couple more things that need explaining 
+
+2
+00:00:04,000 --> 00:00:09,266
+before we're ready to dig a bit deeper. First up, right, we can easily change a subnet that we've labeled 
+
+3
+00:00:09,366 --> 00:00:16,266
+as private to public and public to private. Did that sound right? 
+
+4
+00:00:16,366 --> 00:00:22,266
+Okay, so the only real difference between a public and a private subnet is what we just said, right? 
+
+5
+00:00:22,366 --> 00:00:30,266
+A public subnet has got a route to an internet gateway. So if we change our private subnet routing table 
+
+6
+00:00:30,366 --> 00:00:36,266
+so that it sends all of its unknown traffic to an internet gateway, well that private subnet for all intents 
+
+7
+00:00:36,366 --> 00:00:43,266
+and purposes, becomes a public subnet. What I'm saying is, there's like no special hidden setting or anything 
+
+8
+00:00:43,366 --> 00:00:49,266
+that says once we've created something as a public subnet though shalt always be a public subnet or a 
+
+9
+00:00:49,366 --> 00:00:55,266
+private subnet thou shalt always be a private subnet, no. It really is just whether or not it's logically 
+
+10
+00:00:55,366 --> 00:01:02,266
+hooked up to the VPC's internet gateway and all that takes is the creation of a route within the subnet. 
+
+11
+00:01:02,366 --> 00:01:10,266
+I mean our private subby here, okay, oh that's not good, oh right, maybe my session timed out or something, 
+
+12
+00:01:10,366 --> 00:01:19,266
+at least that's what I hope. Right, where were we? Oh yeah and we look good, okay. 
+
+13
+00:01:19,366 --> 00:01:29,266
+Anyway we can see, okay, that it's possible for our private subnet here to auto-assign public, yes public, 
+
+14
+00:01:29,366 --> 00:01:36,266
+IPs to its instances, no sweat. It's totally doable. But even if we configure it to do that it's not really 
+
+15
+00:01:36,366 --> 00:01:43,266
+a public subnet. To be a public subnet, like we've said, I'm rattling on about this too much now, I get that okay, 
+
+16
+00:01:43,366 --> 00:01:48,266
+but it's got to have a route to the VPCs internet gateway. So keep that in mind, right. 
+
+17
+00:01:48,366 --> 00:01:55,266
+Just because the subnet started out its life as a private subnet, we can tweak its settings and make it public 
+
+18
+00:01:55,366 --> 00:01:59,266
+and vice versa of course. Anyway, another thing we need to know. 
+
+19
+00:01:59,366 --> 00:02:05,266
+We can see that our subnets have got access control lists too. Now as things stand, okay, all traffic is allowed, 
+
+20
+00:02:05,366 --> 00:02:12,266
+so about as much use as a chocolate fire-guard. But these ACLs are totally editable, meaning we can tweak them 
+
+21
+00:02:12,366 --> 00:02:19,266
+to lock things down and obviously we will as we crack on with the course, but the point is, as we can see here, 
+
+22
+00:02:19,366 --> 00:02:29,266
+we've got the ability to create inbound and outbound, allow and deny rules and that is pretty darn flexible. 
+
+23
+00:02:29,366 --> 00:02:37,266
+Now I suppose, right, we should mention the whole point of VPCs, yeah, that is to run applications. 
+
+24
+00:02:37,366 --> 00:02:46,266
+Well, in AWS we run apps in either containers or EC2 instances, and just to keep the learning curve of this course 
+
+25
+00:02:46,366 --> 00:02:55,266
+as unsteep as possible, I'm pretty sure unsteep isn't really a word, but to keep the learning curve of the courses 
+
+26
+00:02:55,366 --> 00:03:00,266
+properly, I'm having a brain freeze here, maybe keep it as shallows as possible, anyway to keep things simple, 
+
+27
+00:03:00,366 --> 00:03:06,266
+yeah, we're just going to stick with EC2 instances, AWS virtual machines if you will. 
+
+28
+00:03:06,366 --> 00:03:14,266
+So let's go and fire one up (Loading). 
+
+29
+00:03:14,366 --> 00:03:23,266
+Now I'm going to go with Ubuntu and free tier is good. Now importantly actually, we're going to need to configure 
+
+30
+00:03:23,366 --> 00:03:29,266
+our instance details, otherwise AWS is just going to launch it into our account default VPC. 
+
+31
+00:03:29,366 --> 00:03:33,266
+But we don't want that, we actually want to stick it in the VPC that we just created. 
+
+32
+00:03:33,366 --> 00:03:39,266
+So here we can choose our podcast VPC and in a second we're going to see if we can access it from the internet, 
+
+33
+00:03:39,366 --> 00:03:45,266
+so we'll stick it in the public subnet. See again, right, the importance of naming our stuff. 
+
+34
+00:03:45,366 --> 00:03:52,266
+Next, we get the chance to override the subnet setting of whether or not the instance gets assigned a public IP, 
+
+35
+00:03:52,366 --> 00:03:57,266
+but see how our subnet setting is already enabled? Well seeing as how that's the case, we'll just stick 
+
+36
+00:03:57,366 --> 00:04:02,266
+with the default, and you know what? That's enough for now. 
+
+37
+00:04:02,366 --> 00:04:07,266
+We don't need to bother about anything on this screen for now, well, I mean that big old scary warning 
+
+38
+00:04:07,366 --> 00:04:10,266
+up there is just telling us that the security group config is wide open. 
+
+39
+00:04:10,366 --> 00:04:15,266
+Store that one for later, right, we'll tackle it in due course. Let's spin her up. 
+
+40
+00:04:15,366 --> 00:04:20,266
+Oh yeah, we need to associate the instance with a key pair. It doesn't really matter which set as long as 
+
+41
+00:04:20,366 --> 00:04:23,366
+you're in possession of them. Podcast keys will do for me. Now we can launch. 
+
+

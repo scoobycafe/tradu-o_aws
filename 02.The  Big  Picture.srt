@@ -1,0 +1,113 @@
+1
+00:00:00,460 --> 00:00:05,360
+So let's draw out a picture, yeah, but for clarity and so we don't get distracted, I'm just going to keep it 
+
+2
+00:00:05,460 --> 00:00:12,360
+simple, okay. I'll leave out some of the AWS detail that we already know, like availability zones and stuff. 
+
+3
+00:00:12,460 --> 00:00:18,360
+Alright, let's say then we've got a couple of subnets, 1 and 2, with a couple of instances in each. 
+
+4
+00:00:18,460 --> 00:00:25,360
+And the up top here, we've got our VPC's router. Now the normal flow of traffic is that traffic comes into 
+
+5
+00:00:25,460 --> 00:00:31,360
+the router, so could be from the internet or from another subnet or from another VPC even, the point being 
+
+6
+00:00:31,460 --> 00:00:38,360
+traffic comes into our router, then depending on the routes in the route table, the router sends the traffic on. 
+
+7
+00:00:38,460 --> 00:00:42,360
+So, if it's intended for one of our subnets it gets sent on there. 
+
+8
+00:00:42,460 --> 00:00:49,360
+And that's it really. So where security groups and network ACLs come into play, it's like this, as traffic 
+
+9
+00:00:49,460 --> 00:00:57,360
+gets routed to a subnet the network A-C-L or ACL or whatever you want to call it, associated with that subnet 
+
+10
+00:00:57,460 --> 00:01:04,360
+inspects the traffic and then based on the rules in the ACL, it decides whether or not to allow the traffic. 
+
+11
+00:01:04,460 --> 00:01:11,360
+So maybe the ACL says web traffic from the internet is allowed, but SSH traffic isn't unless it comes from 
+
+12
+00:01:11,460 --> 00:01:18,360
+a machine with an IP address from our management network. Well then, anytime any SSH traffic comes in 
+
+13
+00:01:18,460 --> 00:01:24,360
+from anywhere other than the management network it's going to get dropped, not allowed through. 
+
+14
+00:01:24,460 --> 00:01:29,360
+And as we can see, or at least as I'm trying to show here with the padlock, and you will see that on official 
+
+15
+00:01:29,460 --> 00:01:37,360
+AWS diagrams, the network ACL lives and works at the subnet level, so it gets applied to subnets 
+
+16
+00:01:37,460 --> 00:01:43,360
+and therefore protects any instances in those subnets. Security groups, on the other hand, which are sometimes 
+
+17
+00:01:43,460 --> 00:01:50,360
+seen in AWS diagrams like this, well these get associated with individual instances, a bit like 
+
+18
+00:01:50,460 --> 00:01:56,360
+instance firewalls, well a lot like them actually. So, you know, like the Windows firewall or IP tables 
+
+19
+00:01:56,460 --> 00:02:02,360
+or maybe some third party software, yeah. The point being, they're local to the instance. 
+
+20
+00:02:02,460 --> 00:02:09,360
+But actually, right, a bit like public and elastic IPs, our instances don't actually know anything about them, 
+
+21
+00:02:09,460 --> 00:02:16,360
+so they get applied or kind of wrapped around the instance. So we manage and we configure them at the AWS level 
+
+22
+00:02:16,460 --> 00:02:23,360
+from the AWS console. If we were to log onto our instances and look at local firewalls and the likes, 
+
+23
+00:02:23,460 --> 00:02:29,360
+they know nothing about them. Anyway, as we can see, right, two layers of security. 
+
+24
+00:02:29,460 --> 00:02:35,360
+So any traffic that gets past the network ACL has got another hurdle to jump before it makes it to the instance, 
+
+25
+00:02:35,460 --> 00:02:42,360
+and that's good stuff, defense in-depth, layered security, all of that goodness. 
+
+26
+00:02:42,460 --> 00:02:48,360
+And that's the thing to digest I reckon, right. We've got two layers, two complimentary layers. 
+
+27
+00:02:48,460 --> 00:02:56,360
+I think I'm going to say this a lot, right, defense in-depth. Well that's the view from like 50,000 light years. 
+
+28
+00:02:56,460 --> 00:02:59,460
+Let's zoom in a bit closer next and look at security groups. 
+
+

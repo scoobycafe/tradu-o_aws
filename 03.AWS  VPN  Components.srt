@@ -1,0 +1,281 @@
+1
+00:00:01,000 --> 00:00:08,673
+Well, first up, right, the obvious stuff. We need a working VPC and we need a remote office location. 
+
+2
+00:00:08,773 --> 00:00:15,673
+And I know that's totally obvious okay, but like we said in the previous module about VPC peering, 
+
+3
+00:00:15,773 --> 00:00:24,673
+these two locations, our office and our VPC, they absolutely must have totally separate networks. 
+
+4
+00:00:24,773 --> 00:00:28,673
+So that means zero overlapping of address spaces or CIDR blocks. 
+
+5
+00:00:28,773 --> 00:00:35,673
+For example, right, we can't have the 10.0 network over here and then use it again over here in our VPC, 
+
+6
+00:00:35,773 --> 00:00:42,673
+well I mean, we totally can and they'll work in isolation, but try and lash them together with a VPN, 
+
+7
+00:00:42,773 --> 00:00:50,673
+that's a whole different story. So like we said way, way back at the beginning of the course, right from day 0 
+
+8
+00:00:50,773 --> 00:00:56,673
+you've got to treat your VPC just like a regular old corporate network, so that means give it its own 
+
+9
+00:00:56,773 --> 00:01:03,673
+documented IP range and make sure that you don't use that IP range anywhere else in the company. 
+
+10
+00:01:03,773 --> 00:01:09,673
+Sure our VPC is out in AWS and it kind of might not feel like it's part of the corporate network, but by 
+
+11
+00:01:09,773 --> 00:01:16,673
+lashing it up with a VPN or something, it totally can be. So treat it like any old site and any other network 
+
+12
+00:01:16,773 --> 00:01:21,673
+that you would on your corporate infrastructure. But to build this, right, we pretty need to configure 
+
+13
+00:01:21,773 --> 00:01:29,673
+three things. First we need to configure what AWS calls a customer gateway and for now, right, we can 
+
+14
+00:01:29,773 --> 00:01:35,673
+think of this as our end of the VPN, the bit of kit in our office that terminates the VPN tunnel 
+
+15
+00:01:35,773 --> 00:01:41,673
+and it's usually going to be a dedicated piece of hardware, like a firewall or a VPN router or something. 
+
+16
+00:01:41,773 --> 00:01:47,673
+Next, we need to configure a virtual private gateway. This is the other end of the tunnel, the end that terminates 
+
+17
+00:01:47,773 --> 00:01:54,673
+the connection inside of AWS. Then once we've got both ends, we need to configure the VPN itself, 
+
+18
+00:01:54,773 --> 00:01:59,673
+the tunnel, yeah. And this is basically just logically connecting the two, bringing the two together 
+
+19
+00:01:59,773 --> 00:02:07,673
+to form the tunnel. And go on, it's analogy time again, okay, so maybe think of the two ends of the tunnel, 
+
+20
+00:02:07,773 --> 00:02:13,673
+the customer gateway and the virtual private gateway, as being like, I don't know, rail terminals, yeah, 
+
+21
+00:02:13,773 --> 00:02:17,673
+at each end of a tunnel. Something like the channel tunnel that connects London to Paris, yeah. 
+
+22
+00:02:17,773 --> 00:02:24,673
+Well, the only way in and out of that tunnel is via those terminals, then this last bit that we configure here, 
+
+23
+00:02:24,773 --> 00:02:30,673
+the tunnel, is like all the config details needed to get the two ends of the tunnel talking to each other 
+
+24
+00:02:30,773 --> 00:02:36,673
+and ready to let trains through. I don't know, signaling and speed limits and stuff like that, yeah. 
+
+25
+00:02:36,773 --> 00:02:42,673
+Well the same goes for our VPN config, these two items here are like the rail terminals if you will, 
+
+26
+00:02:42,773 --> 00:02:46,673
+and then the VPN config itself is defining how the tunnel will work. 
+
+27
+00:02:46,773 --> 00:02:51,673
+I don't know it was probably a crappy analogy, okay, but we're talking about things like which customer gateway 
+
+28
+00:02:51,773 --> 00:02:56,673
+will be on our end and which virtual private gateway will be on the AWS end. 
+
+29
+00:02:56,773 --> 00:03:00,673
+Then we'll configure routing options, encryption, and stuff like that. 
+
+30
+00:03:00,773 --> 00:03:02,673
+And you know what? If we look over here 
+
+31
+00:03:02,773 --> 00:03:10,673
+at our VPC console, right, those three steps that we just mentioned, they correspond nicely to these three 
+
+32
+00:03:10,773 --> 00:03:18,673
+options down here and literally in that order, one, two, three. The customer gateway, our end of the tunnel, 
+
+33
+00:03:18,773 --> 00:03:24,673
+the virtual private gateway, Amazon's end of the tunnel, and then the VPN config that brings the tunnel up 
+
+34
+00:03:24,773 --> 00:03:30,673
+and makes it operational. So that's the three steps okay. But before we dive in and do it, just a few 
+
+35
+00:03:30,773 --> 00:03:31,673
+quick points. 
+
+36
+00:03:31,773 --> 00:03:39,673
+First up, right, it's important to grok that this virtual private gateway here is a device of sorts, okay, 
+
+37
+00:03:39,773 --> 00:03:47,673
+and it kind of exists in our VPC. So, it can be addressed in our route tables, right, just like an internet gateway, 
+
+38
+00:03:47,773 --> 00:03:53,673
+but realize, right, that it's a totally different object to an internet gateway. 
+
+39
+00:03:53,773 --> 00:03:59,673
+So once we've got it up and working in our VPC, all traffic between our VPC and our remote office, 
+
+40
+00:03:59,773 --> 00:04:07,673
+which here is defined as the 10.1 network is going to go across the virtual private gateway and not 
+
+41
+00:04:07,773 --> 00:04:13,673
+the internet gateway. And like we hinted at before, this traversing of the VPN connection is what lets us 
+
+42
+00:04:13,773 --> 00:04:20,673
+use private IPs when communicating between the two networks rather than having to use internet routable 
+
+43
+00:04:20,773 --> 00:04:27,673
+public IPs, and that's good stuff. Also, right, the virtual private gateway, it's the cha-zing. 
+
+44
+00:04:27,773 --> 00:04:32,673
+So if we explode it out a bit, yeah, it really looks more like this. 
+
+45
+00:04:32,773 --> 00:04:39,673
+So two distinct end points IP addresses, yeah, in a highly available or a redundant design. 
+
+46
+00:04:39,773 --> 00:04:45,673
+Now I don't know the implementation specifics behind this, right, but I would expect it to be more than just 
+
+47
+00:04:45,773 --> 00:04:51,673
+a couple of ports on the same piece of hardware. I'd expect it to be more like two ports spread over 
+
+48
+00:04:51,773 --> 00:04:56,673
+two different devices, I don't know, probably in two different cabinets and maybe in two different holes 
+
+49
+00:04:56,773 --> 00:05:00,673
+or two different facilities. The whole idea being, right, it's highly available. 
+
+50
+00:05:00,773 --> 00:05:06,673
+So if one of those endpoints goes down, the other stands a pretty good chance of staying up. 
+
+51
+00:05:06,773 --> 00:05:11,673
+But this is one of those instances, right, where we've got to trust AWS as a platform. 
+
+52
+00:05:11,773 --> 00:05:16,673
+They're not going to give us the secret source behind how it all works and how it's all highly available, 
+
+53
+00:05:16,773 --> 00:05:21,673
+we've just got to trust that it's there and that it will be available and that's the big take away point, right. 
+
+54
+00:05:21,773 --> 00:05:29,673
+We totally want to think of this as a VPN concentrator service, yes, it's highly available, yes 
+
+55
+00:05:29,773 --> 00:05:36,673
+it's high performance, yeah, it's the bizzo. But we don't need to get bogged down by all of the detail. 
+
+56
+00:05:36,773 --> 00:05:42,673
+We just use it and it's there when we need it. But what we're looking at here is only half of the picture, yeah, 
+
+57
+00:05:42,773 --> 00:05:48,673
+we absolutely can and you know what, if we care at all about the availability of this tunnel then we 
+
+58
+00:05:48,773 --> 00:05:56,673
+absolutely should build a similar HA design at our end. So yeah, we totally can rig it up so that we've got 
+
+59
+00:05:56,773 --> 00:06:03,673
+two customer gateways on our end, hooked up, cross connected, multi-pathed, call it whatever you want, right, 
+
+60
+00:06:03,773 --> 00:06:08,673
+to each of those virtual private gateway endpoints on the AWS end. 
+
+61
+00:06:08,773 --> 00:06:15,673
+This way, right, when, and I say when on purpose, right, when any one individual component goes down, 
+
+62
+00:06:15,773 --> 00:06:22,673
+the surviving links here, they just kick in and take over. The VPN service, no sweat, right, remains up 
+
+63
+00:06:22,773 --> 00:06:27,673
+and working. Move along guys, nothing to see here, business as usual, yeah. 
+
+64
+00:06:27,773 --> 00:06:35,673
+Ah, and one more point, okay, you definitely want your own static IPs over here. 
+
+65
+00:06:35,773 --> 00:06:40,673
+And I know that's often par for the course, right, with office internet connections, but it's not always the case 
+
+66
+00:06:40,773 --> 00:06:47,673
+for home offices. So if you're trying to hook your home office up to your AWS VPC, you want a broadband package 
+
+67
+00:06:47,773 --> 00:06:52,673
+or an internet package or whatever, that guarantees you a static IP. 
+
+68
+00:06:52,773 --> 00:06:57,673
+Otherwise, right, anytime your IP changes, like maybe when you reboot your router or whatever, then 
+
+69
+00:06:57,773 --> 00:07:04,673
+you're going to need to reconfigure your whole tunnel again and that can be a royal pain in the rear. 
+
+70
+00:07:04,773 --> 00:07:08,773
+And on that note, right, I think we'll get off the slides and over to our AWS console. 
+
+

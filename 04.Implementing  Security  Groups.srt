@@ -1,0 +1,257 @@
+1
+00:00:00,599 --> 00:00:07,066
+Right then, from within our VPC console, Security Groups is down here under Security. 
+
+2
+00:00:07,166 --> 00:00:14,066
+You can get to it from the EC2 dashboard as well, but if we hit it here we see our existing security groups, 
+
+3
+00:00:14,166 --> 00:00:21,066
+ah, none of which are named. Slap across the face for me for laziness. 
+
+4
+00:00:21,166 --> 00:00:27,066
+But here we go, okay, right. Name tag here is the friendly name that it's going to get. 
+
+5
+00:00:27,166 --> 00:00:40,066
+We'll go with podcast Docker Hosts and we don't like ugly red text, so we've got to give it a description (Typing). 
+
+6
+00:00:40,166 --> 00:00:46,066
+That'll do. Obviously we're going to want our podcast VPC and there it goes, creating it for us. 
+
+7
+00:00:46,166 --> 00:00:55,066
+Or actually, it's creating an empty shell for us. So if we see down here, yeah, currently no inbound rules, 
+
+8
+00:00:55,166 --> 00:01:02,066
+so nothing has been allowed in yet, but everything is being allowed out. 
+
+9
+00:01:02,166 --> 00:01:10,066
+So back here we're going to add a rule to allow TCP port 2375. Right, good. 
+
+10
+00:01:10,166 --> 00:01:15,066
+I might have forgot that. I'm going to put in a CIDR block here, but as we can see, we can totally pick 
+
+11
+00:01:15,166 --> 00:01:24,066
+another security group if we want. Pretty much that would be saying allow TCP 2375 access from any host 
+
+12
+00:01:24,166 --> 00:01:27,066
+that happens to be a member of whichever of these security groups we choose. 
+
+13
+00:01:27,166 --> 00:01:40,066
+Nifty and all, but we'll go with 10.0.2.0/24. Restricting access, yeah, to instances in our private subnet. 
+
+14
+00:01:40,166 --> 00:01:53,066
+And let's do another one. Call this one podcast web traffic, copy and paste that down here, choose our VPC, 
+
+15
+00:01:53,166 --> 00:02:08,066
+and off we go again (Loading). This time, okay, we'll add HTTP and HTTPS and we'll do both of them 
+
+16
+00:02:08,166 --> 00:02:20,066
+from anywhere (Typing). Okay, so there we go, right. Two new security groups, each with some inbound rules 
+
+17
+00:02:20,166 --> 00:02:27,066
+and both, right, allowing all outbound traffic. Not the most secure in the world, this outbound bit here, 
+
+18
+00:02:27,166 --> 00:02:36,066
+I know, but you know what? It's not uncommon either. Now if we jump over to our EC2 console, 
+
+19
+00:02:36,166 --> 00:02:42,066
+and what have we got here? Hmm, not a lot really, especially in our podcast VPC. 
+
+20
+00:02:42,166 --> 00:02:55,066
+So let's go fire another one up. This'll do, yep, podcast VPC, public subnet, yeah it's going to get a public IP, 
+
+21
+00:02:55,166 --> 00:03:07,066
+storage is good, podcast-test is good. Ah, now if we click up here, right, see how we can select from existing 
+
+22
+00:03:07,166 --> 00:03:13,066
+security groups? Lovely and all, but this time we're going to let the wizard create one for us. 
+
+23
+00:03:13,166 --> 00:03:19,066
+Now by default, okay, with this being a Linux instance, it's only going to allow SSH traffic in. 
+
+24
+00:03:19,166 --> 00:03:25,066
+So that's just the bare minimum, right, so that we can get in and manage our instance. 
+
+25
+00:03:25,166 --> 00:03:31,066
+And note the name and the description here, if we're not careful, right, we can end up with an absolute 
+
+26
+00:03:31,166 --> 00:03:41,066
+rats nest of security groups that are named like this. Anyway we'll go kick it off (Typing), uh huh. 
+
+27
+00:03:41,166 --> 00:03:48,066
+Now while it's firing up, okay, why don't we go and give it an elastic IP from over here. 
+
+28
+00:03:48,166 --> 00:03:56,066
+Okay, just got the one for right now. Let's associate it. We'll pick our instance from here, hmm, 
+
+29
+00:03:56,166 --> 00:04:01,066
+I wonder, maybe it's just spinning up, yeah, we'll give it a chance to spin up, right. 
+
+30
+00:04:01,166 --> 00:04:06,066
+These virtual machines, you know, they're not like containers, spin up times can feel like eons if you're 
+
+31
+00:04:06,166 --> 00:04:13,066
+getting used to containers. Okay, there it is now and that'll do. 
+
+32
+00:04:13,166 --> 00:04:25,066
+If we go back here, there we go, elastic IP. Now then, right now it's just got the one security group, yeah. 
+
+33
+00:04:25,166 --> 00:04:36,066
+The one we created when launching the instance to allow SSH. So let's grab its public IP here, 
+
+34
+00:04:36,166 --> 00:04:49,066
+let's go fire up a session. Okay, we'll give it our private key, and yep we'll make the font a decent size. 
+
+35
+00:04:49,166 --> 00:04:58,066
+Okay, let's go. Drag it over here and we're in. So let's just take a step back for a second and take stock 
+
+36
+00:04:58,166 --> 00:05:07,066
+real quick. We've just SSH'ed in using the instance's public IP or its elastic IP and we're only being allowed in 
+
+37
+00:05:07,166 --> 00:05:15,066
+because the security group associated with the instance is allowing SSH traffic from anywhere. 
+
+38
+00:05:15,166 --> 00:05:26,066
+Magic. Well, let's switch to route and we'll update our repos (Typing). 
+
+39
+00:05:26,166 --> 00:05:38,066
+Okay, let me speed up time while that happens. Okay. Now we'll install the Apache web server (Typing). 
+
+40
+00:05:38,166 --> 00:05:46,066
+Great, is that running? Nope. So let's go start it. Good. Right. 
+
+41
+00:05:46,166 --> 00:05:52,066
+So the instance is now running the Apache web server. But obviously if we go try to connect to it 
+
+42
+00:05:52,166 --> 00:06:07,066
+over here, give it a second or so, dah-dah-dah, no joy. Reason, its security group is dropping any packets 
+
+43
+00:06:07,166 --> 00:06:14,066
+that are not SSH. So to fix that, we'll we need to either edit the security group so that it's got a 
+
+44
+00:06:14,166 --> 00:06:22,066
+rule in that allows web traffic or we can add another security group that's already got a rule allowing web traffic. 
+
+45
+00:06:22,166 --> 00:06:29,066
+Well, we'll do the latter yeah, since we already created one of those groups just a second ago. 
+
+46
+00:06:29,166 --> 00:06:37,066
+So if we right click it, Networking and Change Security Groups here, we want to add this podcast web traffic 
+
+47
+00:06:37,166 --> 00:06:44,066
+one here, and notice as well, we could disassociate the launch wizard one while we're here if we wanted to, 
+
+48
+00:06:44,166 --> 00:06:52,066
+but we don't. And look down here, see how we've got both security groups listed now? 
+
+49
+00:06:52,166 --> 00:06:57,066
+And if we view the rules, yeah, it shows us a pretty nice combo of the two. 
+
+50
+00:06:57,166 --> 00:07:04,066
+So if we jump back here, try this again, bingo. Web traffic now allowed. 
+
+51
+00:07:04,166 --> 00:07:12,066
+Totally dynamic, yeah, totally on the fly, and totally cool. So that's security groups, yeah. 
+
+52
+00:07:12,166 --> 00:07:19,066
+Just one more quick thing, if you look under security groups here, yeah, we're actually not that bad, 
+
+53
+00:07:19,166 --> 00:07:25,066
+I have seen this a royal mess in the past because it's so easy to spin up loads of instances without thinking of it 
+
+54
+00:07:25,166 --> 00:07:29,066
+and each time let the wizard create a new security group for you. 
+
+55
+00:07:29,166 --> 00:07:35,066
+You know what? Before you know it this screen is like littered with these launch wizard security groups, 
+
+56
+00:07:35,166 --> 00:07:40,066
+I don't know like 20 or 30 of them, yeah. So name your security groups and keep on top of them 
+
+57
+00:07:40,166 --> 00:07:49,066
+because they can be a proper pain to unpick. Oh yeah, I did say I'd show you how network interfaces 
+
+58
+00:07:49,166 --> 00:07:58,066
+and security groups go together. Well let's jump over here, oh, where are they hiding? 
+
+59
+00:07:58,166 --> 00:08:03,066
+There they are, whew, just a handful right now, one for each instance, yeah. 
+
+60
+00:08:03,166 --> 00:08:09,066
+Though we can create more if we want to and then associate them with our instances, but we'll pick this one here. 
+
+61
+00:08:09,166 --> 00:08:14,066
+And see how we've got that Change Security Groups option, there we go. 
+
+62
+00:08:14,166 --> 00:08:20,066
+This is how we associate and disassociate security groups with network interfaces. 
+
+63
+00:08:20,166 --> 00:08:26,066
+And that folks is security groups, totally cool and totally important. 
+
+64
+00:08:26,166 --> 00:08:29,166
+But let's switch gears slightly now, let's go and look at a close cousin of the security group, network ACLs. 
+
+

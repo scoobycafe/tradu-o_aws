@@ -1,0 +1,113 @@
+1
+00:00:01,000 --> 00:00:06,157
+The name of the game when it comes to security is defense in-depth. 
+
+2
+00:00:06,257 --> 00:00:15,157
+In tech, right, the idea being to deploy many and varied security technologies. 
+
+3
+00:00:15,257 --> 00:00:26,157
+Oh man, wordles like that feel like so last year now, anyway, we deploy these different but complimentary techs 
+
+4
+00:00:26,257 --> 00:00:31,157
+at different layers in the stack and different places in the network, like throwing multiple obstacles 
+
+5
+00:00:31,257 --> 00:00:37,157
+in the way of potential intruders or attackers. The driving principle behind the whole thing being 
+
+6
+00:00:37,257 --> 00:00:45,157
+there's no silver bullet when it comes to security, so no single uber product that on its own is going to keep 
+
+7
+00:00:45,257 --> 00:00:52,157
+our apps and our data safe. And you know what too? Don't throw all of your eggs in one basket either. 
+
+8
+00:00:52,257 --> 00:01:00,157
+So don't put your trust in not only a single product, but don't put your trust in any single vendor either. 
+
+9
+00:01:00,257 --> 00:01:05,157
+Be wise. Well, we learned that when it comes to security of our VPCs, 
+
+10
+00:01:05,257 --> 00:01:11,157
+Amazon provides a couple of important technologies, sort of out of the box, yeah, security groups and 
+
+11
+00:01:11,257 --> 00:01:18,157
+network access control lists. So, network access control lists or NACLs as I've been calling them, 
+
+12
+00:01:18,257 --> 00:01:27,157
+work at the subnet level, like firewalls for our subnets. So, they help protect everything inside of a subnet, 
+
+13
+00:01:27,257 --> 00:01:34,157
+security groups, on the other hand, they work at the instance level, like personal firewalls for each of our 
+
+14
+00:01:34,257 --> 00:01:41,157
+EC2 instances. And the two technologies totally complement each other, yeah, both allow us to control 
+
+15
+00:01:41,257 --> 00:01:48,157
+the flow of inbound and outbound traffic, but they have got subtle differences, which if we understand 
+
+16
+00:01:48,257 --> 00:01:52,157
+them can help provide a fairly decent defense. And you know what? 
+
+17
+00:01:52,257 --> 00:01:59,157
+There's absolutely no harm in duplicating rules at both levels, so maybe having the same or very similar rules 
+
+18
+00:01:59,257 --> 00:02:03,157
+at both the NACL and security group levels. In fact, you know what? 
+
+19
+00:02:03,257 --> 00:02:10,157
+I recommend it. And as well, they can totally be complemented by third party products, so you might want to 
+
+20
+00:02:10,257 --> 00:02:16,157
+design your subnets and the likes to mimic traditional enterprise grade corporate networks, so having 
+
+21
+00:02:16,257 --> 00:02:22,157
+DMZs and the likes, yeah. And you know what? There's absolutely nothing stopping you throwing in software based 
+
+22
+00:02:22,257 --> 00:02:27,157
+third party firewall and threat management products. You know what though? 
+
+23
+00:02:27,257 --> 00:02:35,157
+The big takeaway point from the module, I hope, is that security is important and you definitely want to 
+
+24
+00:02:35,257 --> 00:02:40,157
+invest the time and effort needed to secure your VPCs. Right, 
+
+25
+00:02:40,257 --> 00:02:45,157
+now I reckon if you've been following along from the start, so watching the modules in order, you'll probably 
+
+26
+00:02:45,257 --> 00:02:54,157
+up to speed no with the basics of operating VPCs. We've covered off the fundamentals and basic stuff pretty well. 
+
+27
+00:02:54,257 --> 00:02:59,157
+Well, coming up next, we're going to start getting into what I consider the more advanced stuff 
+
+28
+00:02:59,257 --> 00:03:02,257
+or the cool stuff, yeah. And we'll start that off with load balancing. 
+
+

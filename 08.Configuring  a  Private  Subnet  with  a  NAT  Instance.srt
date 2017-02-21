@@ -1,0 +1,137 @@
+1
+00:00:00,599 --> 00:00:06,103
+Okay, so from our EC2 console here, let's launch a new instance. 
+
+2
+00:00:06,203 --> 00:00:14,103
+And we want Community AMIs here, then search for something with NAT in it. 
+
+3
+00:00:14,203 --> 00:00:19,103
+This HVM bit here, just make sure that I don't get an old style pair of virtual instance, because 
+
+4
+00:00:19,203 --> 00:00:26,103
+we want the full on hardware virtual machine version, right? And then 2015 just filters it so that I only see 
+
+5
+00:00:26,203 --> 00:00:33,103
+recent versions. If you're watching this in 50 years, yeah, well, anyway we'll take this one here. 
+
+6
+00:00:33,203 --> 00:00:37,103
+The difference being, right, this GP2 bit here, this is telling us that this one's going to be based on 
+
+7
+00:00:37,203 --> 00:00:44,103
+super flashy SSD rather than magnetic rotating _____ for it's disk. 
+
+8
+00:00:44,203 --> 00:00:51,103
+Anyway, micro is good for us. We want our podcast VPC up here and importantly, right, it's got to go 
+
+9
+00:00:51,203 --> 00:00:57,103
+in the public subnet. Now if you stick it in the wrong subnet here, you might as well just destroy the thing 
+
+10
+00:00:57,203 --> 00:01:05,103
+and build a new one from scratch because migrating instances between subnets is just, well I was going to say hard, 
+
+11
+00:01:05,203 --> 00:01:11,103
+it's not actually that it's hard, it's just hmm, it's more manual than it should be. 
+
+12
+00:01:11,203 --> 00:01:19,103
+Anyway, it needs to go in the public subnet, okay. And it definitely needs a public IP. 
+
+13
+00:01:19,203 --> 00:01:28,103
+Right. Yep, general purpose SSD, that's good. And let's call it podcast-NAT. 
+
+14
+00:01:28,203 --> 00:01:32,103
+Okay, we might as well configure the security groups while we're here. 
+
+15
+00:01:32,203 --> 00:01:36,103
+So this SSH rule, that's going to be fine for now. In the real world, yeah, you're probably going to want to 
+
+16
+00:01:36,203 --> 00:01:42,103
+lock the source bit down so that it just accepts connections from IPs on your management network or 
+
+17
+00:01:42,203 --> 00:01:48,103
+something like that. But the thing is, right, the thing to do here is add rules for the type of traffic you 
+
+18
+00:01:48,203 --> 00:01:58,103
+want to allow out. Well, we'll add a rule here for HTTP and then we'll add another one for HTTPS. 
+
+19
+00:01:58,203 --> 00:02:05,103
+I don't know why they can't be together, but what we want to do is lock the source addresses down 
+
+20
+00:02:05,203 --> 00:02:10,103
+to our private subnet so that only instances in the private subnet, right, are going to be allowed, 
+
+21
+00:02:10,203 --> 00:02:30,103
+so that's going to be 10.0.2.0/24 and same again here (Typing). Next we want to, huh, outbound rules, 
+
+22
+00:02:30,203 --> 00:02:39,103
+am I missing it? Okay I mean it's not often that I configure security groups from here, so I don't know, 
+
+23
+00:02:39,203 --> 00:02:44,103
+maybe that's all you can do from here, maybe it's an old EC2 classic relic. 
+
+24
+00:02:44,203 --> 00:02:47,103
+Yeah, I'm definitely not seeing a way to add outbound rules here. 
+
+25
+00:02:47,203 --> 00:02:57,103
+Okay onwards and upwards. Oh, no, actually first up, let's give it a name (Typing). 
+
+26
+00:02:57,203 --> 00:03:12,103
+And same again here, right, now let's go launch it (Typing). Okay, and let's find it. 
+
+27
+00:03:12,203 --> 00:03:18,103
+Now to disable those source and destination checks. Networking, there it is. 
+
+28
+00:03:18,203 --> 00:03:28,103
+Yep, we're sure, thank you. And I think we should be able to see it somewhere down here, yeah, there. 
+
+29
+00:03:28,203 --> 00:03:44,103
+False, so disabled. Now to update the route table for our private subnet (Typing), I think this is the one, 
+
+30
+00:03:44,203 --> 00:03:57,103
+yep, podcast-priv 1 here. So let's give it a new default route (Typing). 
+
+31
+00:03:57,203 --> 00:04:06,103
+And the target, nice, we want this one, the NAT instance rather than the internet gateway. 
+
+32
+00:04:06,203 --> 00:04:10,103
+And I reckon we're good. That's our private subnet all set up and ready. 
+
+33
+00:04:10,203 --> 00:04:15,103
+So the instances that we launch in there can get out to the internet via the NAT proxy instance 
+
+34
+00:04:15,203 --> 00:04:18,203
+that we put in the public subnet. Should we go wrap the module up? 
+
+

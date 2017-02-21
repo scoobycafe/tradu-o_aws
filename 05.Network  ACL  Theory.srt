@@ -1,0 +1,229 @@
+1
+00:00:01,000 --> 00:00:06,626
+Okay, so NACLs, yeah, that's what I'm going to be calling them from now on because you know what? 
+
+2
+00:00:06,726 --> 00:00:14,626
+I'm too lazy to say Network access control lists or even Network ACLs or Network A-C-Ls or whatever, right. 
+
+3
+00:00:14,726 --> 00:00:23,626
+Plus, I kind of like the sound of NACLs. Anyway, NACLs are to subnets what security groups are to instances, 
+
+4
+00:00:23,726 --> 00:00:31,626
+firewalls of sorts, yeah. So very similar to security groups, but totally different as well. 
+
+5
+00:00:31,726 --> 00:00:36,626
+So remember back to our picture from earlier, how we've got traffic coming in and it's been expected by 
+
+6
+00:00:36,726 --> 00:00:43,626
+security groups with their inbound and outbound rules and only allowing explicit allow rules, but anything not 
+
+7
+00:00:43,726 --> 00:00:49,626
+explicitly allowed is implicitly denied and how they maintain state. 
+
+8
+00:00:49,726 --> 00:00:55,626
+Well first up, NACLs apply up here at the subnet level and they've got separate rule sets for inbound 
+
+9
+00:00:55,726 --> 00:01:04,626
+and outbound traffic. But, these guys let us explicitly deny traffic as well as explicitly allowing it. 
+
+10
+00:01:04,726 --> 00:01:11,626
+And they're stateless, meaning they don't care if a packet is a legit reply to something already allowed, 
+
+11
+00:01:11,726 --> 00:01:16,626
+if there's no rule specifically allowing it, then it ain't getting passed. 
+
+12
+00:01:16,726 --> 00:01:22,626
+So the two things I reckon that are of note here are the things that make them different to security groups, 
+
+13
+00:01:22,726 --> 00:01:28,626
+sure okay, they operate at the subnet level instead of the instance, but it's these abilities to create 
+
+14
+00:01:28,726 --> 00:01:33,626
+deny rules and the stateless behavior that you really want to note. 
+
+15
+00:01:33,726 --> 00:01:40,626
+And you know what? Amazon might change this in the future. But personally, I think it's a pretty good approach, 
+
+16
+00:01:40,726 --> 00:01:45,626
+you know, it's good to have similar but slightly different technologies at different layers in the stack. 
+
+17
+00:01:45,726 --> 00:01:53,626
+These guys, in my opinion, really complement each other. The combination of the two being a pretty solid mix. 
+
+18
+00:01:53,726 --> 00:02:00,626
+Anyway, they look like this, kind of similar to security groups, yeah, but a couple of big old differences, 
+
+19
+00:02:00,726 --> 00:02:06,626
+oh, well, first off up here it's reminding us, yeah that they're stateless, but it's this rule number column here 
+
+20
+00:02:06,726 --> 00:02:14,626
+where I want you to notice because when traffic hits a NACL rules start getting checked in order, so in 
+
+21
+00:02:14,726 --> 00:02:21,626
+numeric order. That means rule #100 here gets checked first, and I don't know, let's say that the traffic 
+
+22
+00:02:21,726 --> 00:02:29,626
+we're inspecting is encrypted web traffic, well rule 100 here doesn't match, so the next rule gets checked, 
+
+23
+00:02:29,726 --> 00:02:36,626
+rule #200, that's TCP 443, you know what? Looks like encrypted web traffic to me. 
+
+24
+00:02:36,726 --> 00:02:43,626
+So that's a match. And processing of the rules stops. No need to check anymore, we've hit a match, 
+
+25
+00:02:43,726 --> 00:02:51,626
+so we can make a decision. Well this rule here says allow here at the end, so we let the traffic on through. 
+
+26
+00:02:51,726 --> 00:02:57,626
+And that is totally different to security groups where all rules always get processed. 
+
+27
+00:02:57,726 --> 00:03:02,626
+But let's do another example, let's say the traffic coming in and being expected was aimed at the Docker remote API 
+
+28
+00:03:02,726 --> 00:03:15,626
+on TCP 2375, okay, we check rule 100, no match, 200, no match, 300, still no match, and then this funny looking 
+
+29
+00:03:15,726 --> 00:03:23,626
+fellow down here with the asterisk. Well that says all traffic, all protocols, on all ports, from anywhere. 
+
+30
+00:03:23,726 --> 00:03:30,626
+Well that sure as hell matches and it says deny, so the packet would get dropped. 
+
+31
+00:03:30,726 --> 00:03:37,626
+The asterisk rule being the default catchall rule for when none of the other rules apply or match 
+
+32
+00:03:37,726 --> 00:03:45,626
+I suppose should say. You know what? You might hear it referred to as the default deny all rule. 
+
+33
+00:03:45,726 --> 00:03:51,626
+And NACLs are stateless, so they couldn't care less, right, whether a packet is part of a legit conversation. 
+
+34
+00:03:51,726 --> 00:03:58,626
+If there's no rule specifically allowing the traffic, then big red down here is going to grab it and toss it 
+
+35
+00:03:58,726 --> 00:04:01,626
+over the wall. 
+
+36
+00:04:01,726 --> 00:04:08,626
+Now this behavior of rules being processed in strict numeric order and then as soon as a match is hit we say 
+
+37
+00:04:08,726 --> 00:04:13,626
+we're good, we don't need to bother checking anymore rules, well let me tell you, knowing something like that 
+
+38
+00:04:13,726 --> 00:04:20,626
+is pure gold when you're troubleshooting network problems and you've got like a shed load of NACL and 
+
+39
+00:04:20,726 --> 00:04:28,626
+security group rules to wade through. Seriously, pure gold. Ah, that reminds me of something else, 
+
+40
+00:04:28,726 --> 00:04:34,626
+remember we said, in fact we showed it actually, that multiple security groups can be associated 
+
+41
+00:04:34,726 --> 00:04:42,626
+with a single instance. Well not so with NACLs, right? Each subnet can only have a single NACL attached to it, 
+
+42
+00:04:42,726 --> 00:04:47,626
+though a single NACL can be attached to multiple subnets. And you know what? 
+
+43
+00:04:47,726 --> 00:04:53,626
+If you've ever administered routers on network firewalls in the past, or even written good old basic programs 
+
+44
+00:04:53,726 --> 00:04:59,626
+where ever line had to be numbered and the number automated, well you'll already know the power of sticking 
+
+45
+00:04:59,726 --> 00:05:04,626
+to a numbering style like this where we go up in either 10s or 100s. 
+
+46
+00:05:04,726 --> 00:05:11,626
+It just means if you need to stick a rule in between, let's say 200 and 300, well we can just name it 250 
+
+47
+00:05:11,726 --> 00:05:19,626
+and it'll automatically get inserted in between the two, whereas if we'd named them 2 and 3, well, 
+
+48
+00:05:19,726 --> 00:05:27,626
+good luck with that, yeah, because while we can delete rules in a NACL we can't modify them in place. 
+
+49
+00:05:27,726 --> 00:05:35,626
+Okay, well rounding out our NACL theory, we can have 200 NACLs per VPC, but only 20 rules per NACL 
+
+50
+00:05:35,726 --> 00:05:40,626
+and you know what? If you're new to this, 20 rules might seem like a lot, but many seasoned networking pros 
+
+51
+00:05:40,726 --> 00:05:48,626
+out there will tell, it ain't. Though, taking a ridiculously positive outlook on things, keeping this number 
+
+52
+00:05:48,726 --> 00:05:54,626
+of rules in the NACL small is really quite a good thing. For one it's going to make troubleshooting 
+
+53
+00:05:54,726 --> 00:05:59,626
+a relative walk in the park compared to something with hundreds of rules. 
+
+54
+00:05:59,726 --> 00:06:05,626
+But it's also going to help performance because processing hundreds of rules, that takes time. 
+
+55
+00:06:05,726 --> 00:06:11,626
+So Amazon is forcing us to keep things simple and I'm a fan of that, though I'm often a realist too, 
+
+56
+00:06:11,726 --> 00:06:16,626
+and I totally get that it can be limiting. But it is what it is. 
+
+57
+00:06:16,726 --> 00:06:20,726
+Now that's the theory done, let's go and play with them in the real world. 
+
+

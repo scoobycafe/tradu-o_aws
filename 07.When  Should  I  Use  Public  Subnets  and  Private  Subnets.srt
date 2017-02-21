@@ -1,0 +1,57 @@
+1
+00:00:00,599 --> 00:00:08,505
+Okay, I think I'll take one more question. Yep. Hello governor, so when you think I should use public subnets 
+
+2
+00:00:08,605 --> 00:00:15,505
+and when should I use private subnets? Okay, so this is a bit of a tricky one, I mean it's the kind of question 
+
+3
+00:00:15,605 --> 00:00:21,505
+that deserves a, well that depends answer. But that sucks, right, and I'm hardly going to say that. 
+
+4
+00:00:21,605 --> 00:00:28,505
+Though it is try, it really does depend. That all said though, I'd say a good general rule is to use 
+
+5
+00:00:28,605 --> 00:00:36,505
+public subnets sparingly. Basically, right, anything you put in a public subnet has a route to the internet 
+
+6
+00:00:36,605 --> 00:00:43,505
+and it's often going to have a public IP, and that combination is going to make it more open to attacks. 
+
+7
+00:00:43,605 --> 00:00:49,505
+If you can, right, maybe try and rig things up so that you only stick like elastic load balancers, 
+
+8
+00:00:49,605 --> 00:00:54,505
+firewall instances, proxy servers, that kind of stuff in public subnets. 
+
+9
+00:00:54,605 --> 00:01:01,505
+Maybe web servers if you need to, yeah. Then, stick everything else into private subnets, where there's no 
+
+10
+00:01:01,605 --> 00:01:07,505
+route to the internet and they don't have public IPs. I don't know if that's a good answer or not, 
+
+11
+00:01:07,605 --> 00:01:13,505
+but I do reckon it's a pretty good rule of thumb, you won't go far wrong by sticking to it. 
+
+12
+00:01:13,605 --> 00:01:17,505
+Alright then, thanks everyone for your time participating in the course. 
+
+13
+00:01:17,605 --> 00:01:20,505
+Genuinely, genuinely do appreciate it. 
+
+14
+00:01:20,605 --> 00:01:24,605
+Feel free to stick around for the quick summary and what's next module. 
+
+

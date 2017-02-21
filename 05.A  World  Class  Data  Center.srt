@@ -1,0 +1,169 @@
+1
+00:00:00,599 --> 00:00:11,068
+Alright, so thanks to my insane ability to bend space time, the marvelous video editing, our VPC is 
+
+2
+00:00:11,168 --> 00:00:19,068
+successfully created. But I kid you not here, okay, this is like one of the understatements of the technology era, 
+
+3
+00:00:19,168 --> 00:00:25,068
+seriously. I mean I just can't overemphasize what we've just done here. 
+
+4
+00:00:25,168 --> 00:00:30,068
+We should probably be running up and down the street naked, though obviously that's not an official 
+
+5
+00:00:30,168 --> 00:00:36,068
+recommendation from Pluralsight, but do let me tell you why it's such an understatement. 
+
+6
+00:00:36,168 --> 00:00:40,068
+We have literally built ourselves a world class data center here. 
+
+7
+00:00:40,168 --> 00:00:45,068
+I just can't say it any other way. No word of a lie. I mean we've got, what have we got? 
+
+8
+00:00:45,168 --> 00:00:52,068
+We've got world class physical data center facilities behind everything that we've just created, so stuff like 
+
+9
+00:00:52,168 --> 00:00:57,068
+world class air con, world class power and power management, world class cabling, world class 
+
+10
+00:00:57,168 --> 00:01:05,068
+internet access, you name it, the whole shebang is backed by Amazon's world class data center infrastructures. 
+
+11
+00:01:05,168 --> 00:01:10,068
+It's not like you've just carved out for yourself some resources from the machines in my home lab, 
+
+12
+00:01:10,168 --> 00:01:19,068
+no, no, no, you have got a virtual data center sitting on top of world class highly available physical infrastructure. 
+
+13
+00:01:19,168 --> 00:01:24,068
+In fact I'm selling our achievement short, right? Depending on what your choices were when we were building 
+
+14
+00:01:24,168 --> 00:01:30,068
+the VPC back there, you might well have built yourself two world class data centers and with high speed, 
+
+15
+00:01:30,168 --> 00:01:36,068
+highly available links between them. This is seriously a monumental achievement. 
+
+16
+00:01:36,168 --> 00:01:43,068
+And to make it even better, how much has it cost us so far? Zilch, nothing, well, okay so that NAT instance 
+
+17
+00:01:43,168 --> 00:01:48,068
+is probably costing us a penny or so, right, but you grock, right. 
+
+18
+00:01:48,168 --> 00:01:54,068
+We just built ourselves a world class data infrastructure in like a couple of minutes for an absolute steal 
+
+19
+00:01:54,168 --> 00:02:00,068
+and we hardly had to know anything about data center design. I mean how is that possible? 
+
+20
+00:02:00,168 --> 00:02:07,068
+I need to calm down, but it's pretty impressive in my book. I mean, I remember back in the day, right, 
+
+21
+00:02:07,168 --> 00:02:13,068
+racking and stacking physical equipment, having contractors in to pull cabling, test AC equipment, 
+
+22
+00:02:13,168 --> 00:02:19,068
+pulling up floor tiles, cutting my fingers and hands on like ridiculous server rails, and patching cables 
+
+23
+00:02:19,168 --> 00:02:26,068
+behind a bunch of servers and switches that were pumping out hot air into my face like I stood beneath 
+
+24
+00:02:26,168 --> 00:02:31,068
+a space shuttle during a take-off. Oh yeah, those were the days, well no more. 
+
+25
+00:02:31,168 --> 00:02:37,068
+We just built ourselves a cloud based data center there that rivals, and you know what, no doubt surpasses 
+
+26
+00:02:37,168 --> 00:02:43,068
+anything that I have ever been involved with building with my own hands. 
+
+27
+00:02:43,168 --> 00:02:48,068
+The one caveat of course, while I'm saying all of this impressive sounding stuff, you and I actually have 
+
+28
+00:02:48,168 --> 00:02:54,068
+really no way of knowing the details behind what we've created. What I mean is, right, we can't walk 
+
+29
+00:02:54,168 --> 00:02:59,068
+up to an Amazon data center and say, hey don't mind me, I'm just coming in to inspect the kit that my stuff 
+
+30
+00:02:59,168 --> 00:03:06,068
+is running on. No, uh uh, so really while we know Amazon has got awesome facilities, right, we have no 
+
+31
+00:03:06,168 --> 00:03:12,068
+visibility into what kind of tests and maintenance and anything like that that Amazon might or might not 
+
+32
+00:03:12,168 --> 00:03:16,068
+be carrying out. Like just for instance, okay, a bunch of companies I've worked with in the past 
+
+33
+00:03:16,168 --> 00:03:23,068
+have done things like annual power maintenance tests, UPS tests, all of that kind of jazz, yeah. 
+
+34
+00:03:23,168 --> 00:03:27,068
+Making sure that the physical facilities and kit are well oiled and work as they should. 
+
+35
+00:03:27,168 --> 00:03:32,068
+Now don't get me wrong, I'm not saying you should massively sweat over this, we can assume that Amazon 
+
+36
+00:03:32,168 --> 00:03:39,068
+does this kind of stuff, okay, it's just no longer looming on our radars, which if you've ever been involved 
+
+37
+00:03:39,168 --> 00:03:44,068
+in any stuff like that before, you are going to know is a good thing. 
+
+38
+00:03:44,168 --> 00:03:48,068
+One less thing to plan and stress over, yeah. But you know what? 
+
+39
+00:03:48,168 --> 00:03:52,068
+If your company has never bothered with stuff like that before, then anything that you do get like that 
+
+40
+00:03:52,168 --> 00:03:59,068
+from Amazon behind the scenes is a total bonus. Point is though, what kind of testing are Amazon really doing? 
+
+41
+00:03:59,168 --> 00:04:05,068
+I don't know. Anyway, never mind that. Give yourselves a well deserved pat on the back while we review 
+
+42
+00:04:05,168 --> 00:04:08,168
+just exactly what we've built for ourselves. 
+
+

@@ -1,0 +1,29 @@
+1
+00:00:01,000 --> 00:00:12,028
+Do we have anymore? Hello Nigel. Immanuel here from France. What is the simplest thing to do that has the 
+
+2
+00:00:12,128 --> 00:00:19,028
+biggest benefit? Simple but a big benefit? Yeah. That's pretty easy actually. 
+
+3
+00:00:19,128 --> 00:00:25,028
+Naming your stuff. Just name everything, right. Your instances, your security groups, your subnets, 
+
+4
+00:00:25,128 --> 00:00:30,028
+your VPN gateways, the whole shebang, and do it sensibly, right. 
+
+5
+00:00:30,128 --> 00:00:37,028
+Have a naming convention so that the names you use make sense, it'll make day to day management so much easier 
+
+6
+00:00:37,128 --> 00:00:42,028
+and definitely troubleshooting, man, that'll be way, way easier. 
+
+7
+00:00:42,128 --> 00:00:45,128
+So yeah, that was an easy one. 
+
+

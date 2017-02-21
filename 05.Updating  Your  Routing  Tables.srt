@@ -1,0 +1,109 @@
+1
+00:00:00,599 --> 00:00:07,381
+Now then, in order to get this right, I think we could do with a quick refresher to remind us a bit 
+
+2
+00:00:07,481 --> 00:00:14,381
+of how we've got our networks configured. So we've got our podcast VPC and in there we've got that Linux instance 
+
+3
+00:00:14,481 --> 00:00:21,381
+in a public subnet, you know, the one that's trying to ping another Linux instance over in a private subnet 
+
+4
+00:00:21,481 --> 00:00:30,381
+in the blog VPC. And we've got things configured so that each VPC has got two custom route tables, 
+
+5
+00:00:30,481 --> 00:00:38,381
+one's for public subnets and the other is for private. So, because we want this public instance, 
+
+6
+00:00:38,481 --> 00:00:44,381
+if I can call it that, to talk to this private instance over here, we're going to need to update the public 
+
+7
+00:00:44,481 --> 00:00:50,381
+routing table on this side and the private routing table on that side. 
+
+8
+00:00:50,481 --> 00:00:57,381
+What this'll do is make sure that instances in the public subnet here know about the new route to the private 
+
+9
+00:00:57,481 --> 00:01:03,381
+subnet over here and a corresponding route back. Cool. 
+
+10
+00:01:03,481 --> 00:01:09,381
+And just in case we forget, I've got a mini version that I'm going to park up here, I'm going to keep my 
+
+11
+00:01:09,481 --> 00:01:18,381
+fingers crossed that it doesn't get in the way. So from Chrome here, so our podcast VPC, we want to hit Route Tables 
+
+12
+00:01:18,481 --> 00:01:24,381
+and according to our little picture up here we want the public one, so this one. 
+
+13
+00:01:24,481 --> 00:01:33,381
+Then hit Routes and add a new one. Now we want to be telling it about the blog VPC, again, a little pic 
+
+14
+00:01:33,481 --> 00:01:47,381
+at the top here tells us that that's 172.16.0.0/16. And well, as if by magic, there's our pcx object. 
+
+15
+00:01:47,481 --> 00:01:54,381
+Pcx standing for peering connection. Save that and why not, let's just make sure it's associated 
+
+16
+00:01:54,481 --> 00:01:59,381
+with our public subnets, which yes it is. So that's one side done. 
+
+17
+00:01:59,481 --> 00:02:08,381
+Our podcast public subnets now know how to get to our blog VPC. So if we jump to the blog side now 
+
+18
+00:02:08,481 --> 00:02:21,381
+and same again, Route Tables, all nicely name again, we want this one, blog route table local, Routes, 
+
+19
+00:02:21,481 --> 00:02:31,381
+and add a new one. This time our little picture is telling us we want 10.0.0.0/16 and our peer connection 
+
+20
+00:02:31,481 --> 00:02:38,381
+object again. Now interesting, okay, if we want to we can put in like a smaller range of IPs, 
+
+21
+00:02:38,481 --> 00:02:43,381
+we could put in just one of the subnets just back in our podcast VPC or we could even put a single IP address 
+
+22
+00:02:43,481 --> 00:02:52,381
+from that range. So there is flexibility. Anyway, here comes the moment of truth, and this better work, 
+
+23
+00:02:52,481 --> 00:02:58,381
+so let's, we'll move this over here a bit, bring our ping machine back. 
+
+24
+00:02:58,481 --> 00:03:09,381
+Nope still not pinging. Then if we hit Save, yes. There we go. 
+
+25
+00:03:09,481 --> 00:03:15,381
+Two instances in separate VPCs belonging to separate AWS accounts, not that that matters, but it sounds 
+
+26
+00:03:15,481 --> 00:03:22,381
+a bit better, having a polite conversation over private IPs. Marvelous. 
+
+27
+00:03:22,481 --> 00:03:25,481
+Let's go and wrap the module up. 
+
+

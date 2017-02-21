@@ -1,0 +1,297 @@
+1
+00:00:00,599 --> 00:00:07,328
+So to rock and roll with VPN connections, we want to be over here in our VPC dashboard. 
+
+2
+00:00:07,428 --> 00:00:14,328
+And then down here under VPN Connections. And we'll just go through the three in order from top to bottom. 
+
+3
+00:00:14,428 --> 00:00:20,328
+So Customer Gateways here, this is our end of the tunnel, yeah, and we don't currently have any. 
+
+4
+00:00:20,428 --> 00:00:25,328
+But I want to point this out, okay, customer gateway config is really two things. 
+
+5
+00:00:25,428 --> 00:00:31,328
+There's the actual gateway itself, okay, so the piece of kit that we own on our office premises, 
+
+6
+00:00:31,428 --> 00:00:35,328
+that hardware device that we talked about that's our end of the tunnel. 
+
+7
+00:00:35,428 --> 00:00:42,328
+Well as well as that, then there's the corresponding object in AWS and that's what we're configuring here, okay. 
+
+8
+00:00:42,428 --> 00:00:48,328
+And this object, right, it's just a way for us to tell AWS a bit about our actual physical gateway. 
+
+9
+00:00:48,428 --> 00:00:54,328
+So if we take a look here, right, so name, routing, and IP address. 
+
+10
+00:00:54,428 --> 00:01:00,328
+The name's arbitrary, right, so we'll go with something that fits our loose standard, yeah. 
+
+11
+00:01:00,428 --> 00:01:04,328
+And then the routing and IP bits, they're just our way of telling AWS a little bit about the config 
+
+12
+00:01:04,428 --> 00:01:11,328
+on our end of the tunnel. The IP address at the bottom here, this is the public IP address of our router 
+
+13
+00:01:11,428 --> 00:01:15,328
+or our VPN endpoint, that static IP address that we were just talking about. 
+
+14
+00:01:15,428 --> 00:01:24,328
+So, if my office's public IP address is 94.119.64.23, then that's what I put in here. 
+
+15
+00:01:24,428 --> 00:01:29,328
+It's just the public interface of the piece of hardware I've got on my end of the tunnel. 
+
+16
+00:01:29,428 --> 00:01:35,328
+And remember, make it static, okay, because it's just not feasible to be changing this thing. 
+
+17
+00:01:35,428 --> 00:01:40,328
+Remember, we want this VPN connection to be always up and reliable. 
+
+18
+00:01:40,428 --> 00:01:47,328
+Anyway, then for the routing, okay, we've got a couple of options, static and dynamic. 
+
+19
+00:01:47,428 --> 00:01:52,328
+So, static is a bit like the cheap and cheerful option, it's nice and easy to configure, right, 
+
+20
+00:01:52,428 --> 00:01:58,328
+but it doesn't scale well. We've got to do things like manually add routes on both ends and it's great and all, 
+
+21
+00:01:58,428 --> 00:02:05,328
+but it becomes hard work at any kind of scale. Dynamic on the other hand, this is the more 
+
+22
+00:02:05,428 --> 00:02:11,328
+I suppose enterprise-y option. It uses BGP, the border gateway protocol, and it doesn't need static routes 
+
+23
+00:02:11,428 --> 00:02:17,328
+entering. Instead, both ends of the tunnel, so obviously both ends need to support it, yeah, 
+
+24
+00:02:17,428 --> 00:02:22,328
+but both ends they advertise routes to each other and it scales like a lizard. 
+
+25
+00:02:22,428 --> 00:02:27,328
+The downside being, you need to be a bit of a network ninja to configure it. 
+
+26
+00:02:27,428 --> 00:02:35,328
+Now I'm no networking ninja, so I'm all over the static option. Then we click Create. 
+
+27
+00:02:35,428 --> 00:02:42,328
+And that's our customer gateway object all configured. Next, we want the AWS and the virtual private gateway. 
+
+28
+00:02:42,428 --> 00:02:46,328
+Again, we've not got any, so we'll create one. And look at that. 
+
+29
+00:02:46,428 --> 00:02:58,328
+Just a single option to configure, name tag, talk about easy. Well, we'll be boring and go with podcast-vgw01 
+
+30
+00:02:58,428 --> 00:03:07,328
+and there we go. So we've got our end of the tunnel here, podcast-cgw01, it's available, IPsec, 
+
+31
+00:03:07,428 --> 00:03:13,328
+it's IP address, and because we went with static routing we could ignore this BGP autonomous system 
+
+32
+00:03:13,428 --> 00:03:21,328
+number thing here. Back over here on the AWS end, and the same again, IPsec, but not attached to a VPC yet. 
+
+33
+00:03:21,428 --> 00:03:33,328
+So let's attach it (Typing) and there we go. With both ends configured, that means all we need to do now 
+
+34
+00:03:33,428 --> 00:03:39,328
+is stitch them together. So that'll be VPN connections and Create. 
+
+35
+00:03:39,428 --> 00:03:46,328
+Okay, so this time a little bit more to do. We'll go podcast-vpn for the name. 
+
+36
+00:03:46,428 --> 00:03:51,328
+Yes this is our virtual private gateway here, dead simple as we've only got one, but remember, right, 
+
+37
+00:03:51,428 --> 00:03:57,328
+naming stuff properly comes into its own when we've got like a boatload of everything. 
+
+38
+00:03:57,428 --> 00:04:02,328
+Oh and they can be useful for billing as well, yeah. We'll go with our existing customer gateway 
+
+39
+00:04:02,428 --> 00:04:08,328
+we just configured, though if we click New, yeah, we totally can create a new one right here right now, 
+
+40
+00:04:08,428 --> 00:04:13,328
+but we've already got one and we're definitely in the static camp here, yeah. 
+
+41
+00:04:13,428 --> 00:04:19,328
+Okay, now in this box we put in the networks that we want to be reachable over this connection. 
+
+42
+00:04:19,428 --> 00:04:26,328
+So, our office network, we said that was 10.1.0.0/16 and we're ready to go. 
+
+43
+00:04:26,428 --> 00:04:31,328
+Now in the real world, right, you might have a bunch of networks that you want to reach over this connection, 
+
+44
+00:04:31,428 --> 00:04:36,328
+well that's just fine. You can list pretty much as many as you want here, just separate them with commas, 
+
+45
+00:04:36,428 --> 00:04:47,328
+yeah like this. Anyway, we'll just go with the one. Create (Loading), okay that's having a good old think, 
+
+46
+00:04:47,428 --> 00:04:53,328
+come on Amazon, it's like we're installing Windows for work groups with like 14 floppies or whatever it was, 
+
+47
+00:04:53,428 --> 00:04:59,328
+we don't expect this kind of hanging around in the cloud area now. 
+
+48
+00:04:59,428 --> 00:05:04,328
+Maybe I'll pause the video here, okay, it's back, there it is, right. 
+
+49
+00:05:04,428 --> 00:05:11,328
+Though it's not available just yet. Now, here's the config down here, so both ends of the connection, yeah, 
+
+50
+00:05:11,428 --> 00:05:19,328
+the type and the networking wimp's option of static routing. If we hit Tunnel Details, we can see both endpoints. 
+
+51
+00:05:19,428 --> 00:05:25,328
+Remember we said earlier that we automatically get this highly available design, so two tunnels, 
+
+52
+00:05:25,428 --> 00:05:35,328
+each with its own IP, and each currently down. But the point being, if we connect our end up to both of these, 
+
+53
+00:05:35,428 --> 00:05:42,328
+if one goes down the tunnel itself stays up. Good stuff, it's just down right now, okay, because we haven't 
+
+54
+00:05:42,428 --> 00:05:48,328
+configured the actual router on our end. So to configure our router, we hit the Download Config up here, 
+
+55
+00:05:48,428 --> 00:05:55,328
+then depending on our router make and model, yeah, I mean who even knew that Yamaha made routers? 
+
+56
+00:05:55,428 --> 00:06:01,328
+I thought they made like pianos and motorbikes. Anyway, if your kit is on the list here, just select the model 
+
+57
+00:06:01,428 --> 00:06:07,328
+and then the software version and hit Download and what you'll get is a nice text file with all the commands 
+
+58
+00:06:07,428 --> 00:06:12,328
+and config stuff that you need to put into your router. It's really simple actually, but if your kit ain't 
+
+59
+00:06:12,428 --> 00:06:17,328
+on the list, then you're going to want to go with generic here and what that's going to give you 
+
+60
+00:06:17,428 --> 00:06:22,328
+is a nice little file that explains all the settings that you need to set, you just don't get the actual 
+
+61
+00:06:22,428 --> 00:06:27,328
+commands this time around, you're going to have to work them out for yourself, but it's pretty easy. 
+
+62
+00:06:27,428 --> 00:06:33,328
+Now then, here's where like I totally, totally let you know. Wait, no. 
+
+63
+00:06:33,428 --> 00:06:41,328
+What? Don't press Cancel. You just pressed Cancel, why? Okay, so I'm like kicking back in the home office 
+
+64
+00:06:41,428 --> 00:06:47,328
+here, yeah, and not being a networking guy, sorry, I don't have a router here at my end of the tunnel. 
+
+65
+00:06:47,428 --> 00:06:52,328
+So sorry folks, I can't complete the demo for you, but you know what, don't hate me. 
+
+66
+00:06:52,428 --> 00:06:59,328
+That part of the config is totally like non-AWS stuff, it's proper Cisco or Juniper or even Yamaha, yeah. 
+
+67
+00:06:59,428 --> 00:07:05,328
+Seriously we've done all the AWS config and learning, the only thing left to do is configure your router 
+
+68
+00:07:05,428 --> 00:07:11,328
+with the config that you downloaded from the previous step. Once that's done your tunnel is going to come up 
+
+69
+00:07:11,428 --> 00:07:16,328
+and as long as you configure keep-alives or you keep traffic going across it, it's going to stay up. 
+
+70
+00:07:16,428 --> 00:07:21,328
+Pretty cool stuff. Oh, to bring it up in the first place as well, actually, you need to send traffic 
+
+71
+00:07:21,428 --> 00:07:26,328
+from your end, so it is actually our end of the tunnel, right, that's responsible for bringing it up 
+
+72
+00:07:26,428 --> 00:07:31,328
+and sending any necessary keep-alives that might be needed to keep it up and healthy. 
+
+73
+00:07:31,428 --> 00:07:39,328
+But that's how we configure a site to site VPN in AWS. Time for one more VPN related topic before we wrap up 
+
+74
+00:07:39,428 --> 00:07:42,428
+the module. 
+
+

@@ -1,0 +1,161 @@
+1
+00:00:00,599 --> 00:00:06,831
+So we're going to kick this baby off by making our public subnet, well public. 
+
+2
+00:00:06,931 --> 00:00:12,831
+Now according to the Amazon docs and the likes, in order for a subnet to be public, it needs to be connected to 
+
+3
+00:00:12,931 --> 00:00:18,831
+an internet gateway. Okay, fair play. In practice though, there's a bit more to it than that, like it needs 
+
+4
+00:00:18,931 --> 00:00:24,831
+to have a route to the internet and then there's the small matter of having a public IP address, but we'll get 
+
+5
+00:00:24,931 --> 00:00:31,831
+into those in just a second. For now, let's just create an internet gateway and while we go along 
+
+6
+00:00:31,931 --> 00:00:37,831
+we'll explain what it is. So if we hit Internet Gateways over here, and we're going to create a new one, 
+
+7
+00:00:37,931 --> 00:00:42,831
+well check that out. All it needs is a name. Talk about a simple setup. 
+
+8
+00:00:42,931 --> 00:00:48,831
+I mean step back for just a second and really think about that. Life back in the day, right, when I was 
+
+9
+00:00:48,931 --> 00:00:54,831
+cutting my infrastructure teeth. You know what, and cutting my fingers racking and stacking servers 
+
+10
+00:00:54,931 --> 00:01:02,831
+in small coms rooms, back in the 90's. Well, I remember when we got our first ever 1 MB internet connection. 
+
+11
+00:01:02,931 --> 00:01:09,831
+I mean, this was like a huge deal, not just the fact that it cost an arm and a leg and 1 MB was like 
+
+12
+00:01:09,931 --> 00:01:16,831
+mahoosive, but the effort that we went to to make it as redundant as possible and the likes, wow, I mean 
+
+13
+00:01:16,931 --> 00:01:21,831
+I remember we had a couple of our own routers hooked up to it, and although I was definitely a trusted member 
+
+14
+00:01:21,931 --> 00:01:27,831
+of IT, I was nowhere near senior enough to go anywhere near it. I mean it was a huge deal. 
+
+15
+00:01:27,931 --> 00:01:33,831
+We practically had the queen come and ceremoniously commission the thing. 
+
+16
+00:01:33,931 --> 00:01:37,831
+It was a big deal and it was a ton of effort and money. Well you know what? 
+
+17
+00:01:37,931 --> 00:01:45,831
+With a click of a button, and well let's give it a name here as well (Typing) and as simple as that, 
+
+18
+00:01:45,931 --> 00:01:51,831
+we've created for ourselves, where is it? I wrote this down somewhere, here we go. 
+
+19
+00:01:51,931 --> 00:01:59,831
+We've just created for ourselves a horizontally scaled, redundant, highly available internet connection. 
+
+20
+00:01:59,931 --> 00:02:05,831
+Talk about buzz word bingo. Let me run that by you again, a horizontally scaled, redundant, highly available 
+
+21
+00:02:05,931 --> 00:02:13,831
+internet connection, so posing no availability risks and no bandwidth or scalability constraints. 
+
+22
+00:02:13,931 --> 00:02:20,831
+I mean is somebody pulling my chain here or what? I've just clicked maybe like three buttons and supposedly 
+
+23
+00:02:20,931 --> 00:02:26,831
+I've got what sounds like the ultimate in high speed, never goes down, internet connections. 
+
+24
+00:02:26,931 --> 00:02:34,831
+Seriously, sounds the bizzo, right? But here's I suppose the frustrating part, yeah. 
+
+25
+00:02:34,931 --> 00:02:40,831
+Amazon doesn't tell us anything about how it actually is all that stuff, so no detail to backup any of those 
+
+26
+00:02:40,931 --> 00:02:47,831
+impressive claims. You know, so how do you make it horizontally scalable or highly available or how does it 
+
+27
+00:02:47,931 --> 00:02:53,831
+achieve no bandwidth constraints Mr. Amazon? I mean I'm an inquisitive guy, right, I want to know. 
+
+28
+00:02:53,931 --> 00:02:59,831
+Their response, you don't really want to know. Uh, yeah actually I do want to know. 
+
+29
+00:02:59,931 --> 00:03:05,831
+No, you don't. Sure I do want to know. You don't want to know. 
+
+30
+00:03:05,931 --> 00:03:13,831
+I want to know. I want the truth. You can't handle the truth. Anyway, the point is, we've got these 
+
+31
+00:03:13,931 --> 00:03:20,831
+awesome claims from Amazon, but nothing to back them up with. Again, we've just got to take their word for it, 
+
+32
+00:03:20,931 --> 00:03:26,831
+yeah, but every bummer. I suppose the point being, right, creating a potentially awesome internet connection 
+
+33
+00:03:26,931 --> 00:03:32,831
+for your VPC and its subnets is like a Sunday afternoon stroll in the park. 
+
+34
+00:03:32,931 --> 00:03:39,831
+All we need to do now is attach it to our VPC. Oh and notice the drop down, it's only giving us VPCs 
+
+35
+00:03:39,931 --> 00:03:45,831
+that don't already have one. So it's a one internet gateway to one VPC mapping. 
+
+36
+00:03:45,931 --> 00:03:50,831
+I suppose what else would it be, right? I mean, why you would want two of them when they're indestructible 
+
+37
+00:03:50,931 --> 00:03:58,831
+and never tire, makes sense right? Okay, anyway, that's our uber high performance, uber available 
+
+38
+00:03:58,931 --> 00:04:04,831
+internet gateway created. Even my mom could have done it. But notice, okay, that it got associated 
+
+39
+00:04:04,931 --> 00:04:12,831
+with our VPC, not a specific subnet. So it's available to all of our subnets, we just need to create entries 
+
+40
+00:04:12,931 --> 00:04:16,931
+in a subnet's route table to enable that subnet to use it. So why don't we. 
+
+

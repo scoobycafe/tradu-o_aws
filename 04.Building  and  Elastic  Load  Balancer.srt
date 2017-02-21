@@ -1,0 +1,337 @@
+1
+00:00:00,599 --> 00:00:10,4
+Right. Let's build this load balancer. So we want to be down here, huh, alright, well it used to be, 
+
+2
+00:00:10,5 --> 00:00:17,958
+I'm pretty sure, under Network and Security. Now I wonder if they've got plans to expand load balancing 
+
+3
+00:00:18,058 --> 00:00:23,958
+possibilities, you know, given it its own section and whatever. Anyway, let's hope they've not changed 
+
+4
+00:00:24,058 --> 00:00:28,958
+a bunch else, otherwise this could be interesting, but we'll go and create a new one. 
+
+5
+00:00:29,058 --> 00:00:37,958
+Looks normal. First up, the usual name and VPC stuff. We'll call our podcast-ELB-internet so that we know 
+
+6
+00:00:38,058 --> 00:00:45,958
+it's internet facing and not internal. Obviously we'll stick it in our podcast VPC, ah, right, 
+
+7
+00:00:46,058 --> 00:00:52,958
+see how the screen changed? Because we selected our podcast VPC, which is not a default VPC, yeah. 
+
+8
+00:00:53,058 --> 00:00:59,958
+Well this advanced config box here got automatically checked. Anyway, back up here, right, if we wanted to 
+
+9
+00:01:00,058 --> 00:01:05,958
+create an internal load balancer, so for one that would load balance traffic from within our VPC 
+
+10
+00:01:06,058 --> 00:01:11,958
+instead of from the internet, well we'd hit this. But we're going to go internet facing this time. 
+
+11
+00:01:12,058 --> 00:01:17,958
+And then for the listener config. This is where we tell our load balancer which port to listen on 
+
+12
+00:01:18,058 --> 00:01:24,958
+and which port to forward to instances on. Now then, the current config of listening for incoming HTTP requests 
+
+13
+00:01:25,058 --> 00:01:32,958
+on port 80 here and then passing them on internally on the same port, this is actually exactly what we want. 
+
+14
+00:01:33,058 --> 00:01:40,958
+But a common and a pretty useful config, right, can be to listen here on HTTPS, so encrypted web traffic, 
+
+15
+00:01:41,058 --> 00:01:48,958
+and then pass on internally a straight HTTP. What this does, right, is it lets us use and abuse the load balancer 
+
+16
+00:01:49,058 --> 00:01:54,958
+to terminate our HTTPS sessions and as a result take some of the load off our instances. 
+
+17
+00:01:55,058 --> 00:02:00,958
+I don't know, it might be useful for you. But see as well, right, how we can't configure our elastic 
+
+18
+00:02:01,058 --> 00:02:07,958
+load balancer for that many protocols. Like I think we said earlier, while it is the absolute bizzo and all, 
+
+19
+00:02:08,058 --> 00:02:11,958
+it's not the most comprehensive load balancer that you can find. 
+
+20
+00:02:12,058 --> 00:02:17,958
+Other load balancers are available. Anyway this is good for us, okay. 
+
+21
+00:02:18,058 --> 00:02:25,958
+It's going to receive web traffic and then balance that traffic over the instances that we configure behind it. 
+
+22
+00:02:26,058 --> 00:02:31,958
+Now for subnets, see this nice little message here, balance over multiple subnets where possible folks, 
+
+23
+00:02:32,058 --> 00:02:39,958
+that's where the app high availability comes from. Well, we'll pick both of our public facing subnets, 
+
+24
+00:02:40,058 --> 00:02:45,958
+and you know what? The eu-west region has got three availability zones actually and there's absolutely nothing 
+
+25
+00:02:46,058 --> 00:02:51,958
+stopping us balancing over all three, obviously we need subnets in all three, right. 
+
+26
+00:02:52,058 --> 00:02:56,958
+And you know? That would actually give us even better availability than just balancing over two. 
+
+27
+00:02:57,058 --> 00:03:02,958
+The only reason I'm not going to do that here is honestly, right, because the diagrams that I'm using on the slides 
+
+28
+00:03:03,058 --> 00:03:08,958
+they started to looking really busy when I started trying to fit three availability zones on them. 
+
+29
+00:03:09,058 --> 00:03:11,958
+So, two is no magic number or anything like that. 
+
+30
+00:03:12,058 --> 00:03:22,958
+Next, now then, for security group, we're going to go with this HTTP only one that we created a minute or two ago. 
+
+31
+00:03:23,058 --> 00:03:26,958
+We're not bothered about this message, we know that HTTP is just plain text. 
+
+32
+00:03:27,058 --> 00:03:35,958
+I do recommend HTTPS for production, of course. Now health checks, and these are the chiz-zing, right. 
+
+33
+00:03:36,058 --> 00:03:40,958
+These three bits up here, they form like the basics or the meat of our health check, yeah. 
+
+34
+00:03:41,058 --> 00:03:48,958
+So this particular one is going to send an HTTP request on port 80 and if index.html exists, 
+
+35
+00:03:49,058 --> 00:03:56,958
+then the health check is a pass. If there's no response or index.html doesn't exist, it's going to fail. 
+
+36
+00:03:57,058 --> 00:04:03,958
+And we can edit these fields as well, right, though the top one here can only be one of these options. 
+
+37
+00:04:04,058 --> 00:04:08,958
+But these old boys down here, well health check interval here, right, this is how many seconds we wait 
+
+38
+00:04:09,058 --> 00:04:13,958
+between health checks, so between the pings that we defined up here. 
+
+39
+00:04:14,058 --> 00:04:19,958
+And then the healthy threshold down here, 10, well what we're going to need then is 10 successful pings 
+
+40
+00:04:20,058 --> 00:04:23,958
+or health checks before we consider the instance healthy, and you know what? 
+
+41
+00:04:24,058 --> 00:04:29,958
+Instances have got to be considered healthy before they get thrown into a load balancer config, 
+
+42
+00:04:30,058 --> 00:04:35,958
+which brings a good point actually, all of these health checks here apply to instances, right. 
+
+43
+00:04:36,058 --> 00:04:41,958
+But you know what? 10 checks with a 30 second interval between each one, that's like 5 minutes, right, 
+
+44
+00:04:42,058 --> 00:04:48,958
+and not even counting the time it takes to perform the check. Either way, right, that's an absolute age. 
+
+45
+00:04:49,058 --> 00:04:54,958
+Meaning that any new instances that we add behind this load balancer, it's going to be a long and painful 
+
+46
+00:04:55,058 --> 00:05:00,958
+5 minutes before they get added into the mix. So what I'm going to do is I'm going to make this 2 checks 
+
+47
+00:05:01,058 --> 00:05:04,958
+at 10 second intervals, which is better, for me at least, right. 
+
+48
+00:05:05,058 --> 00:05:09,958
+But you probably want to give this some thought because we probably don't want to be throwing recovering instances 
+
+49
+00:05:10,058 --> 00:05:14,958
+straight back into the mix, we probably want to give them a chance to see if they're going to stick around first 
+
+50
+00:05:15,058 --> 00:05:20,958
+before giving them work to do. And it's similar for marking instances as unhealthy, taking them out of the game, 
+
+51
+00:05:21,058 --> 00:05:30,958
+yeah. We're 2 checks here at a 10 second interval again, so 20 seconds before we say, you're out, on the sideline. 
+
+52
+00:05:31,058 --> 00:05:36,958
+And last but not least, response time here, that's like how long do we wait to hear back before we consider 
+
+53
+00:05:37,058 --> 00:05:42,958
+the ping up there failed? And wowsers, 5 seconds is long, right? 
+
+54
+00:05:43,058 --> 00:05:48,958
+Not even in the days of 56K dial-up modems was like 5 seconds considered reasonable. 
+
+55
+00:05:49,058 --> 00:05:52,958
+But you know what, I'm going to leave it for now. Now to add some instances. 
+
+56
+00:05:53,058 --> 00:05:58,958
+Well we've got two and we'll have them both thanks. Basically here just telling a load balancer when 
+
+57
+00:05:59,058 --> 00:06:03,958
+you receive this web traffic, go and load balance it over these two instances. 
+
+58
+00:06:04,058 --> 00:06:09,958
+And yes thanks, we'd like cross-zone load balancing. What this does is, okay, it makes sure that all instances 
+
+59
+00:06:10,058 --> 00:06:16,958
+get a fair share of the work. So imagine, right, if we had two instances in one availability zone, 
+
+60
+00:06:17,058 --> 00:06:22,958
+and only one instance in the other availability zone, well all three instances would get a third of the work 
+
+61
+00:06:23,058 --> 00:06:28,958
+if we've got this checkbox checked, checkbox checked. And that's despite the fact, right, that there's 
+
+62
+00:06:29,058 --> 00:06:34,958
+only two availability zones. Effectively, what it's saying is, when it comes to load balancing, right, 
+
+63
+00:06:35,058 --> 00:06:40,958
+don't really worry about the availability zones, just think about the instances and balance evenly across 
+
+64
+00:06:41,058 --> 00:06:48,958
+the instances. I'm a fan of this option anyway. Last option, right, enable connection draining 300 seconds, 
+
+65
+00:06:49,058 --> 00:06:54,958
+so 5 minutes again. Well this is kind of an important little setting. 
+
+66
+00:06:55,058 --> 00:06:59,958
+It lets us say, hey when we come to take an instance out of the config, so maybe de-register it, yeah, 
+
+67
+00:07:00,058 --> 00:07:06,958
+well once we've done that, let it stick around a bit for this time here so that any potentially active sessions 
+
+68
+00:07:07,058 --> 00:07:13,958
+to it get a chance to finish and whether or not this number should be big or small is totally dependent 
+
+69
+00:07:14,058 --> 00:07:19,958
+on your application's requirements. So do your clients care if they get kicked off an active session? 
+
+70
+00:07:20,058 --> 00:07:22,958
+And you know what? Will the app have to start again if that happens? 
+
+71
+00:07:23,058 --> 00:07:29,958
+Who knows, right, it depends on your application. The point is, the option is there. 
+
+72
+00:07:30,058 --> 00:07:36,958
+We're not bothered about any tags, so let's create this thing. Right. 
+
+73
+00:07:37,058 --> 00:07:43,958
+And there it is, okay. Status of our instances down here, remember they're having their health checks performed 
+
+74
+00:07:44,058 --> 00:07:51,958
+right now so it's going to be something like about 20 seconds before they're up and in the game. 
+
+75
+00:07:52,058 --> 00:07:59,958
+So if we come up and we refresh the browser here (Loading), nope still not in service yet. 
+
+76
+00:08:00,058 --> 00:08:09,958
+Let's give that another try. Right, both in service. And we can scroll down further and see other options. 
+
+77
+00:08:10,058 --> 00:08:15,958
+Now stickiness here, this one's new to us. But all it is is session affinity with cookies, if we enable it 
+
+78
+00:08:16,058 --> 00:08:20,958
+browser's are going to get a cookie that tells the load balancer to direct future sessions back to the same instance 
+
+79
+00:08:21,058 --> 00:08:26,958
+on the back end. There's more access logs and idle timeout as well. 
+
+80
+00:08:27,058 --> 00:08:32,958
+We can go and configure those. But you know what? That's our elastic load balancer, honestly, 
+
+81
+00:08:33,058 --> 00:08:38,958
+all up and configured. And in the grand scheme of things, how easy was that? 
+
+82
+00:08:39,058 --> 00:08:42,958
+I mean, knowing how to do that ain't going to make you skilled enough and important enough to be able to 
+
+83
+00:08:43,058 --> 00:08:48,958
+arrive at a customer site dressed in a shell suit, no, but who cares about that, it sure as hell 
+
+84
+00:08:49,058 --> 00:08:52,058
+could make your app higher performing and way more resilient. So let's go and see it in action. 
+
+

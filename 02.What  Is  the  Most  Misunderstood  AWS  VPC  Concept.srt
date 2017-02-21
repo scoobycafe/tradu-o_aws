@@ -1,0 +1,121 @@
+1
+00:00:01,366 --> 00:00:07,266
+Now bear with me here actually okay, you see I listen to a lot of audio books, audible.com, yeah, 
+
+2
+00:00:07,366 --> 00:00:14,266
+and I'm mighty impressed actually by some of the narrators. They're like really cool at voices and accents, 
+
+3
+00:00:14,366 --> 00:00:18,266
+so I figure, it can't be that hard can it? So I'm going to give it a try. 
+
+4
+00:00:18,366 --> 00:00:26,266
+So here it goes. Next question, uh yeah, hi Nigel, Anna here from UberInfrastructure.com. 
+
+5
+00:00:26,366 --> 00:00:34,266
+What would say is the most misunderstood AWS VPC concept? Thanks Anna. 
+
+6
+00:00:34,366 --> 00:00:41,266
+I'd probably say some of the auto scaling stuff, but that's not directly VPC related or at least auto scaling 
+
+7
+00:00:41,366 --> 00:00:45,266
+is not configured from the VPC console, so it's not included in the course. 
+
+8
+00:00:45,366 --> 00:00:50,266
+I guess then I'd better choose something that we did cover in the course. 
+
+9
+00:00:50,366 --> 00:00:56,266
+Maybe private and public IPs. So you know when we launch instances into our VPCs? 
+
+10
+00:00:56,366 --> 00:01:02,266
+Those instances automatically get private IPs, but obviously we can't talk directly to instances 
+
+11
+00:01:02,366 --> 00:01:08,266
+using those private IPs unless we're connecting over a VPN or Direct Connect, which by the way, 
+
+12
+00:01:08,366 --> 00:01:18,266
+is why VPNs and Direct Connect are so cool. But when we do assign public IPs to instances, the instance itself, 
+
+13
+00:01:18,366 --> 00:01:23,266
+so Linux or whatever iOS you're using, well it's got zero knowledge of that public IP. 
+
+14
+00:01:23,366 --> 00:01:30,266
+It knows absolutely nothing about it. So I mean if you log on and run host based IP commands like ifconfig 
+
+15
+00:01:30,366 --> 00:01:38,266
+and IP and the likes, you're only going to see private IPs. Public IPs are totally abstracted from instances. 
+
+16
+00:01:38,366 --> 00:01:47,266
+No, not abstracted, decoupled. The internet gateway in your VPC is what makes the magic of public IPs work. 
+
+17
+00:01:47,366 --> 00:01:53,266
+So, the internet gateway, right, it keeps a table that maps public IP addresses to instances or to 
+
+18
+00:01:53,366 --> 00:01:59,266
+network interfaces on instances. Basically, right routing any traffic that comes inbound for those 
+
+19
+00:01:59,366 --> 00:02:07,266
+public IP addresses to the private IPs of the instances. So I guess for all practical intents and purposes, 
+
+20
+00:02:07,366 --> 00:02:13,266
+our instances do have public IPs, it's just that behind the scenes AWS does a bunch of smoke and mirror stuff 
+
+21
+00:02:13,366 --> 00:02:19,266
+on the internet gateway to make it all happen. And while we're on public IPs actually, it's really common 
+
+22
+00:02:19,366 --> 00:02:26,266
+for folks to forget or you know what, maybe not even know, that normal public IPs in AWS, they change 
+
+23
+00:02:26,366 --> 00:02:31,266
+every time you reboot an instance. So, they're cool, but they're totally unreliable. 
+
+24
+00:02:31,366 --> 00:02:37,266
+For reliable public IPs, ones that are going to stick with our instance, even after reboots, 
+
+25
+00:02:37,366 --> 00:02:46,266
+we need elastic IPs, and last I checked, every AWS account is limited to five elastic IPs per region. 
+
+26
+00:02:46,366 --> 00:02:52,266
+And they cost money, another reason, right, for using VPNs and Direct Connect. 
+
+27
+00:02:52,366 --> 00:02:59,266
+Anyway, I'm blabbering again, but I think the main points to note are that normal public IPs in AWS 
+
+28
+00:02:59,366 --> 00:03:06,266
+change when you reboot an instance and elastic IPs don't. But you pay for elastic IPs and you're initially 
+
+29
+00:03:06,366 --> 00:03:11,266
+limited to five per region per account, though you can request more. 
+
+30
+00:03:11,366 --> 00:03:14,366
+Hope that answered your question. 
+
+

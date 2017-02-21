@@ -1,0 +1,173 @@
+1
+00:00:00,599 --> 00:00:05,975
+Okay, so let's recap what I think are the main highlights of what we've achieved here. 
+
+2
+00:00:06,075 --> 00:00:10,975
+So we pretty much started out with this, yeah, that's right, a blank sheet of paper. 
+
+3
+00:00:11,075 --> 00:00:18,975
+No infrastructure to run our apps on. Then purely by having an AWS account, boom, 
+
+4
+00:00:19,075 --> 00:00:28,975
+we instantly got a whole bunch of this kind of stuff behind us and what that is is world class data center 
+
+5
+00:00:29,075 --> 00:00:35,975
+infrastructure and we could start building on it and thanks to Amazon all of that physical stuff 
+
+6
+00:00:36,075 --> 00:00:41,975
+is their problem now. We don't have to care about it anymore, well, okay that's not exactly true, 
+
+7
+00:00:42,075 --> 00:00:47,975
+we still need to care of course, we just don't need to have it up front and central on our personal to do lists, 
+
+8
+00:00:48,075 --> 00:00:54,975
+which no doubt are already long enough as it is. Thanks to Amazon we just care about the compute network 
+
+9
+00:00:55,075 --> 00:00:59,975
+and storage that our apps run on. So, we went from this 
+
+10
+00:01:00,075 --> 00:01:04,975
+and we started off by building a VPC, which is like the logical boundary of the virtual private cloud 
+
+11
+00:01:05,075 --> 00:01:08,975
+or the virtual private data center that we were going to build in AWS. 
+
+12
+00:01:09,075 --> 00:01:16,975
+You know what? It's not too dissimilar to leasing an empty hole in a colo data center, all the AC, the power, 
+
+13
+00:01:17,075 --> 00:01:21,975
+all of that shenanigans is taken care of by someone else, in our case Amazon. 
+
+14
+00:01:22,075 --> 00:01:28,975
+Anyway, we gave that VPC a network and a name, then we carved that network into two subnets. 
+
+15
+00:01:29,075 --> 00:01:34,975
+We made one of them public and the other one private and we pretty much said, right, the only difference 
+
+16
+00:01:35,075 --> 00:01:41,975
+is the existence of a route from the public subnet to the internet via an internet gateway. 
+
+17
+00:01:42,075 --> 00:01:48,975
+Then, we spun up an instance in the public subnet and we made sure that it got assigned a public IP address. 
+
+18
+00:01:49,075 --> 00:01:56,975
+Then we initiated an inbound SSH connection to the instance using that public IP. 
+
+19
+00:01:57,075 --> 00:02:02,975
+It's just insane, honestly it is. With a few clicks of a mouse and a pathetically small incursion on our 
+
+20
+00:02:03,075 --> 00:02:09,975
+credit card, we've effectively built a data center. But we've bought or leased no land. 
+
+21
+00:02:10,075 --> 00:02:14,975
+We've built or leased no building, put up no security perimeter, connected no power, connected no 
+
+22
+00:02:15,075 --> 00:02:20,975
+Telco communications, we've racked no servers, ran no cables, nothing. 
+
+23
+00:02:21,075 --> 00:02:28,975
+Amazon has done it all for us. All we had to do was to find a few networks and even that was a walk in the park. 
+
+24
+00:02:29,075 --> 00:02:35,975
+Internet gateways were built for us, network routes were configured, access control lists, so much stuff, 
+
+25
+00:02:36,075 --> 00:02:40,975
+and we never even broke a sweat. Anyone watching fancy going back to the old days where something like this 
+
+26
+00:02:41,075 --> 00:02:46,975
+would have taken months of hard labor and negotiations, not to mention a boat load of up front capital? 
+
+27
+00:02:47,075 --> 00:02:51,975
+Not me. Welcome to the future, it's bright and it's in the cloud. 
+
+28
+00:02:52,075 --> 00:02:57,975
+But, and there's always a but, right, I want to give a big old warning here. 
+
+29
+00:02:58,075 --> 00:03:02,975
+You might be tempted to think, hey now I can go and build a private data center in Amazon and the world 
+
+30
+00:03:03,075 --> 00:03:10,975
+is my oyster and yeah it is, but don't go running straight off and deploying your apps into what we just built there. 
+
+31
+00:03:11,075 --> 00:03:15,975
+There's actually a ton more that you're going to want to learn before you start hosting your prime time on Amazon. 
+
+32
+00:03:16,075 --> 00:03:20,975
+And I'm not just talking fancy stuff like high availability and auto-scaling, I'm talking critical 
+
+33
+00:03:21,075 --> 00:03:26,975
+fundamental stuff like making sure that public IP just gave to you instance doesn't change when you reboot 
+
+34
+00:03:27,075 --> 00:03:32,975
+your instance because the way that we built the VPC in this module here, as soon as you reboot that instance, 
+
+35
+00:03:33,075 --> 00:03:40,975
+it's going to lose that public IP and get a shiny new one. And I'm sure you grock, that is far from ideal 
+
+36
+00:03:41,075 --> 00:03:47,975
+when you just told a paying customer that it was going to be the IP address of an API endpoint or something like that. 
+
+37
+00:03:48,075 --> 00:03:50,975
+So stick around, there's plenty more still to learn. 
+
+38
+00:03:51,075 --> 00:03:55,975
+Coming on up in the next module, we're going to start from scratch again and we're going to build a VPC 
+
+39
+00:03:56,075 --> 00:04:00,975
+by hand, no, that's not right actually, it's still going to be pointing and clicking, right. 
+
+40
+00:04:01,075 --> 00:04:04,975
+What I mean is we're going to build it manually, so no wizard this time. 
+
+41
+00:04:05,075 --> 00:04:08,975
+Wizards are for wimps anyway, you never learn anything using a wizard. 
+
+42
+00:04:09,075 --> 00:04:13,975
+So meet me back here when I've cleaned things down and we'll start building a VPC manually and learning 
+
+43
+00:04:14,075 --> 00:04:17,075
+how it's all strung together under the hood, sound good? Right, see you there. 
+
+

@@ -1,0 +1,125 @@
+1
+00:00:00,599 --> 00:00:09,428
+Okay then, if we hit subnets over here, then jump straight into creating a new one, now, I strongly suggest 
+
+2
+00:00:09,528 --> 00:00:13,428
+that you give it some kind of name, okay, that makes it easy for you to tell if it's going to be public 
+
+3
+00:00:13,528 --> 00:00:20,428
+or private. This one's going to be public and our first public subnet in this VPC, yeah. 
+
+4
+00:00:20,528 --> 00:00:26,428
+Honestly though, this is just going to save you a bunch of head scratching and hunting around and stuff 
+
+5
+00:00:26,528 --> 00:00:32,428
+in the future. Consider it like self documentation sort of. Just trust me okay, you'll be glad that you did. 
+
+6
+00:00:32,528 --> 00:00:40,428
+Make it part of our new VPC and choose an availability zone. Now, okay, don't forget how each availability zone 
+
+7
+00:00:40,528 --> 00:00:47,428
+within a region is like its own isolated data center, so that means let's say one of those snazzy flying 
+
+8
+00:00:47,528 --> 00:00:53,428
+delivery drones that Amazon is working with, yeah, well let's say one of them does like divide by 0 midflight 
+
+9
+00:00:53,528 --> 00:01:00,428
+and it comes crashing down on an AWS data center, taking the entire availability zone out with it, right. 
+
+10
+00:01:00,528 --> 00:01:06,428
+Okay, pretty funny news story, assuming nobody's hurt. But it's no big deal for us, right? 
+
+11
+00:01:06,528 --> 00:01:13,428
+As long as we've deployed our apps in a highly available fashion across multiple availability zones 
+
+12
+00:01:13,528 --> 00:01:19,428
+because the thing to grock here, right, is that an availability zone being taken out, even in style like that, 
+
+13
+00:01:19,528 --> 00:01:25,428
+right, isn't going to impact any AWS services running in other availability zones. 
+
+14
+00:01:25,528 --> 00:01:29,428
+Now, okay, we're getting ahead of ourselves here, we've not covered highly available designs yet. 
+
+15
+00:01:29,528 --> 00:01:35,428
+So 1b is going to be just fine for now. Then the CIDR block, okay. 
+
+16
+00:01:35,528 --> 00:01:42,428
+And I'm sure we know this by now, this is a slice of addresses taken from the pool of addresses that the VPC holds. 
+
+17
+00:01:42,528 --> 00:01:46,428
+In fact, let's swipe this guy on here, yeah, remember this one from earlier. 
+
+18
+00:01:46,528 --> 00:01:52,428
+The VPC has got like this big old pool of addresses and then each subnet that we create as part of the VPC 
+
+19
+00:01:52,528 --> 00:02:02,428
+takes a slice of those addresses for itself. Okay, so our VPC was 10.0.0.0, 10 and 3 zeros, right, 
+
+20
+00:02:02,528 --> 00:02:12,428
+with a /16 subnet mask. So for simplicity, we'll say this subnet's going to be 10.0.1.0/24 and yes we'd like to 
+
+21
+00:02:12,528 --> 00:02:19,428
+create that. And that's a very basic subnet for us, but we're going to want 2 for later on okay. 
+
+22
+00:02:19,528 --> 00:02:26,428
+One public for accessing the internet directly and the other one for private without direct internet access. 
+
+23
+00:02:26,528 --> 00:02:32,428
+So I'm going to do that again, only this time for a private subnet. 
+
+24
+00:02:32,528 --> 00:02:39,428
+Same VPC, same availability zone, and this'll do for the CIDR block. 
+
+25
+00:02:39,528 --> 00:02:45,428
+Okay, right, now then, just to step back for a second and see what we've actually done. 
+
+26
+00:02:45,528 --> 00:02:51,428
+We've created our VPC, yeah, we called it podcast and we assigned it a big old range of addresses. 
+
+27
+00:02:51,528 --> 00:02:58,428
+Then, from within that range of addresses, we sliced ourselves out two subnets, podcast-pub1 and 
+
+28
+00:02:58,528 --> 00:03:06,9
+podcast-priv1. Both in a single availability zone, right? Now then, that's what we've explicitly built, yeah. 
+
+29
+00:03:07,000 --> 00:03:11,9
+But behind the scenes, AWS has thrown in some extra stuff without us knowing, despite the fact, right, that 
+
+30
+00:03:12,000 --> 00:03:18,4
+we're not using a wizard, it's still done it. Mainly what it's added is a router and some routing tables. 
+
+31
+00:03:18,5 --> 00:03:22,5
+And that's what we're going to cover next. 
+
+

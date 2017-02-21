@@ -1,0 +1,97 @@
+1
+00:00:01,223 --> 00:00:07,123
+Well when Amazon was first launched, like back in the mid 2000s, there was just the S3 object store 
+
+2
+00:00:07,223 --> 00:00:17,123
+and the EC2 virtual machine platform and it's like, oh yeah. As it was, it was just too little for a lot 
+
+3
+00:00:17,223 --> 00:00:23,123
+of potential customers, especially, right, established businesses and enterprises. 
+
+4
+00:00:23,223 --> 00:00:27,123
+You see, most established companies were used to their own data centers 
+
+5
+00:00:27,223 --> 00:00:32,123
+where they owned the service, storage, and networking and they were in full control of the lot. 
+
+6
+00:00:32,223 --> 00:00:38,123
+Then enter EC2 as a virtual machine computing platform and suddenly not only were the servers and the likes 
+
+7
+00:00:38,223 --> 00:00:45,123
+not theirs, but they had precious little control over them too, especially in the networking space. 
+
+8
+00:00:45,223 --> 00:00:53,123
+So it was like, spin up an EC2 instance, a virtual machine, yeah, question, what's it's IP address going to be? 
+
+9
+00:00:53,223 --> 00:01:01,123
+Answer, uh, well, look that's just not a good answer okay. So very cool, yeah. 
+
+10
+00:01:01,223 --> 00:01:10,123
+Lots of shortcomings also, yeah. Well here entereth VPCs. These let us build pretty much our own virtual 
+
+11
+00:01:10,223 --> 00:01:14,123
+data center in AWS and we'll see all of this in just a sec, right. 
+
+12
+00:01:14,223 --> 00:01:21,123
+But for instance, we get to choose the network range for our entire VPC and then we're free to carve that up 
+
+13
+00:01:21,223 --> 00:01:28,123
+into as many subnets as we want. But not only that, we can put these subnets in whichever availability zones 
+
+14
+00:01:28,223 --> 00:01:36,123
+we want and that is massive, right. It means we can say things like, okay I want a couple of web servers 
+
+15
+00:01:36,223 --> 00:01:42,123
+for performance and availability and then choose to deploy one into a subnet that let's say in availability zone 
+
+16
+00:01:42,223 --> 00:01:50,123
+1A and the other into a subnet that's in availability zone 1B. Then if 1A goes away, so like the whole 
+
+17
+00:01:50,223 --> 00:01:56,123
+availability zone or maybe just the EC2 service, yeah, who cares, we're cool. 
+
+18
+00:01:56,223 --> 00:02:03,123
+1B is still up and we're still in business. But it's not just that, on each of these subnets, we can lash 
+
+19
+00:02:03,223 --> 00:02:09,123
+network access control lists just like we do on routers and firewalls in our corporate data center networks 
+
+20
+00:02:09,223 --> 00:02:15,123
+and before long, this is starting to look a whole lot like a regular corporate or data center network, 
+
+21
+00:02:15,223 --> 00:02:22,123
+which is a huge driver for adoption. You see, by making a VPC look and feel a lot like a traditional network 
+
+22
+00:02:22,223 --> 00:02:27,123
+a bunch more customers are going to deploy it. Now I don't want to waffle, I really want to get cracking 
+
+23
+00:02:27,223 --> 00:02:33,123
+and show you, but just maybe 1 more minute of your time, okay, before we get into it, I want to give you 
+
+24
+00:02:33,223 --> 00:02:36,223
+a couple of warnings. 
+
+

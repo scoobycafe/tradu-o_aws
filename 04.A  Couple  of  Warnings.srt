@@ -1,0 +1,129 @@
+1
+00:00:00,599 --> 00:00:06,296
+First up, right this stuff is addictive. So beware of the drug dealer model and I'm not making light of 
+
+2
+00:00:06,396 --> 00:00:13,296
+drug dealing here, nor am I calling Amazon drug dealers, I'm just trying to warn you, as is often the case 
+
+3
+00:00:13,396 --> 00:00:19,296
+with drug dealers, the first hit is free, then once you're hooked that's when it starts to cost 
+
+4
+00:00:19,396 --> 00:00:25,296
+and genuinely best of luck pulling yourself free. Well the same can potentially happen with AWS. 
+
+5
+00:00:25,396 --> 00:00:32,296
+Initial upfront costs can be so low as to be almost insignificant, but then if you're not careful 
+
+6
+00:00:32,396 --> 00:00:36,296
+before you know it, you're going to find yourself running a shed load of stuff on there and that's when 
+
+7
+00:00:36,396 --> 00:00:40,296
+you're going to start to feel the cost. 
+
+8
+00:00:40,396 --> 00:00:48,296
+Also, man, be careful not to do a Code Spaces. So if you don't know, there was this company called Code Spaces 
+
+9
+00:00:48,396 --> 00:00:53,296
+that I think was essentially a cloud based version control system or something like that, and like a lot 
+
+10
+00:00:53,396 --> 00:00:59,296
+of startups, they built their infrastructure, an entire business actually, on AWS. 
+
+11
+00:00:59,396 --> 00:01:04,296
+The problem being, actually, I should be careful about pointing the blame here, but the issue okay, 
+
+12
+00:01:04,396 --> 00:01:12,296
+was they were hosting everything on AWS, so their production environment and all its backups. 
+
+13
+00:01:12,396 --> 00:01:18,296
+Okay, I get that, it makes life easy, yeah. A single AWS account and you've got access to everything, 
+
+14
+00:01:18,396 --> 00:01:25,296
+makes day to day ops nice and easy, right. Though, I'm sure you've probably twigged, it also makes it 
+
+15
+00:01:25,396 --> 00:01:33,296
+dead, dead simple to trash the entire thing. So in the case of Code Spaces, someone malicious got access 
+
+16
+00:01:33,396 --> 00:01:39,296
+to that AWS account, it doesn't matter who, right, could be a disgruntled employee, an external hacker, 
+
+17
+00:01:39,396 --> 00:01:47,296
+whatever, right. The point is, they gained access to the Code Spaces AWS account and well, basically deleted 
+
+18
+00:01:47,396 --> 00:01:56,296
+the company production services and all of its backups. Yeah, not a great story. 
+
+19
+00:01:56,396 --> 00:02:00,296
+And don't get me wrong, okay, multifactor authentication, separate accounts for different roles, 
+
+20
+00:02:00,396 --> 00:02:06,296
+proper identity and access management, maybe even hosting backups or copies of backups elsewhere. 
+
+21
+00:02:06,396 --> 00:02:12,296
+There are a ton of things that can be done to mitigate disasters like this and in truth, it's not massively 
+
+22
+00:02:12,396 --> 00:02:18,296
+different to any other cloud providers or even on-prem non-cloud solutions where you have your own kit 
+
+23
+00:02:18,396 --> 00:02:25,296
+and your own data center. You can still totally be hacked and owned or have a disgruntled employee wreak havoc. 
+
+24
+00:02:25,396 --> 00:02:32,296
+Whatever the case, right, do everything necessary to mitigate your risk, it's your responsibility. 
+
+25
+00:02:32,396 --> 00:02:37,296
+Anyway, on that chirpy note, should we have some fun building a VPC? 
+
+26
+00:02:37,396 --> 00:02:45,296
+Hmm, not so easy to sound excited after that. But don't worry, no, no actually do worry, care about security, 
+
+27
+00:02:45,396 --> 00:02:52,296
+lock things down, spread your risk, all of that jazz. And if you do, you'll be able to sleep at night 
+
+28
+00:02:52,396 --> 00:02:54,296
+and we'll be able to rock and roll with the rest of this course. 
+
+29
+00:02:54,396 --> 00:03:01,296
+So let's do that, yeah, I feel better already. So next on the card, okay, we're going to build a VPC 
+
+30
+00:03:01,396 --> 00:03:07,296
+with the wizard. A quick module to paint the big VPC picture. And don't worry if you hate wizards, like me, 
+
+31
+00:03:07,396 --> 00:03:12,296
+once we've done this we're going to build it all again but without the wizard. 
+
+32
+00:03:12,396 --> 00:03:15,396
+Let's go and have some VPC fun. 
+
+

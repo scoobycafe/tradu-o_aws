@@ -1,0 +1,169 @@
+1
+00:00:00,599 --> 00:00:05,9
+In this lesson we'll configure things so that instances in our private subnet can get access to the internet. 
+
+2
+00:00:06,000 --> 00:00:10,938
+But we're going to do it in a way that's totally different to how we just did it with our public subnet, 
+
+3
+00:00:11,038 --> 00:00:16,938
+the reason, right, we don't want our private subnet to have full on access to the internet. 
+
+4
+00:00:17,038 --> 00:00:20,938
+So what we're going to build here is going to be a bit more restricted, you know, a bit lower performance 
+
+5
+00:00:21,038 --> 00:00:26,938
+and no public IPs for any instances. I mean it's still going to work of course, it's just for a different sort 
+
+6
+00:00:27,038 --> 00:00:32,938
+of requirements, horses for courses as we say here in the UK. This use case is going to be a bit more suited 
+
+7
+00:00:33,038 --> 00:00:39,938
+for things like hosts that need access to the internet for let's say patches and software updates. 
+
+8
+00:00:40,038 --> 00:00:44,938
+Anyway, this is what we're going to build. First up, we're going to spin up what's called a NAT instance 
+
+9
+00:00:45,038 --> 00:00:50,938
+and we're going to spin it up in our public subnet. We'll use an Amazon provided AMI for that and although 
+
+10
+00:00:51,038 --> 00:00:56,938
+it's just a Linux instance, it is a bit special. We're going to use it like a router. 
+
+11
+00:00:57,038 --> 00:01:01,938
+So kind of a proxy middle man, right, where we send it packets and it in turn delivers those packets 
+
+12
+00:01:02,038 --> 00:01:09,938
+to the internet. So we'll spin the instance up and then we'll configure it to disable source and 
+
+13
+00:01:10,038 --> 00:01:14,938
+destination checks and this is vital, right. Because this is what lets it act like a router, receiving packets 
+
+14
+00:01:15,038 --> 00:01:20,938
+from our private subnet and passing them onto the internet or the internet gateway, I should say. 
+
+15
+00:01:21,038 --> 00:01:27,938
+Now, all instances have got this attribute called source and destination checks and by default it's set to enable, 
+
+16
+00:01:28,038 --> 00:01:32,938
+and all that does, right, is say, hey anytime you receive a packet on the network, check it and see if it's 
+
+17
+00:01:33,038 --> 00:01:38,938
+either from your or to you, if it's not, drop it. So don't pass it onto anyone else. 
+
+18
+00:01:39,038 --> 00:01:45,938
+Well obviously that's not good behavior for a router whose raison d'être is obviously to forward packets on 
+
+19
+00:01:46,038 --> 00:01:50,938
+that are not addressed to it. So we're going to need to disable that check. 
+
+20
+00:01:51,038 --> 00:01:57,938
+Also, we're going to manually update the routing table in our private subnet so that it's got a default route 
+
+21
+00:01:58,038 --> 00:02:04,938
+that throws packets to the NAT instance. This way, anything that's not matched by the local route 
+
+22
+00:02:05,038 --> 00:02:09,938
+gets thrown over to the NAT instance, which then in turn is going to throw them over to the internet gateway, 
+
+23
+00:02:10,038 --> 00:02:14,938
+which is then going to throw them onto, well the internet. Magic. 
+
+24
+00:02:15,038 --> 00:02:20,938
+Now a couple of quick points before we go and configure it. This config of using a NAT instance here as a router 
+
+25
+00:02:21,038 --> 00:02:28,938
+is going to act a bit like a stateful firewall of sorts, right. So, yes, while we can send traffic 
+
+26
+00:02:29,038 --> 00:02:33,938
+out to the internet, the only traffic that's going to be allowed back in is going to be bona fide responses 
+
+27
+00:02:34,038 --> 00:02:40,938
+to stuff we've already sent out. So, unsolicited incoming traffic, so stuff that's not in response 
+
+28
+00:02:41,038 --> 00:02:45,938
+to something we've already sent, it's going to get dropped. In technical speak, that means our NAT instance 
+
+29
+00:02:46,038 --> 00:02:52,938
+is going to allow stateful responses. Also, right, what's going on under the cover in the NAT instance 
+
+30
+00:02:53,038 --> 00:02:57,938
+is actually PAT, port address translation, it's not NAT. 
+
+31
+00:02:58,038 --> 00:03:03,938
+So remember how we said earlier that our instances in a public subnet, we assign each instance a publically 
+
+32
+00:03:04,038 --> 00:03:10,938
+routable IP address and then the internet gateway maintains that mapping table between public and private IPs? 
+
+33
+00:03:11,038 --> 00:03:15,938
+Well that can't be the case for this setup, right? Because the only instance that's part of this party, 
+
+34
+00:03:16,038 --> 00:03:21,938
+with a public IP, is going to be the NAT instance itself. So we'll end up in a situation where we've got 
+
+35
+00:03:22,038 --> 00:03:28,938
+multiple instances in our private subnet here all trying to get out to the internet via a single public IP 
+
+36
+00:03:29,038 --> 00:03:36,938
+on the NAT. So what happens is the NAT instance, sure, it's got its own public IP to get to the internet, 
+
+37
+00:03:37,038 --> 00:03:41,938
+but it maintains a mapping table that maps private IP addresses of instances on the private subnet 
+
+38
+00:03:42,038 --> 00:03:49,938
+to its own public IP plus a unique port number. So let's say we've got two instances down here, right, 
+
+39
+00:03:50,038 --> 00:03:57,938
+with a single private IP each. This particular one might be associated with port 6000 and then this one with 
+
+40
+00:03:58,038 --> 00:04:06,938
+port 6001. So, any traffic that comes back to the NAT, so a bona fide response, as long as it comes back on 
+
+41
+00:04:07,038 --> 00:04:14,938
+port 6000 it's going to get forwarded onto this instance. Okay, theory, theory, theory, should we actually 
+
+42
+00:04:15,038 --> 00:04:18,038
+go and do it? 
+
+

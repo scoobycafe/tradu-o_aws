@@ -1,0 +1,233 @@
+1
+00:00:01,000 --> 00:00:06,890
+So we get to NACLs from the VPC dashboard down here next to Security Groups. 
+
+2
+00:00:06,990 --> 00:00:11,890
+And as we can see, against this account that I'm using right now, we'll we've currently got three. 
+
+3
+00:00:11,990 --> 00:00:19,890
+So that's one for each of the three VPCs that I've got. And see how all of them are shown as default? 
+
+4
+00:00:19,990 --> 00:00:27,890
+Well that's because every VPC when it gets created automatically gets given a default NACL and then it's this 
+
+5
+00:00:27,990 --> 00:00:33,890
+that gets applied to any new subnets that we create. Now there's nothing really special about a default NACL, 
+
+6
+00:00:33,990 --> 00:00:42,890
+so we can edit it if we want to or if we'd prefer we can just associate a different NACL with each of our subnets. 
+
+7
+00:00:42,990 --> 00:00:47,890
+So if we look at the one associated with our two subnets here, see how it's got an inbound rule here 
+
+8
+00:00:47,990 --> 00:00:56,890
+that allows all traffic? Remember, that default deny all rule here gets processed last. 
+
+9
+00:00:56,990 --> 00:01:04,890
+So rule 100 here, allow all traffic types on all protocols on all ports from anywhere and everywhere, 
+
+10
+00:01:04,990 --> 00:01:11,890
+that's going to match everything and it's going to be processed before big red down here and as it's an allow rule 
+
+11
+00:01:11,990 --> 00:01:17,890
+all inbound traffic is good to go. And the same goes over here for the outbound interface. 
+
+12
+00:01:17,990 --> 00:01:26,890
+Rule 100, again, allowing anything and everything. So for the time being, right, from a security perspective, 
+
+13
+00:01:26,990 --> 00:01:32,890
+this NACL is about as much use as a solar powered fog light or an ejector seat in a helicopter, yeah, 
+
+14
+00:01:32,990 --> 00:01:39,890
+not much use at all. But we're absolutely able to edit it and add new rules and the likes. 
+
+15
+00:01:39,990 --> 00:01:44,890
+You know what? Instead of that, let's go and create a new one from scratch. 
+
+16
+00:01:44,990 --> 00:01:58,890
+Let's call it podcast-pub-NACL and stick it on our podcast VPC. Okay it's having to think. 
+
+17
+00:01:58,990 --> 00:02:03,890
+And there it is, not associated with any subnets though, and not a default NACL. 
+
+18
+00:02:03,990 --> 00:02:11,890
+But before we do associate it with a subnet, let's add some inbound rules. 
+
+19
+00:02:11,990 --> 00:02:17,890
+And as it's good practice, we'll start with rule 100. Now we'll make this one for SSH traffic. 
+
+20
+00:02:17,990 --> 00:02:23,890
+Now picking it from this drop down list or drop up list, all this does is it populates the protocol 
+
+21
+00:02:23,990 --> 00:02:30,890
+and the port sections for us and then we can decide if it's an allow rule or a deny rule. 
+
+22
+00:02:30,990 --> 00:02:37,890
+Now generally speaking, okay, 99.9 something % of rules are going to be allow rules. 
+
+23
+00:02:37,990 --> 00:02:42,890
+Deny rules, well they just make life a misery when things go wrong. 
+
+24
+00:02:42,990 --> 00:02:49,890
+Seriously, for such a simple and seemingly innocent thing, deny rules have like this evil power that'll make 
+
+25
+00:02:49,990 --> 00:02:55,890
+your hair go gray and probably start falling out. You might not think so, they look like so innocent, 
+
+26
+00:02:55,990 --> 00:03:02,890
+but it's so flipping true. Try and avoid them. Now in saying that, right, I'm not saying you should never 
+
+27
+00:03:02,990 --> 00:03:10,890
+create them, but do have a long hard think about it before you do and if you can try and work things out 
+
+28
+00:03:10,990 --> 00:03:22,890
+so that the default deny all rule is enough. Anyway, we'll add a couple more allows, one for HTTP (Typing) 
+
+29
+00:03:22,990 --> 00:03:37,890
+and one for HTTPS, oh go on, and one more as a custom rule (Typing), 2375 for talking to the Docker remote API. 
+
+30
+00:03:37,990 --> 00:03:44,890
+And for this one, yeah we'll say only hosts in our 10.0.2 network. 
+
+31
+00:03:44,990 --> 00:03:56,890
+Oh, don't forget to give it a number. And then for all of these ones up here, we'll say from any source (Typing). 
+
+32
+00:03:56,990 --> 00:04:07,890
+Looks good to me (Loading). Now for outbound rules. Right, just the default denial rule, so currently 
+
+33
+00:04:07,990 --> 00:04:12,890
+operating under like a level 10 lockdown, nothing is getting out. 
+
+34
+00:04:12,990 --> 00:04:23,890
+Well that's no fun (Typing). So we'll say, all traffic, it already says all protocols and ports, 
+
+35
+00:04:23,990 --> 00:04:30,890
+and we'll say that this traffic can go anywhere (Typing). Okay, hmm. 
+
+36
+00:04:30,990 --> 00:04:36,890
+This is fairly standard practice for outbound NACLs, but it's not massively secure though. 
+
+37
+00:04:36,990 --> 00:04:40,890
+So you might not want to do this in production, like leave it wide open like this. 
+
+38
+00:04:40,990 --> 00:04:47,890
+But for our lab demo here, ah, I'm not going to lose any sleep. So basically, right, we don't mind 
+
+39
+00:04:47,990 --> 00:04:55,890
+what traffic gets out, but coming in, yeah we're a bit more particular, only allowing SSH, HTTP, HTTPS, 
+
+40
+00:04:55,990 --> 00:05:03,890
+and traffic heading for the Docker remote API endpoint. Good. But it's not attached to any subnets yet. 
+
+41
+00:05:03,990 --> 00:05:12,890
+So if we edit this and we'll associate it with our public subnet (Loading). 
+
+42
+00:05:12,990 --> 00:05:18,890
+Now doing that, associating it with our public subnet, automatically kicks off any of the NACL that was already 
+
+43
+00:05:18,990 --> 00:05:22,890
+associated with that subnet and that was the VPC's default NACL. 
+
+44
+00:05:22,990 --> 00:05:31,890
+Remember, we can only stick one NACL on any subnet. Now, while it's live and active on our public subnet, 
+
+45
+00:05:31,990 --> 00:05:36,890
+we can still go in and edit it's rules and seeing as how this is attached to our public subnet, 
+
+46
+00:05:36,990 --> 00:05:45,890
+I don't really want 2375 open, so I'll just delete it, and this one down here that it thought I was going to create, 
+
+47
+00:05:45,990 --> 00:05:55,890
+and I'll give it a save. And there it is, it's gone. Now if we jump up to our instances up here, 
+
+48
+00:05:55,990 --> 00:06:16,890
+come down and grab that public IP again (Typing), and let's fire off a connection to it (Typing). 
+
+49
+00:06:16,990 --> 00:06:21,890
+Log in as ec2-user and we're in. 
+
+50
+00:06:21,990 --> 00:06:29,890
+Now blasting through it, right. The podcast public route table here, it's got a route to the internet, 
+
+51
+00:06:29,990 --> 00:06:37,890
+and that's obviously very important. Without it, no traffic can get in or out, internet traffic that is. 
+
+52
+00:06:37,990 --> 00:06:43,890
+And we can see, it's associated with the public subnet that we've got our instance in. 
+
+53
+00:06:43,990 --> 00:06:51,890
+Then network ACLs here, ah, I just called it a Network ACL, not a NACL, anyway it's got an inbound rule 
+
+54
+00:06:51,990 --> 00:06:55,890
+allowing SSH and it's got an outbound rule allowing all traffic out. 
+
+55
+00:06:55,990 --> 00:07:04,890
+We need that, otherwise responses can't get back to us. And for security groups, ah, we get a better view 
+
+56
+00:07:04,990 --> 00:07:14,890
+from the instance itself. Yeah, see down here, right, a couple of security groups, but importantly 
+
+57
+00:07:14,990 --> 00:07:20,890
+a rule, again allowing SSH traffic. And that's like how it all fits together. 
+
+58
+00:07:20,990 --> 00:07:24,990
+Let's go and recap what we've learned in the module now. 
+
+

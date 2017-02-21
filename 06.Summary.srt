@@ -1,0 +1,141 @@
+1
+00:00:00,599 --> 00:00:03,9
+Okay, what did we learn in this module? 
+
+2
+00:00:04,000 --> 00:00:08,368
+Well two things basically, first up VPNs. 
+
+3
+00:00:08,468 --> 00:00:15,368
+A cost effective and convenient way to lash our existing sites and networks up to our AWS VPC. 
+
+4
+00:00:15,468 --> 00:00:21,368
+But, using the internet to string the two together. Though that's like not the end of the world, right, 
+
+5
+00:00:21,468 --> 00:00:28,368
+these are proper site to site IPsec VPNs, so they're robust, reliable, and secure. 
+
+6
+00:00:28,468 --> 00:00:33,368
+But seeing as how they use the internet in the middle, they also object to the kind of latency and 
+
+7
+00:00:33,468 --> 00:00:37,368
+throughput challenges that we all love about the internet. But you know what? 
+
+8
+00:00:37,468 --> 00:00:42,368
+Don't let that put you off totally. They really can be the bizzo. 
+
+9
+00:00:42,468 --> 00:00:47,368
+We also pointed out, right, that once these VPN connections are up and working, we can then connect 
+
+10
+00:00:47,468 --> 00:00:54,368
+to our instances in AWS from our office networks using private IPs. 
+
+11
+00:00:54,468 --> 00:00:58,368
+And this is cracking, right? It makes them look and feel like regular old services that are on our 
+
+12
+00:00:58,468 --> 00:01:04,368
+corporate network rather than distant cloud services that we need to access over the internet. 
+
+13
+00:01:04,468 --> 00:01:12,368
+It's really a good thing. Then, we looked at Direct Connect, kind of like the VPN's big brother. 
+
+14
+00:01:12,468 --> 00:01:18,368
+These, right, allow us to run dedicated fiber connections directly from our infrastructure into AWS 
+
+15
+00:01:18,468 --> 00:01:25,368
+or actually via an approved partner. But the point being, we're on dedicated fiber links now 
+
+16
+00:01:25,468 --> 00:01:30,368
+and we're not shifting traffic over the internet. As a result, right, these are going to give us much more 
+
+17
+00:01:30,468 --> 00:01:37,368
+reliable and consistent network performance and most importantly, at least in most cloud computing use cases, 
+
+18
+00:01:37,468 --> 00:01:44,368
+higher throughput. Now of the two big networking measurements, right, latency and throughput, 
+
+19
+00:01:44,468 --> 00:01:49,368
+I'd say in the majority of cases, throughput is the killer for cloud computing. 
+
+20
+00:01:49,468 --> 00:01:53,368
+Because I figure, right, in most cases, high latency is a given, yeah. 
+
+21
+00:01:53,468 --> 00:01:58,368
+I mean even using Direct Connect, you're not going to get the kind of low latencies that you can get 
+
+22
+00:01:58,468 --> 00:02:03,368
+if everything's in your own data center. So on your own layer 2 network or your own fiber channel SAN 
+
+23
+00:02:03,468 --> 00:02:09,368
+or whatever, you're not going to get those kind of latencies. It really is throughput that's the killer. 
+
+24
+00:02:09,468 --> 00:02:15,368
+I mean, you want to maybe backing up and restoring to S3 or Glacier or something or doing data analytics 
+
+25
+00:02:15,468 --> 00:02:22,368
+on large data stores that you've got in AWS. Latency is usually not even part of the conversation. 
+
+26
+00:02:22,468 --> 00:02:28,368
+It's all about how much data you can shift back and forth between yourself and AWS. 
+
+27
+00:02:28,468 --> 00:02:34,368
+Well, if that's the case, Direct Connect can be a proper golden ticket to the cloud for you. 
+
+28
+00:02:34,468 --> 00:02:41,368
+Anyway, we said we can have both, so Direct Connect and VPNs, but if we do that, the Direct Connect links 
+
+29
+00:02:41,468 --> 00:02:47,368
+are going to be the preferred ones as long as they're up and then if and when they're down, the VPN 
+
+30
+00:02:47,468 --> 00:02:53,368
+connection kicks in and saves the day. Well, all good stuff, right? 
+
+31
+00:02:53,468 --> 00:03:00,368
+Next up, well a change of gears actually. We're going to wrap the course up with a bit of a quick Q and A with me, 
+
+32
+00:03:00,468 --> 00:03:06,368
+me asking the questions and me giving the answers, how's about that for a rigged set up, yeah? 
+
+33
+00:03:06,468 --> 00:03:13,368
+A bit like a dictatorship. I'll answer any question, so long as I get to see it first and allow only the easy ones. 
+
+34
+00:03:13,468 --> 00:03:20,368
+In fact, what am I talking about? I even wrote the questions and I get to edit the video, talk about 
+
+35
+00:03:20,468 --> 00:03:23,468
+an easy ride. Anyway, see you there in the next module. 
+
+

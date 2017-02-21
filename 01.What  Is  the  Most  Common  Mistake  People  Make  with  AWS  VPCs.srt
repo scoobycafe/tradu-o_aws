@@ -1,0 +1,161 @@
+1
+00:00:00,599 --> 00:00:08,9
+So, here we go, right, a Q&A session, though totally rigged. I mean, I've not only written the questions, 
+
+2
+00:00:09,000 --> 00:00:13,9
+and I totally get to edit my own answers so that I'll look great or I guess sound great. 
+
+3
+00:00:14,000 --> 00:00:20,9
+But seriously, I've not done this in any of my courses before, so it could be a totally rubbish idea 
+
+4
+00:00:21,000 --> 00:00:26,9
+and I could end up sounding ridiculous, but I don't know, I was pretty stoked with the idea when I first had it 
+
+5
+00:00:27,000 --> 00:00:30,9
+and in my head at least, I thought it would be great. I thought you'd really like it as viewers. 
+
+6
+00:00:31,000 --> 00:00:33,9
+So you know what? Here's my Twitter handle. 
+
+7
+00:00:34,000 --> 00:00:38,9
+If anybody does actually bother to watch this module, do me a favor, right, and let me know what you thought of it 
+
+8
+00:00:39,000 --> 00:00:45,9
+because seriously, I mean, it's not like a sub-story or anything, but I do put a ton of effort into these courses 
+
+9
+00:00:46,000 --> 00:00:50,9
+and I'd really like to know what works and what doesn't. So here it goes. 
+
+10
+00:00:51,000 --> 00:00:57,9
+I'm a bit nervous actually. First question, so what's the biggest or most common mistake you see people making 
+
+11
+00:00:58,000 --> 00:01:04,9
+with AWS VPCs? Oh, cool. Nice easy one to start off with. Thanks for that. 
+
+12
+00:01:05,000 --> 00:01:11,9
+Yeah, this is a bit weird. Anyway, seriously right. I reckon it's VPC CIDR blocks, so choosing the 
+
+13
+00:01:12,000 --> 00:01:20,9
+IP address space to use in your VPC. If you've watched the course we use the 10.0.0.0/16 network 
+
+14
+00:01:21,000 --> 00:01:23,9
+and I feel like I blabbered on about this quite a lot in the course. 
+
+15
+00:01:24,000 --> 00:01:29,9
+But network planning it's just huge and it's so easy not to bother with or to get wrong. 
+
+16
+00:01:30,000 --> 00:01:34,9
+Probably because it's one of the first things that you do when creating your VPC. 
+
+17
+00:01:35,000 --> 00:01:39,9
+But seriously, get those CIDR blocks wrong and you can find yourself in a deep hole with no ladder to help you out, 
+
+18
+00:01:40,000 --> 00:01:46,9
+you really, really, really want to make sure you're not using the same network addresses in your VPC 
+
+19
+00:01:47,000 --> 00:01:52,9
+that you've already got in use somewhere else on your corporate network. 
+
+20
+00:01:53,000 --> 00:01:58,9
+So for instance, if you're going to go with a 10.0 network for your VPC, make absolutely sure that it's not 
+
+21
+00:01:59,000 --> 00:02:03,9
+the network you're already using in the office or your on-prem data center or anything. 
+
+22
+00:02:04,000 --> 00:02:08,9
+And if you're at a company with a dedicated network team or multiple network teams, you're definitely 
+
+23
+00:02:09,000 --> 00:02:13,9
+going to want to talk to them about this kind of thing. Get them involved and get them on your side 
+
+24
+00:02:14,000 --> 00:02:18,9
+from the start because in IT infrastructure, right, in my experience, the network is where most of 
+
+25
+00:02:19,000 --> 00:02:25,9
+the complexity is. I mean, did you ever wonder why just about every outage is blamed on the network? 
+
+26
+00:02:26,000 --> 00:02:30,9
+Yeah, I know a bunch of the time we use the term network issue or network incident when it's not really 
+
+27
+00:02:31,000 --> 00:02:38,9
+the network, but in all of my years of infrastructure experience, more often than not it is the network. 
+
+28
+00:02:39,000 --> 00:02:43,9
+And I'm not slamming networks or network people here, right? The reason it's usually the network 
+
+29
+00:02:44,000 --> 00:02:47,9
+at the core of the problem is because networking is so freaking complex. 
+
+30
+00:02:48,000 --> 00:02:53,9
+So get in early with your network team and plan out your subnets and stuff with those guys before you start 
+
+31
+00:02:54,000 --> 00:02:59,9
+tearing into your VPC. And as well, don't let the network guys fob you off because your VPC networks 
+
+32
+00:03:00,000 --> 00:03:04,9
+are out there in the cloud and not yet considered part of your network proper. 
+
+33
+00:03:05,000 --> 00:03:10,9
+Treat your VPC networks just like any other corporate network, at least from a planning and an address space 
+
+34
+00:03:11,000 --> 00:03:15,9
+perspective, because I can almost guarantee that the day will come when you're going to want to hook your 
+
+35
+00:03:16,000 --> 00:03:23,9
+corporate networks up with your VPCs and we saw that actually earlier in the course using VPNs and Direct Connect. 
+
+36
+00:03:24,000 --> 00:03:28,9
+So, a bit of a long winded answer, but I reckon the biggest mistake and probably one of the easiest to make 
+
+37
+00:03:29,000 --> 00:03:36,9
+is getting your VPC networking wrong. So yeah, networking, get it right from the start because unpicking 
+
+38
+00:03:37,000 --> 00:03:43,9
+a fundamental problem like duplicate CIDR blocks, it's about as much fun as, I don't know waxing your armpit hair, 
+
+39
+00:03:44,000 --> 00:03:48,9
+not that I've ever done that, obviously. Really I haven't. But you get the message, right? 
+
+40
+00:03:49,000 --> 00:03:52,000
+Unpicking network problems is not fun. 
+
+

@@ -1,0 +1,69 @@
+1
+00:00:00,599 --> 00:00:07,222
+So we've got all of the VPC and subnetty type infrastructure in place to get us out onto the internet, 
+
+2
+00:00:07,322 --> 00:00:13,222
+but in order for any instances to actually make it out there, they need a public IP and I know it's probably 
+
+3
+00:00:13,322 --> 00:00:18,222
+not needed, but just in case, okay. Let's build out our analogy of roads and road signs. 
+
+4
+00:00:18,322 --> 00:00:26,222
+So if our routers and internet gateways are our actual roads, and our route table entries are like our road signs, 
+
+5
+00:00:26,322 --> 00:00:32,222
+then public IPs, I suppose, are a bit like cars. You're with me, right? 
+
+6
+00:00:32,322 --> 00:00:39,222
+In order to get out there on the internet or onto the motorway or highway, yeah, our instance needs a public IP 
+
+7
+00:00:39,322 --> 00:00:45,222
+or a car. Just like you can't take a bike on the motorway, like a pedal bike, yeah, well at least in England 
+
+8
+00:00:45,322 --> 00:00:51,222
+you can't, well you can't take a private IP onto the internet, you need a public one. 
+
+9
+00:00:51,322 --> 00:00:57,222
+Okay, well, we have a couple of ways to accomplish that. We can either assign an instance of public IP 
+
+10
+00:00:57,322 --> 00:01:03,222
+when we create the instance or we can set an attribute on the subnet so that every time we launch an instance 
+
+11
+00:01:03,322 --> 00:01:13,222
+into that subnet it's going to get one automatically. Right, so if we head over to our public subnet 
+
+12
+00:01:13,322 --> 00:01:19,222
+and then see here in the Summary tab of it, and in fact look, it's the same for any subnet, right, 
+
+13
+00:01:19,322 --> 00:01:29,222
+or at least we've got this setting in every subnet. Auto-assign public IP, well we need to set that to yes. 
+
+14
+00:01:29,322 --> 00:01:37,222
+And there's the option right there or up here in Subnet Actions. And again, look, it couldn't be any simpler, 
+
+15
+00:01:37,322 --> 00:01:44,222
+one tick in the box and we're in business. Though, I will point out, right, we've no way of controlling 
+
+16
+00:01:44,322 --> 00:01:50,222
+what IP address gets assigned. Sure it'll be publically routable, but we don't get to choose what the actual 
+
+17
+00:01:50,322 --> 00:01:53,322
+addresses are. Anyway, should we go and spin up an instance? 
+
+

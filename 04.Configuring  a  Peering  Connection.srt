@@ -1,0 +1,177 @@
+1
+00:00:00,599 --> 00:00:07,688
+Yes, my favorite bit, getting into the console and actually building stuff. 
+
+2
+00:00:07,788 --> 00:00:16,688
+Anyway, so we've got two VPCs belonging to two different AWS accounts and the way that I normally roll with this 
+
+3
+00:00:16,788 --> 00:00:22,688
+is I open them in two separate browsers, one account in Chrome and the other in Firefox. 
+
+4
+00:00:22,788 --> 00:00:28,688
+It just means that Chrome saves my creds for one account and Firefox for the other. 
+
+5
+00:00:28,788 --> 00:00:33,688
+So, in Chrome first, we've got our podcast VPC, nice and familiar, yeah. 
+
+6
+00:00:33,788 --> 00:00:46,688
+And we should have a single running instance (Loading), yeah, and with a public IP and DNS name. 
+
+7
+00:00:46,788 --> 00:00:53,688
+In fact, let's grab that DNS name and I'll open up an SSH session to it, by magic, yeah. 
+
+8
+00:00:53,788 --> 00:01:07,688
+Okay, so ip a, so 10.0.1.250 and yes, it's the right box. Remember okay, instances don't know about their 
+
+9
+00:01:07,788 --> 00:01:13,688
+public IPs, that's all mapped in a table on the internet gateway. 
+
+10
+00:01:13,788 --> 00:01:21,688
+Never mind that though, if we scoot quickly over to Firefox to our other account, okay, two more VPCs. 
+
+11
+00:01:21,788 --> 00:01:26,688
+And this blog one is the one that we care about. But for now, right, we want to grab the private IP 
+
+12
+00:01:26,788 --> 00:01:35,688
+of the instance that we're going to try and ping. Okay. And it's going to be this one here, blog and then 
+
+13
+00:01:35,788 --> 00:01:44,688
+in the private subnet and it's a Linux box. And this is it's private IP, so if we grab that, then go and try 
+
+14
+00:01:44,788 --> 00:01:56,688
+and ping it (Typing). Yeah, not looking good. Nope, definitely no replies coming back. 
+
+15
+00:01:56,788 --> 00:02:07,688
+Okay, back to Firefox. What we want now is some VPC ID stuff and the likes (Typing). 
+
+16
+00:02:07,788 --> 00:02:16,688
+So this is our blog VPC ID here, same again down here, and here, oh and notice it's CIDR block, yeah, 
+
+17
+00:02:16,788 --> 00:02:24,688
+in the 172 range. But we'll have a copy of this and we'll keep it in here. 
+
+18
+00:02:24,788 --> 00:02:32,688
+Remember, this is the ID of the VPC that we're going to request a connection to. 
+
+19
+00:02:32,788 --> 00:02:38,688
+Also, right, we're going to want the ID of the account here that owns it and, by the way, don't be thinking 
+
+20
+00:02:38,788 --> 00:02:45,688
+because it says Nigel Poulton here and it's the same back here in Chrome, these are just display names, 
+
+21
+00:02:45,788 --> 00:02:54,688
+they are totally different accounts. Anyway, if we click the dropdown and my account, this is what we want. 
+
+22
+00:02:54,788 --> 00:03:00,688
+No offense, I love you guys and all, but you never know who's watching, so I'm going to hide my personal details, 
+
+23
+00:03:00,788 --> 00:03:04,688
+yeah, in fact by the time you're watching this they'll already be hidden. 
+
+24
+00:03:04,788 --> 00:03:11,688
+But let's paste this into here, okay, so we're ready to rock and roll creating this peering request, 
+
+25
+00:03:11,788 --> 00:03:16,688
+so from our podcast VPC, I'm sorry for all the jumping back and forth here, you're probably getting sea sick, 
+
+26
+00:03:16,788 --> 00:03:24,688
+I know, but we're back in our podcast VPC. And if we hit peering connections here, don't worry about this 
+
+27
+00:03:24,788 --> 00:03:32,688
+deleted one, we want the big blue button here, Create VPC Peering Connection. 
+
+28
+00:03:32,788 --> 00:03:37,688
+And by now, right, we know all about the importance of naming our stuff. 
+
+29
+00:03:37,788 --> 00:03:45,688
+So we'll call this I think podcast <> blog and pick our podcast VPC from here. 
+
+30
+00:03:45,788 --> 00:03:53,688
+Now then, we can obviously created a connection between two VPCs that our account here owns, or we can 
+
+31
+00:03:53,788 --> 00:04:00,688
+lash up a connection to a VPC owned by another account. Well, that's what we want. 
+
+32
+00:04:00,788 --> 00:04:14,688
+Okay, we'll grab the account ID (Typing) and the VPC ID (Typing). 
+
+33
+00:04:14,788 --> 00:04:23,688
+Alright then, so we've got a nice meaningful name. We're going to go from our podcast VPC here to this VPC ID 
+
+34
+00:04:23,788 --> 00:04:33,688
+here owned by this AWS account. Let's do it. Now then, at this point it's probably important to remember 
+
+35
+00:04:33,788 --> 00:04:41,688
+that this is only going to work, right, if our two VPCs are in the same region and if they don't have 
+
+36
+00:04:41,788 --> 00:04:49,688
+overlapping CIDR blocks, right. Anyway, take a note of the status here, pending, and that's acceptance, 
+
+37
+00:04:49,788 --> 00:04:58,688
+which is good, it means if we jump back over to our other account, navigate back to our VPC dashboard, 
+
+38
+00:04:58,788 --> 00:05:09,688
+peering connections, there we go. Now then, I'm expecting this, right, but you totally want to make sure, right, 
+
+39
+00:05:09,788 --> 00:05:17,688
+that all this stuff, like Account ID and maybe VPC ID, that they all match up with what you're expecting. 
+
+40
+00:05:17,788 --> 00:05:25,688
+Never just blinded accept peering requests. Then all we need to do now is hit Accept request down, 
+
+41
+00:05:25,788 --> 00:05:31,688
+one final chance to double check everything, and there we go, all established. 
+
+42
+00:05:31,788 --> 00:05:40,688
+And if we come back here, where is it? Yeah, this ID here, this pcx object, this is our peering connection object, 
+
+43
+00:05:40,788 --> 00:05:46,688
+so like an internet gateway, yeah. This is going to be our target when we update our routing tables. 
+
+44
+00:05:46,788 --> 00:05:50,788
+Speaking of which, let's go and do it. 
+
+

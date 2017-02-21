@@ -1,0 +1,197 @@
+1
+00:00:00,599 --> 00:00:05,000
+So staying inside of our AWS console for the time being, 
+
+2
+00:00:05,100 --> 00:00:11,000
+what have we got? Well there we go. We can see we've got our new VPC, podcast, yeah. 
+
+3
+00:00:11,100 --> 00:00:17,000
+We've got a quick snapshot of what our VPC consists of and most of this stuff, at least at the time or recording, 
+
+4
+00:00:17,100 --> 00:00:26,000
+right, is shown to us as hideous AWS resource name mumbo jumbo, but we can see our VPC has an ID. 
+
+5
+00:00:26,100 --> 00:00:33,000
+We can see the networks that we've assigned to it and notice, right, that of the three VPCs that I've currently got, 
+
+6
+00:00:33,100 --> 00:00:39,000
+they've all got different network addresses and this'll be really important later on when we try and 
+
+7
+00:00:39,100 --> 00:00:49,000
+connect them to each other. We've got DHCP stuff, routing stuff, access control lists, tenancy, 
+
+8
+00:00:49,100 --> 00:00:53,000
+the default, right, being we just want to share physical servers on the back end with everyone else, 
+
+9
+00:00:53,100 --> 00:01:00,000
+that's what default means. The other option, remember, being for those of us with money to burn who want their own 
+
+10
+00:01:00,100 --> 00:01:04,000
+dedicated physical servers on the back end and you know what though? 
+
+11
+00:01:04,100 --> 00:01:09,000
+Maybe you've got some kosher requirements for that kind of thing, but we're on the cheap on this course, right? 
+
+12
+00:01:09,100 --> 00:01:17,000
+We're happy to share our back end with anyone and everyone. Ah, and default okay, the default VPC, 
+
+13
+00:01:17,100 --> 00:01:24,000
+you can only have one per region, right? This is something that AWS creates automatically for you in each region, 
+
+14
+00:01:24,100 --> 00:01:29,000
+so you'll have one default VPC automatically created for you in each region. 
+
+15
+00:01:29,100 --> 00:01:36,000
+And all it is, right is the VPC that any instances and the likes get deployed into unless we specifically choose 
+
+16
+00:01:36,100 --> 00:01:42,000
+to drop them into a different VPC. Now then okay, subnets here. 
+
+17
+00:01:42,100 --> 00:01:49,000
+And I've got a handful or so, okay, but we see straight away the value of naming them. 
+
+18
+00:01:49,100 --> 00:01:54,000
+I mean we can instantly pick out our private and public subnets that we just created, right, but who the heck 
+
+19
+00:01:54,100 --> 00:02:02,000
+knows what those ones that I've not bothered to label are for. Moral of the story, remember label your stuff. 
+
+20
+00:02:02,100 --> 00:02:07,000
+Now then, time to reveal the mystery of this public subnet business. 
+
+21
+00:02:07,100 --> 00:02:15,000
+So, if we take a look at the route table down here associated with our public subnet, right, this rule here, 
+
+22
+00:02:15,100 --> 00:02:24,000
+0.0.0.0/0, well this is like the default route for the subnet, so the catchall route that gets used 
+
+23
+00:02:24,100 --> 00:02:31,000
+when there's no better matches. And this device here that that traffic gets sent to, starting with igw, 
+
+24
+00:02:31,100 --> 00:02:37,000
+is an internet gateway, a router that routes traffic to the internet. 
+
+25
+00:02:37,100 --> 00:02:42,000
+And you know what? If we compare it to our private subnet up here, yeah, see how that doesn't send traffic 
+
+26
+00:02:42,100 --> 00:02:50,000
+to an igw or to an internet gateway? Well, that there, at least at the time or recording, is the major difference 
+
+27
+00:02:50,100 --> 00:02:56,000
+between public and private subnets. A public subnet has got a route to the internet via an internet gateway 
+
+28
+00:02:56,100 --> 00:03:04,000
+and a private subnet doesn't. This other route, this one here, oop, well both subnets have got this. 
+
+29
+00:03:04,100 --> 00:03:10,000
+And what it does is it lets traffic flow locally between subnets without our VPC. 
+
+30
+00:03:10,100 --> 00:03:17,000
+Okay, cool and all, but it doesn't throw any light onto the mystery of why our public subnet here, 
+
+31
+00:03:17,100 --> 00:03:21,000
+why it's got a private network that's not even routable on the internet. 
+
+32
+00:03:21,100 --> 00:03:27,000
+Well, let's unravel this mystery. You know what right? We're going to be coming back to all of this 
+
+33
+00:03:27,100 --> 00:03:34,000
+in more detail later, but this old boy here, okay, auto-assign public IP, this is where the magic happens 
+
+34
+00:03:34,100 --> 00:03:43,000
+or actually this is where we turn the magic on because the magic actually happens on the internet gateway. 
+
+35
+00:03:43,100 --> 00:03:49,000
+But this setting, right, it's a subnet wide setting, okay, and if we enable it, so we go up here and then we hit 
+
+36
+00:03:49,100 --> 00:03:56,000
+this modify auto-assign public IP option, what this is going to do is anytime we launch an instance 
+
+37
+00:03:56,100 --> 00:04:04,000
+into this subnet, it's going to get a public IP. So a proper, bonafide publically routable address, 
+
+38
+00:04:04,100 --> 00:04:12,000
+none of this RFC 1918 internal only, not publically routable stuff, no every instance is then going to get 
+
+39
+00:04:12,100 --> 00:04:21,000
+its very own public IP address, only the way it works, right, and let's say this first, but the way it works 
+
+40
+00:04:21,100 --> 00:04:29,000
+is that each instance still only gets a private IP address from the RFC 1918 CIDR block range down here. 
+
+41
+00:04:29,100 --> 00:04:36,000
+But then the internet gateway performs some NATting magic where it maps a public IP address to a private 
+
+42
+00:04:36,100 --> 00:04:40,000
+IP address. You get what I'm saying or at least I hope you do, right? 
+
+43
+00:04:40,100 --> 00:04:49,000
+Every instance will then a public IP address associated with its private IP address on the internet gateway. 
+
+44
+00:04:49,100 --> 00:04:56,000
+So the internet gateway holds a mapping, making it look and feel like the instances have their own public IPs. 
+
+45
+00:04:56,100 --> 00:05:01,000
+Anyway, we're going to cover this stuff properly later in the course and I'll draw pictures and diagrams 
+
+46
+00:05:01,100 --> 00:05:07,000
+and all of that kind of jazz, okay. For now, right, we know that public subnets 1) have a route to an 
+
+47
+00:05:07,100 --> 00:05:12,000
+internet gateway, meaning they can get out to the internet and if we want instances in that subnet to be 
+
+48
+00:05:12,100 --> 00:05:20,000
+directly addressable on the internet with public IPs, we can do that too, thanks to a bit of NAT magic 
+
+49
+00:05:20,100 --> 00:05:23,100
+done by the VPC's internet gateway. Wowzers. 
+
+

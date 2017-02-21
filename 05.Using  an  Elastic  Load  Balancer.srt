@@ -1,0 +1,233 @@
+1
+00:00:00,599 --> 00:00:07,218
+Okay, so we've got our two web servers up and working. And we've configured our elastic load balancer 
+
+2
+00:00:07,318 --> 00:00:13,218
+to know all about them. So, now all that's done, we need to stop accessing our web service directly 
+
+3
+00:00:13,318 --> 00:00:21,218
+and start accessing them through the load balancer. Well, to do that, we're going to need either the IP address 
+
+4
+00:00:21,318 --> 00:00:26,218
+or the DNS name of the load balancer, which brings us to our first major point. 
+
+5
+00:00:26,318 --> 00:00:33,218
+Amazon doesn't expose the load balance's IP addresses, just its DNS name, and there's sound reasoning 
+
+6
+00:00:33,318 --> 00:00:41,218
+for that. You see, the elastic part of elastic load balancer means it's flexible, so the load balancer 
+
+7
+00:00:41,318 --> 00:00:48,218
+grows and shrinks based on how much traffic it's handling, only we really need to think of it as a 
+
+8
+00:00:48,318 --> 00:00:53,218
+load balancing service and it's therefore the service that grows and shrinks. 
+
+9
+00:00:53,318 --> 00:00:59,218
+So, okay, behind the scenes, right, it's something like this. When we start out, our load balancer 
+
+10
+00:00:59,318 --> 00:01:06,218
+comes prepackaged as some standard size. And then let's say over time the amount of load that it's handling 
+
+11
+00:01:06,318 --> 00:01:15,218
+increases. Well, when that happens, the actual load balancer behind the scenes, so the nuts and bolts, yeah, 
+
+12
+00:01:15,318 --> 00:01:22,218
+well that might actually get swapped out for a bigger instance and that kind of switch makes the IP address 
+
+13
+00:01:22,318 --> 00:01:28,218
+or addresses behind the load balancer's DNS name, it makes them change. 
+
+14
+00:01:28,318 --> 00:01:36,218
+So the net effect, right, over time, the IP addresses servicing our load balancers are going to be changing. 
+
+15
+00:01:36,318 --> 00:01:41,218
+But the corollary, it's DNS name, doesn't, Amazon makes sure of that. 
+
+16
+00:01:41,318 --> 00:01:48,218
+But it can also happen that it scales out as well, so we end up with multiple IPs behind that DNS name. 
+
+17
+00:01:48,318 --> 00:01:53,218
+It really doesn't matter though, the point being, as the elastic load balancer flexes, so grows and shrinks 
+
+18
+00:01:53,318 --> 00:01:59,218
+based on demand and requirements, the IP addresses behind it are going to change, fluid yeah. 
+
+19
+00:01:59,318 --> 00:02:05,218
+Not to be trusted. Moral of the story, just always use the DNS name. 
+
+20
+00:02:05,318 --> 00:02:12,218
+And of course, while that's no bad thing, it does have a few knock on effects that you're going to want to consider. 
+
+21
+00:02:12,318 --> 00:02:19,218
+One of those, for example, being that you can't white list the load balancer's IP addresses because they change. 
+
+22
+00:02:19,318 --> 00:02:24,218
+So for its DNS name that we can see here, yeah, we can just whack that into a browser session, that means 
+
+23
+00:02:24,318 --> 00:02:29,218
+our web traffic is going to go to the load balancer, which in turn is going to balance it over our two 
+
+24
+00:02:29,318 --> 00:02:37,218
+backend web servers. So 1b this time and if we hit refresh, 1a. 
+
+25
+00:02:37,318 --> 00:02:43,218
+Refresh again and we how it's flipping between the two. Well I don't want this to be an anticlimax or anything, 
+
+26
+00:02:43,318 --> 00:02:50,218
+but that there is our elastic load balancer in all its glory or all its glory is a bit harsh, 
+
+27
+00:02:50,318 --> 00:02:55,218
+because that is a fairly mundane task we're asking it to do. Remember we said earlier, it can do things like 
+
+28
+00:02:55,318 --> 00:03:02,218
+accept HTTPS traffic and then pass that on internally as plain HTTP, effectively offloading our 
+
+29
+00:03:02,318 --> 00:03:07,218
+SSL connections, though I shouldn't really say SSL anymore, TLS, yeah. 
+
+30
+00:03:07,318 --> 00:03:13,218
+And you know what else? This is common as well, so the DNS name that it's been given by Amazon is a bit ugly, yeah. 
+
+31
+00:03:13,318 --> 00:03:21,218
+Well, if we jump over to GoDaddy over here or wherever your DNS servers are, yeah, well I've got this unused 
+
+32
+00:03:21,318 --> 00:03:28,218
+domain name here called tech-force-one.com, it's just from back when we were deciding on a name for the podcast 
+
+33
+00:03:28,318 --> 00:03:33,218
+that I co-host. I think we were deciding between In Tech We Trust and Tech Force One. 
+
+34
+00:03:33,318 --> 00:03:39,218
+Well at the time I just registered both domain names in case. Anyway, tech-force-one is unused, 
+
+35
+00:03:39,318 --> 00:03:50,218
+so if I add a record here, a CNAME, so an alias, and then say www.tech-force-one.com, we're going to point that 
+
+36
+00:03:50,318 --> 00:03:57,218
+to that heaviest long name that Amazon gave our elastic load balancer here, yep redirect that monstrosity, 
+
+37
+00:03:57,318 --> 00:04:03,218
+and a time to live of 1 hour is fine. So, save that, and what it's going to do is, right, it's going to 
+
+38
+00:04:03,318 --> 00:04:10,218
+let us use the friendly tech-force-one.com domain name to access our load balancers, which in turn 
+
+39
+00:04:10,318 --> 00:04:16,218
+gives us access to our web servers. And this is guaranteed to work, yeah, because that hideous long DNS name 
+
+40
+00:04:16,318 --> 00:04:23,218
+that our load balancer got given, Amazon guaranteed that that is not going to change. 
+
+41
+00:04:23,318 --> 00:04:30,218
+So, if we go to that browser session again, and change it to www.tech-force-one.com, bingo. 
+
+42
+00:04:30,318 --> 00:04:37,218
+And cycling through then, yeah, we flip-flop between both just as we'd expect. 
+
+43
+00:04:37,318 --> 00:04:42,218
+Now then, I just want to point out one last thing before we go and do a recap of what we've learned. 
+
+44
+00:04:42,318 --> 00:04:47,218
+There's always going to be a lag when the elastic load balancer decides it needs to scale. 
+
+45
+00:04:47,318 --> 00:04:53,218
+So between the time that traffic increases, yeah, and the time that the load balancer responds by scaling 
+
+46
+00:04:53,318 --> 00:04:58,218
+to meet that increased demand and there definitely are corner cases or niche requirements, yeah, 
+
+47
+00:04:58,318 --> 00:05:05,218
+where this can be a challenge. So what I'd say is expect a minimum, right, of probably about 90 seconds 
+
+48
+00:05:05,318 --> 00:05:10,218
+before you see any scaling really start to happen. But that's just a minimum, it can be a bit more, 
+
+49
+00:05:10,318 --> 00:05:16,218
+and part of the reason for this, right, is that there's a 60 second time to live, or TTL, placed on the 
+
+50
+00:05:16,318 --> 00:05:22,218
+load balancer's DNS record, not the one we just created in GoDaddy, the one that Amazon maintains mapping 
+
+51
+00:05:22,318 --> 00:05:30,218
+that hideous long name to any IP addresses behind it. But what this means, right, is there's going to be 60 seconds 
+
+52
+00:05:30,318 --> 00:05:36,218
+before any changes to the IPs of the backend load balancing nuts and bolts services, yeah, actually get 
+
+53
+00:05:36,318 --> 00:05:42,218
+reflected in the real world. Remember, yeah, when scaling that load balancer, the newly scaled service 
+
+54
+00:05:42,318 --> 00:05:49,218
+has brand new IPs behind the DNS record and it's therefore going to be 60 seconds before those new IPs 
+
+55
+00:05:49,318 --> 00:05:56,218
+start getting used. And remember, there's also the health checks that we talked about before, so both are 
+
+56
+00:05:56,318 --> 00:06:05,218
+potential delays, right, to the overall time it takes your app to respond positively to changes in traffic patterns. 
+
+57
+00:06:05,318 --> 00:06:11,218
+Anyway, it's still cracking stuff and if it doesn't totally meet your needs, go and pair it up with a third party 
+
+58
+00:06:11,318 --> 00:06:14,318
+load balancer too. Enough of that though, let's go quickly remind ourselves of the main things that we learned. 
+
+

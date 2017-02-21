@@ -1,0 +1,161 @@
+1
+00:00:00,599 --> 00:00:07,4
+So I'm all logged into AWS here. We're going to want to jump into the VPC section, which is down here 
+
+2
+00:00:07,5 --> 00:00:16,657
+under Network, and then this old boy up here is what we want, Start VPC Wizard. 
+
+3
+00:00:16,757 --> 00:00:23,657
+Now then, at the time of recording, and it's been like this for awhile actually, but we've got four options, 
+
+4
+00:00:23,757 --> 00:00:27,657
+only it's pretty much two options with just a slight variation on each. 
+
+5
+00:00:27,757 --> 00:00:34,657
+What am I talking about? Well, we've got VPC with a Single Subnet up here, then underneath we've got VPC 
+
+6
+00:00:34,757 --> 00:00:42,657
+with Public and Private Subnets. And then the two options below down here, these are just the same, 
+
+7
+00:00:42,757 --> 00:00:47,657
+but with a VPN bolted on. No matter though, don't get bogged down right now, we'll cover all things 
+
+8
+00:00:47,757 --> 00:00:53,657
+in all their glorious detail as we get further into the course. Right now though we're going to rock and roll 
+
+9
+00:00:53,757 --> 00:00:59,657
+with option 2. We'll have a public and a private subnet, thank you very much. 
+
+10
+00:00:59,757 --> 00:01:05,657
+Oh, and a nice pretty picture here, and yeah, why not, seeing as how I'm a fan of learning by repetition 
+
+11
+00:01:05,757 --> 00:01:08,657
+and the likes, let's give this a quick mention while we're here. 
+
+12
+00:01:08,757 --> 00:01:15,657
+This outer square here, okay, what's that? Well, okay, it's a rectangle not a square, but you're with me, 
+
+13
+00:01:15,757 --> 00:01:21,657
+this outer rectangle, this is our entire VPC, our entire virtual data center that we're building, 
+
+14
+00:01:21,757 --> 00:01:27,657
+then within it we're creating two subnets, a public one, and a private one. 
+
+15
+00:01:27,757 --> 00:01:33,657
+Now the major difference or the only difference, to be honest, is that a public subnet is going to have 
+
+16
+00:01:33,757 --> 00:01:39,657
+direct access to the internet. We're going to be able to connect out to the wider world as well as accept 
+
+17
+00:01:39,757 --> 00:01:45,657
+unsolicited incoming connections. The private subnet on the other hand isn't. 
+
+18
+00:01:45,757 --> 00:01:49,657
+Well, yeah, actually that'll do for now. 
+
+19
+00:01:49,757 --> 00:01:57,657
+Oh, scary screen. Well, not really. Up here at the top, okay, this is the VPC stuff, subnet specific stuff 
+
+20
+00:01:57,757 --> 00:02:02,657
+is below, and we'll get to that in a second. First up, the easy stuff though, VPC name. 
+
+21
+00:02:02,757 --> 00:02:10,657
+I'm going to call this one podcast. Now then, the CIDR block, okay, this is where we define the network 
+
+22
+00:02:10,757 --> 00:02:17,657
+or the network addresses from which all of our subnets will take their addresses from. 
+
+23
+00:02:17,757 --> 00:02:22,657
+I don't know, right, think of it as like a master network, like a pool of addresses that all of our subnets 
+
+24
+00:02:22,757 --> 00:02:30,657
+will then be a slice of and I know, okay, for the network savvy who are watching, I'm sure I butchered that, 
+
+25
+00:02:30,757 --> 00:02:37,657
+but suffice to say, okay, whatever we choose here at the VPC definition level, our subnets have to draw from. 
+
+26
+00:02:37,757 --> 00:02:44,657
+So we can't do something like 10.0.0.0 up here and then try and pick subnet address ranges down here 
+
+27
+00:02:44,757 --> 00:02:52,657
+from let's just say 192.168.whatever, yeah. Look scary red text, never a good sign. 
+
+28
+00:02:52,757 --> 00:02:58,657
+An actually, okay, while I'm not an uber networking guy, I am from a strong infrastructure background. 
+
+29
+00:02:58,757 --> 00:03:02,657
+And you know what? I've held some Cisco certs in the dim and distant past. 
+
+30
+00:03:02,757 --> 00:03:10,657
+So for those that might not know, okay, let's wipe this onto the screen here, yeah, okay, so IPv4 addresses 
+
+31
+00:03:10,757 --> 00:03:19,657
+like these are broken down into 4 octets, 4 sets of 8 bits, 8, 16, 24, and 32. 
+
+32
+00:03:19,757 --> 00:03:25,657
+And then by slapping /16 onto the end here, we're basically saying the first 16 bits or the first 2 octets, 
+
+33
+00:03:25,757 --> 00:03:32,657
+so the numbers before the first 2 periods, these are network address. 
+
+34
+00:03:32,757 --> 00:03:38,657
+I don't know, maybe like the city name in our postal address. In this case then we'd be in the 10.0 city, 
+
+35
+00:03:38,757 --> 00:03:45,657
+then the remaining 2 octets are for street and house numbers of any devices that we put onto the network. 
+
+36
+00:03:45,757 --> 00:03:53,657
+So the number after the /16 here is telling us how many bits constitute the network portion of the address, 
+
+37
+00:03:53,757 --> 00:04:01,657
+then we're free to play with any bits that are left over to the right of that, in this case the last 2 octets, yeah. 
+
+38
+00:04:01,757 --> 00:04:07,657
+Probably a totally garbage analogy I know, but who knows, right, maybe it helps somebody. 
+
+39
+00:04:07,757 --> 00:04:13,657
+I'm trying hard to remember here that not all of you are going to be from an infrastructure background like me. 
+
+40
+00:04:13,757 --> 00:04:17,757
+Anyway, let's clean this mess up. 
+
+

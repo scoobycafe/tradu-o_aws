@@ -1,0 +1,209 @@
+1
+00:00:00,599 --> 00:00:02,831
+So over to EC2, 
+
+2
+00:00:02,931 --> 00:00:12,831
+in fact, you know what, let's stick these up here. Should save us a bit of time I think (Typing). 
+
+3
+00:00:12,931 --> 00:00:19,831
+Okay, let's go launch an instance. You know what? Let's go with the AWS Linux AMI this time or A-M-I, 
+
+4
+00:00:19,931 --> 00:00:25,831
+whatever you want to call it. T2 micro will do for us. And here we go. 
+
+5
+00:00:25,931 --> 00:00:32,831
+We'll have our podcast VPC thanks and obviously we want our public subnet and then see here, auto-assign 
+
+6
+00:00:32,931 --> 00:00:38,831
+public IP, we can either go with the subnet's default setting, which is the bit in parens, obviously 
+
+7
+00:00:38,931 --> 00:00:44,831
+that's enabled since we just set that, or we can manually override the setting. 
+
+8
+00:00:44,931 --> 00:00:52,831
+Well the subnet's default of enable is fine with us, but just remember this is where we can override it if we need to. 
+
+9
+00:00:52,931 --> 00:01:04,831
+Okay, next. Next. Yep, we'll name ours (Typing). That'll do. And I think the security group config 
+
+10
+00:01:04,931 --> 00:01:09,831
+is going to work for us, right, we're just going to try SSH and let's launch. 
+
+11
+00:01:09,931 --> 00:01:20,831
+Right, a key pair and off it goes (Loading). Now while this spins itself up, let's go see it's public IP. 
+
+12
+00:01:20,931 --> 00:01:30,831
+There it is, 52.18.112.214. A full on, bona fide, publically routable IP address. 
+
+13
+00:01:30,931 --> 00:01:36,831
+Well let's grab a copy of it, in fact, no, let's go with the public DNS name. 
+
+14
+00:01:36,931 --> 00:01:46,831
+We'll open up a command prompt and let's see if we can ping it. Bingo. 
+
+15
+00:01:46,931 --> 00:01:53,831
+Well, okay it's not accepting pings, but we can see that we can resolve the DNS name to its public IP address. 
+
+16
+00:01:53,931 --> 00:02:04,831
+Okay, well let's configure PuTTY here, so we'll go in there, we'll tell it to use our podcast keys, 
+
+17
+00:02:04,931 --> 00:02:10,831
+we downloaded those and converted them to the PPK format earlier in the course. 
+
+18
+00:02:10,931 --> 00:02:24,831
+Let's make the font a decent size and we'll connect (Loading). Oh, not exactly what we wanted. 
+
+19
+00:02:24,931 --> 00:02:29,831
+I'll tell you what, let me give it another go, just in case it's still firing up. 
+
+20
+00:02:29,931 --> 00:02:40,831
+No, not looking good. Okay, IP address 112.241, yeah that's right. 
+
+21
+00:02:40,931 --> 00:02:50,831
+Let's check the security group, yep, SSH allowed. Let's go look at the NACL, I know we've not covered this yet, 
+
+22
+00:02:50,931 --> 00:03:11,831
+but needs must (Loading). Inbound, yes to all. I wonder if we've got a route to the internet, yep. 
+
+23
+00:03:11,931 --> 00:03:18,831
+Oh, look, no subnet associations. Did we forget to associate this when we created it? 
+
+24
+00:03:18,931 --> 00:03:25,831
+I guess we did. Okay, let's associate it with our public subnet. 
+
+25
+00:03:25,931 --> 00:03:38,831
+Should we try this again (Loading)? Ah, that's miles better. Whooo wee, we went with the AWS AMI, right? 
+
+26
+00:03:38,931 --> 00:03:46,831
+Yeah, back to business now. Okay, so IP addresses. Oh, hang on a second. 
+
+27
+00:03:46,931 --> 00:03:50,831
+Where's the public IP? That's just the loopback in the private addresses there. 
+
+28
+00:03:50,931 --> 00:03:59,831
+Are we missing something? No, same again here, just the loopback and the private address. 
+
+29
+00:03:59,931 --> 00:04:05,831
+So Linux knows nothing about the public IP address. But we know it works, right? 
+
+30
+00:04:05,931 --> 00:04:10,831
+I mean we've just SSH'ed into the thing using its public IP. So what's going on? 
+
+31
+00:04:10,931 --> 00:04:16,831
+Does it have a public IP or doesn't it? Well, we're witnessing a little bit of AWS magic here, 
+
+32
+00:04:16,931 --> 00:04:23,831
+but not hidden dark magic. So not like the secret source of the internet gateway we talked about earlier, 
+
+33
+00:04:23,931 --> 00:04:28,831
+although this is actually internet gateway magic, it's just not secret this time. 
+
+34
+00:04:28,931 --> 00:04:33,831
+So what is going on here? Our Linux instance, and it could just as easily be a Windows instance, right? 
+
+35
+00:04:33,931 --> 00:04:37,831
+But it knows nothing about any public IP address, we just saw that. 
+
+36
+00:04:37,931 --> 00:04:44,831
+All it knows about is its private IP. Then on the internet gateway we've got a bit of NAT magic going on, 
+
+37
+00:04:44,931 --> 00:04:51,831
+network address translation. So basically, the internet gateway is holding a mapping of private IPs 
+
+38
+00:04:51,931 --> 00:04:57,831
+to public IPs. So every time our instance here sends a packet to the internet, the internet gateway, yeah, 
+
+39
+00:04:57,931 --> 00:05:03,831
+it sends the packet out to the internet, but stamped with the public IP of the instance. 
+
+40
+00:05:03,931 --> 00:05:08,831
+Then any replies that come back, well they get converted back to the instance's private IP before they get 
+
+41
+00:05:08,931 --> 00:05:14,831
+delivered back onto the VPC. Dead simple, but dead effective too. 
+
+42
+00:05:14,931 --> 00:05:20,831
+The internet gateway just takes care of making sure that any internet bound requests in or out get mapped 
+
+43
+00:05:20,931 --> 00:05:27,831
+to the appropriate public IP for that instance. So just in case you weren't already impressed at the 
+
+44
+00:05:27,931 --> 00:05:37,831
+horizontal scalableness and super nitroglycerin enhanced performance of the internet gateway, well guess what? 
+
+45
+00:05:37,931 --> 00:05:42,831
+It performs a bunch of NAT magic too. I don't know, next it'll be making you coffee. 
+
+46
+00:05:42,931 --> 00:05:49,831
+But the sweet thing, remember, we created it with like a couple of mouse clicks, unbelievable. 
+
+47
+00:05:49,931 --> 00:05:54,831
+But there we go, a public subnet in all of its wonder and glory. 
+
+48
+00:05:54,931 --> 00:05:59,831
+Internet gateways, route table entries, and public IP addresses. 
+
+49
+00:05:59,931 --> 00:06:06,831
+The only problem we're left with now, when we reboot the instance it's going to lose that public IP 
+
+50
+00:06:06,931 --> 00:06:12,831
+and get a totally new one. What? You heard that right. Totally non-persistent. 
+
+51
+00:06:12,931 --> 00:06:18,831
+Here today, gone tomorrow. No good for anything permanent. What? 
+
+52
+00:06:18,931 --> 00:06:22,931
+Well, no big deal, it's easily fixable. 
+
+

@@ -1,0 +1,173 @@
+1
+00:00:00,754 --> 00:00:06,654
+So first up, right, I called the module configuring routing between VPCs. 
+
+2
+00:00:06,754 --> 00:00:13,654
+But the way we do this is via an AWS technology called VPC peering. 
+
+3
+00:00:13,754 --> 00:00:18,654
+So there are totally times, right, where we want to hook up a couple of VPCs, in a way though 
+
+4
+00:00:18,754 --> 00:00:25,654
+so that resources in either VPC can talk to the other VPC without having to cross the internet 
+
+5
+00:00:25,754 --> 00:00:31,654
+and I hate lists of bullet points, right, but I don't know, I can't really escape it here. 
+
+6
+00:00:31,754 --> 00:00:38,654
+Anyway, this, right, is where VPC peering comes into play. So, any two VPCs lashed together with a 
+
+7
+00:00:38,754 --> 00:00:46,654
+peering connection actually, that's our first point. These peering connections are 1 to 1. 
+
+8
+00:00:46,754 --> 00:00:52,654
+Sure, a VPC can be paired up with a whole bunch of other VPCs, but that requires a whole bunch of 
+
+9
+00:00:52,754 --> 00:00:59,654
+individual connections. Reason being, every connection requires its own connection object, it'll be 
+
+10
+00:00:59,754 --> 00:01:07,654
+crystal clear in a second. Anyway, this is all about private IPs, yeah, and this is the bizzo, 
+
+11
+00:01:07,754 --> 00:01:14,654
+I mean it means we don't have to worry about changeable public IPs or chargeable elastic IPs, 
+
+12
+00:01:14,754 --> 00:01:22,654
+and in general, it's just a bit more secure, yeah. Oh, peering is region specific, so the VPC's we want to 
+
+13
+00:01:22,754 --> 00:01:29,654
+lash together need to be in the same region. We can't do this stuff across region yet. 
+
+14
+00:01:29,754 --> 00:01:35,654
+Hmm, okay, maybe I should have mentioned this when saying peering connections are 1 to 1, so as the slide says, 
+
+15
+00:01:35,754 --> 00:01:43,654
+right, peering connections are not transitive. This means if we've got three VPCs, 1, 2, and 3 here, 
+
+16
+00:01:43,754 --> 00:01:51,654
+and 1's connected to 2 and 2's connected to 3, this does not mean that 1 is connected to 3. 
+
+17
+00:01:51,754 --> 00:01:55,654
+It's not. There's none of this, don't mind me, I'm just passing through. 
+
+18
+00:01:55,754 --> 00:02:02,654
+No you're not. This old boy here, VPC 2 is not a transit point between 1 and 3. 
+
+19
+00:02:02,754 --> 00:02:10,654
+If 1 wants to talk to 3 as a peer, it needs its own connection. Oh yeah, kind of similar. 
+
+20
+00:02:10,754 --> 00:02:17,654
+We can only have one peering connection between any two VPCs. So no doubling up for performance or resiliency, 
+
+21
+00:02:17,754 --> 00:02:23,654
+yeah or no. But don't sweat about that, at least if you believe Amazon, because according to them, 
+
+22
+00:02:23,754 --> 00:02:30,654
+although they won't tell you how, VPC peering connections have no single point of failure and they're so bad ass, 
+
+23
+00:02:30,754 --> 00:02:35,654
+right, they're never going to be a choking point in your network. 
+
+24
+00:02:35,754 --> 00:02:43,654
+Okay, well that's what they say. Ah, right, so this is like uber important okay. 
+
+25
+00:02:43,754 --> 00:02:50,654
+None of this is going to work if the network address space in one VPC, so the CIDR block that we configure it with, 
+
+26
+00:02:50,754 --> 00:02:57,654
+overlaps with the other VPC. They need to be on totally separate CIDR blocks and this runs through our 
+
+27
+00:02:57,754 --> 00:03:04,654
+VPC networking, right. If you want to connect any network up to a VPC, so maybe lash up a link between your 
+
+28
+00:03:04,754 --> 00:03:10,654
+corporate office and your VPC over a VPN or direct connect that we're going to talk about in the next module, 
+
+29
+00:03:10,754 --> 00:03:18,654
+or even what we're going here, connecting VPCs, we can never have overlapping CIDR blocks. 
+
+30
+00:03:18,754 --> 00:03:27,654
+Okay, so what happens is from within one VPC we create a connection request requesting a peer connection 
+
+31
+00:03:27,754 --> 00:03:35,654
+to another VPC. And that VPC, okay, can totally belong to another AWS account, in fact, we're going to do that 
+
+32
+00:03:35,754 --> 00:03:42,654
+later with two separate accounts, but we create this connection request from the source VPC, though 
+
+33
+00:03:42,754 --> 00:03:50,654
+there's no real concept of source and destination. Anyway, that request, it then pops up in the VPC console 
+
+34
+00:03:50,754 --> 00:03:57,654
+of the destination VPC. Then the owner or the admin of that VPC has got like a week or something to accept it 
+
+35
+00:03:57,754 --> 00:04:05,654
+or reject it. And I totally advise you to be extremely carefully accepting peering requests. 
+
+36
+00:04:05,754 --> 00:04:10,654
+You don't want some evil dude spoofing a connection to you and you accepting it because bad things 
+
+37
+00:04:10,754 --> 00:04:18,654
+would almost certainly ensue. Anyway, once that's accepted each VPC gains a peering connection object, 
+
+38
+00:04:18,754 --> 00:04:25,654
+kind of like an internet gateway, yeah, and it's like totally uber remember, unbreakable and impossible 
+
+39
+00:04:25,754 --> 00:04:33,654
+to overrun. Then one last thing, we've got to update the routing tables associated with the subnets 
+
+40
+00:04:33,754 --> 00:04:41,654
+that we want using this connection. No doubt, right, some bits are probably still a bit vague, 
+
+41
+00:04:41,754 --> 00:04:46,654
+but I reckon, right, once we've run through our mock scenario and we've actually gone and configured it all, 
+
+42
+00:04:46,754 --> 00:04:51,654
+I reckon it will feel like you've known it forever, inside out and back to front. 
+
+43
+00:04:51,754 --> 00:04:55,754
+So let's go and look at our scenario. 
+
+

@@ -1,0 +1,237 @@
+1
+00:00:00,798 --> 00:00:08,698
+Sticking with the theory for just a bit longer. Probably the first thing to say is that all instances 
+
+2
+00:00:08,798 --> 00:00:14,698
+need a security group. It's a bit like a tax code, right, you've just got to have one though and like tax codes, 
+
+3
+00:00:14,798 --> 00:00:21,698
+security groups are a good thing. In fact actually, instances are not limited to having just a single 
+
+4
+00:00:21,798 --> 00:00:27,698
+security group, they can have more, up to five actually. Though, there is a subtly there. 
+
+5
+00:00:27,798 --> 00:00:35,698
+Technically speaking, right, security groups actually get assigned to NICs, network interfaces on our instances 
+
+6
+00:00:35,798 --> 00:00:41,698
+and not the instances themselves. So, me saying each instance can have up to five security groups 
+
+7
+00:00:41,798 --> 00:00:46,698
+associated with it, well that's really five per network interface. 
+
+8
+00:00:46,798 --> 00:00:52,698
+So an instance with 2 network interfaces, well it can obviously have 10 security groups, 3 network interfaces 
+
+9
+00:00:52,798 --> 00:01:00,698
+that would be 15, yeah. Now then, and maybe we'll see this in a demo in a sec, but when we associate 
+
+10
+00:01:00,798 --> 00:01:07,698
+a security group with an instance or when we think we're associating it with an instance, so we click the instance 
+
+11
+00:01:07,798 --> 00:01:14,698
+in the EC2 console and we modify its security groups, we're actually working with the Eth0 NIC, the first NIC 
+
+12
+00:01:14,798 --> 00:01:19,698
+in the instance and I don't want to get like massively side tracked by this, okay, because for all intents 
+
+13
+00:01:19,798 --> 00:01:27,698
+and purposes we are associating with the instance because we can't remove the Eth0 network interface 
+
+14
+00:01:27,798 --> 00:01:33,698
+from an instance. Now as much as I don't want us to get side tracked by this, I do think it's worth knowing, 
+
+15
+00:01:33,798 --> 00:01:39,698
+so security groups are actually associated with network interfaces on an instance and not directly with 
+
+16
+00:01:39,798 --> 00:01:45,698
+the instance itself and I'll try and show that when we come to the demo in a sec, right. 
+
+17
+00:01:45,798 --> 00:01:52,698
+Now though, for how they actually work. So they're pretty much personal firewalls for our instances. 
+
+18
+00:01:52,798 --> 00:01:59,698
+They allow or deny traffic. Okay, that's only like half true, okay. 
+
+19
+00:01:59,798 --> 00:02:07,698
+What am I saying? Well, security groups, okay, can only actually be configured to allow traffic, 
+
+20
+00:02:07,798 --> 00:02:14,698
+so we can only create rules that say things like, yeah allow this traffic or yes allow that traffic, 
+
+21
+00:02:14,798 --> 00:02:23,698
+we can't explicitly say deny this traffic or deny that traffic. But okay, in reality if we don't specifically 
+
+22
+00:02:23,798 --> 00:02:31,698
+allow a type of traffic, then it's going to get denied. So, once we create a security group and start populating it 
+
+23
+00:02:31,798 --> 00:02:38,698
+with rules to allow traffic, any traffic then, I suppose we could say, whose name isn't on the list, 
+
+24
+00:02:38,798 --> 00:02:47,698
+gets denied, yeah. So we create explicit allow rules and then anything not explicitly allowed is 
+
+25
+00:02:47,798 --> 00:02:52,698
+implicitly denied. I'm much more of a fan of the practical then the theory. 
+
+26
+00:02:52,798 --> 00:02:58,698
+Anyway, they pretty much look like this, well, they actually totally look like this because this is just 
+
+27
+00:02:58,798 --> 00:03:04,698
+a screen shot. First up though, they can allow inbound and outbound traffic. 
+
+28
+00:03:04,798 --> 00:03:11,698
+Inbound being traffic that's coming into our instance and outbound being traffic that's leaving the instance. 
+
+29
+00:03:11,798 --> 00:03:18,698
+Then, for each we create a list of rules, each rule being a protocol, a port, and then depending on whether 
+
+30
+00:03:18,798 --> 00:03:25,698
+it's inbound or outbound, it needs a source or a destination. So looking at the first line here, 
+
+31
+00:03:25,798 --> 00:03:32,698
+this one's nice and easy, it's allowing unencrypted web traffic from any source. 
+
+32
+00:03:32,798 --> 00:03:40,698
+Okay, well, how do I know that? Well by convention, unencrypted web traffic operates over TCP port 80 
+
+33
+00:03:40,798 --> 00:03:50,698
+and by specifying 0.0.0.0/0 as the source, we're saying allow this traffic from any source, so a pretty 
+
+34
+00:03:50,798 --> 00:03:56,698
+standard rule, yeah, one that you might legitimately apply to internet facing web servers. 
+
+35
+00:03:56,798 --> 00:04:01,698
+The HTTP bit over here, we'll see this in the demo as well, but it's just a convenient way for us to pick 
+
+36
+00:04:01,798 --> 00:04:08,698
+a predefined rule from a drop down list. The actual substance of the rule is these three columns here. 
+
+37
+00:04:08,798 --> 00:04:15,698
+The rule down at the bottom here, it's pretty much the same, only this time it's allowing encrypted web traffic. 
+
+38
+00:04:15,798 --> 00:04:23,698
+Then there's this bad boy in the middle. This guy is going to allow Docker traffic over TCP port 2375, 
+
+39
+00:04:23,798 --> 00:04:31,698
+but only from devices in the 10.0.3 network. And the way this all works, right, is that when evaluating 
+
+40
+00:04:31,798 --> 00:04:39,698
+traffic, right, so anytime traffic comes in, all rules get processed and checked, then if when we've processed 
+
+41
+00:04:39,798 --> 00:04:45,698
+all the rules and we've not found a match, the traffic gets dropped, denied. 
+
+42
+00:04:45,798 --> 00:04:52,698
+And outbound looks the same. Okay, a different rule, yeah, but the structure is the same, protocol, 
+
+43
+00:04:52,798 --> 00:04:57,698
+port or port group, yeah, and a destination this time instead of a source. 
+
+44
+00:04:57,798 --> 00:05:04,698
+Okay, now a few final things, we say that security groups are stateful, they act like a stateful firewall, 
+
+45
+00:05:04,798 --> 00:05:12,698
+so for example, any responses to traffic that we send out are automatically allowed back in. 
+
+46
+00:05:12,798 --> 00:05:19,698
+Think of it maybe like this, the security group, I guess we could say, remembers hey yeah, I allowed that 
+
+47
+00:05:19,798 --> 00:05:25,698
+traffic out before and I can see that this is a legit response, so I'm going to let it back in. 
+
+48
+00:05:25,798 --> 00:05:31,698
+And vice versa too, so if it's just allowed some traffic in via an inbound rule this time, it's going to 
+
+49
+00:05:31,798 --> 00:05:39,698
+remember that too and it's going to let responses back out even if there's no explicit outbound rule saying so. 
+
+50
+00:05:39,798 --> 00:05:47,698
+So security groups are of a sort stateful firewalls. Also, right, if you modify a security group, 
+
+51
+00:05:47,798 --> 00:05:54,698
+so maybe add or remove a rule, no probs, it gets automatically applied and becomes effective on any instance 
+
+52
+00:05:54,798 --> 00:06:01,698
+that the security group is associated with. It's totally dynamic, so on the fly, yeah, while the instances 
+
+53
+00:06:01,798 --> 00:06:07,698
+are hot. A couple of final points, right, before we roll our sleeves up and get working. 
+
+54
+00:06:07,798 --> 00:06:13,698
+We can have 100 security groups per region and each security group can have 50 rules. 
+
+55
+00:06:13,798 --> 00:06:18,698
+Oh, and they don't filter traffic, okay, from the reserved addresses in your subnet. 
+
+56
+00:06:18,798 --> 00:06:24,698
+So I think we mentioned this earlier, but every subnet's got 5 reserved addresses, the first 4 addresses 
+
+57
+00:06:24,798 --> 00:06:32,698
+in the subnet and the last address in the subnet and these get used for DNS, DHCP, EC2 metadata, 
+
+58
+00:06:32,798 --> 00:06:38,698
+key management server, and routing. That was a lot. I'm hoping that's us done with the theory, 
+
+59
+00:06:38,798 --> 00:06:42,798
+let's jump on over to the console and see it in action. 
+
+

@@ -1,0 +1,85 @@
+1
+00:00:01,000 --> 00:00:08,000
+Now then, while that instance spins itself up, okay, oh yeah right, here we go. 
+
+2
+00:00:08,100 --> 00:00:13,000
+First up, see how we can tell which one's our new instance because we can see it's not fully up and running, 
+
+3
+00:00:13,100 --> 00:00:19,000
+well we should totally have named our instance when we were creating it. 
+
+4
+00:00:19,100 --> 00:00:29,000
+Slap across the chops for me for defying one of my very own golden rules, though shalt name all of thy AWS stuff. 
+
+5
+00:00:29,100 --> 00:00:34,000
+I think we just skipped a place where we could have done that, but you can see I'm sure, right, that if we've got 
+
+6
+00:00:34,100 --> 00:00:40,000
+a bunch of instances and we've not named them, we're going to have to do a bunch of digging around to work out 
+
+7
+00:00:40,100 --> 00:00:54,000
+which instance is which, so let's name it now (Typing). Okay, now down here we can see its public IP. 
+
+8
+00:00:54,100 --> 00:01:00,000
+Well I'm recording this course from a Windows machine, so I'm going to connect to it via SSH using PuTTY, 
+
+9
+00:01:00,100 --> 00:01:11,000
+only PuTTY doesn't like the .PAM key format that AWS provides. So I'm going to fire up PuTTY Gen. 
+
+10
+00:01:11,100 --> 00:01:22,000
+I'm going to import a key, this one's ours, and hit Save private key, and okay, no, we don't want to give it 
+
+11
+00:01:22,100 --> 00:01:27,000
+a passphrase because that just adds an extra authentication step when we come to connect. 
+
+12
+00:01:27,100 --> 00:01:48,000
+So let's save it (Typing), now let's open up PuTTY. Now first up, we need that public IP of our instance (Typing). 
+
+13
+00:01:48,100 --> 00:01:56,000
+Right, then we want to tell PuTTY to use our private key that we just converted. 
+
+14
+00:01:56,100 --> 00:02:02,000
+Now let's make the font as readable as we can without being ridiculous. 
+
+15
+00:02:02,100 --> 00:02:06,000
+I think lastly we'll tell it what username to use when connecting. 
+
+16
+00:02:06,100 --> 00:02:15,000
+Ubuntu is the default ofr Ubuntu instances. Well, I reckon we're good to go. 
+
+17
+00:02:15,100 --> 00:02:25,000
+Boom. Look at that, we're in on a fully internet accessible, yep, fully internet accessible server. 
+
+18
+00:02:25,100 --> 00:02:31,000
+Oh, and let's not forget in our world class data center. Not bad for a day's work, eh. 
+
+19
+00:02:31,100 --> 00:02:38,000
+In fact not even that, a few minutes work. Oh man, we live in a great world these days. 
+
+20
+00:02:38,100 --> 00:02:44,000
+I remember when something like this would have taken an age to build and cost an arm and a leg. 
+
+21
+00:02:44,100 --> 00:02:47,100
+Well, as Hannibal from the A-Team used to say, I love it when a plan comes together. 
+
+

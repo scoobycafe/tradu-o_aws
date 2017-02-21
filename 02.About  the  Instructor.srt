@@ -1,0 +1,177 @@
+1
+00:00:00,164 --> 00:00:10,064
+Right, so I'm Nigel and for those of you who don't know me yet, I love technology, properly love it. 
+
+2
+00:00:10,164 --> 00:00:16,064
+I think ever since I first programmed my brother's ZX Spectrum 48K, the rubber key version for anyone 
+
+3
+00:00:16,164 --> 00:00:22,064
+who remembers it, right. Well I think since then I've wanted to spend my life with computers, I just love them. 
+
+4
+00:00:22,164 --> 00:00:28,064
+I'm fascinated by them. The idea that I can make them do things and then when things go wrong I can dig 
+
+5
+00:00:28,164 --> 00:00:34,064
+under the covers and fix them, it's a bit like a drug for me. And Amazon Web Services is no different. 
+
+6
+00:00:34,164 --> 00:00:40,064
+Well, obviously it's massively different to an old Spectrum 48K, right, but the principles and stuff 
+
+7
+00:00:40,164 --> 00:00:48,064
+are all the same. It is exciting and it's a game changer. Anyway, I love working and playing with technology 
+
+8
+00:00:48,164 --> 00:00:54,064
+and I love teaching you guys about it. Now aside from technology, I'm really into fitness. 
+
+9
+00:00:54,164 --> 00:00:59,064
+I play a lot of football, I like lifting weights, riding my bike, running, all that kind of stuff, okay, 
+
+10
+00:00:59,164 --> 00:01:06,064
+and I support the mighty Sunderland, the greatest Football team in the world. 
+
+11
+00:01:06,164 --> 00:01:12,064
+Also, I'm a husband to the lovely Jen and I'm father to three girls that are going to change the world, 
+
+12
+00:01:12,164 --> 00:01:17,064
+if they want to. I know they certainly changed mine. Anyway, I love making these courses for you. 
+
+13
+00:01:17,164 --> 00:01:22,064
+They're a ton of fun and one of my main objectives, right, is for you guys to have fun watching them. 
+
+14
+00:01:22,164 --> 00:01:28,064
+I really do want your learning experience to be enjoyable. Okay, and a massive thanks, right, to everyone 
+
+15
+00:01:28,164 --> 00:01:34,064
+who reaches out and tells me how much they enjoy my courses, and also all those guys who ping me and tell me 
+
+16
+00:01:34,164 --> 00:01:39,064
+how excited they are when I've created a new one. Thank you so much. 
+
+17
+00:01:39,164 --> 00:01:44,064
+I love you guys. But on that note actually, right, I really want to make every course that I do better 
+
+18
+00:01:44,164 --> 00:01:52,064
+than the last one. And to do that, I totally need your help. So yeah, I love all the love that you give my courses, 
+
+19
+00:01:52,164 --> 00:01:58,064
+honestly I really do, but if there's anything that you reckon I could do better next time, seriously, 
+
+20
+00:01:58,164 --> 00:02:01,064
+I want you to tell me. So hit the course discussion board 
+
+21
+00:02:01,164 --> 00:02:07,064
+on Pluralsight.com or ping me on twitter. I really value your feedback and input into my next courses 
+
+22
+00:02:07,164 --> 00:02:14,064
+and how's about this, right, together we can make the next course better. 
+
+23
+00:02:14,164 --> 00:02:19,064
+A bit cheese, right? I know, but it's true. You want the next course that I do for you to be better than this one? 
+
+24
+00:02:19,164 --> 00:02:21,064
+Ping me and help me, right. 
+
+25
+00:02:21,164 --> 00:02:29,064
+Ah, yeah, I nearly forgot. Also, right, I co-host a weekly podcast called the In Tech We Trust Podcast 
+
+26
+00:02:29,164 --> 00:02:34,064
+and it's dedicated to infrastructure tech news, so all about keeping you up-to-date with what's going on 
+
+27
+00:02:34,164 --> 00:02:40,064
+in the infrastructure tech world and we talk about Amazon Web Services and the likes all the time. 
+
+28
+00:02:40,164 --> 00:02:45,064
+So if you're into this stuff, I recommend you give it a listen. Now then, 
+
+29
+00:02:45,164 --> 00:02:51,064
+this is how we're going to do this course. In the next module I'm going to do like a super quick high level overview 
+
+30
+00:02:51,164 --> 00:02:57,064
+of AWS and virtual private clouds, which I'm probably just going to call VPCs from now on. 
+
+31
+00:02:57,164 --> 00:03:04,064
+Then after that, we're going to build a VPC, but using the wizard, and that works and all, but it's just not 
+
+32
+00:03:04,164 --> 00:03:10,064
+very good for learning how it all works under the covers. So after that, we're going to hand build a VPC. 
+
+33
+00:03:10,164 --> 00:03:16,064
+We'll hand build subnets and configure routing, we'll configure access to the internet, we'll lock things down 
+
+34
+00:03:16,164 --> 00:03:22,064
+with network access control lists and security groups, then we'll start adding some of the cool stuff. 
+
+35
+00:03:22,164 --> 00:03:28,064
+First up, we'll do elastic load balancers, then we'll configure VPC peering where we hook up some string 
+
+36
+00:03:28,164 --> 00:03:34,064
+between two VPCs, then after that we'll look at how we hook up remote offices to our VPC using a 
+
+37
+00:03:34,164 --> 00:03:40,064
+virtual private network or a VPN connection, and when we're done with all that good stuff we'll round out the module 
+
+38
+00:03:40,164 --> 00:03:46,064
+with a short sharp Q&A session and I've never done one of these before, right, but what I'm going to do is 
+
+39
+00:03:46,164 --> 00:03:50,064
+I'm going to answer what I see as some of the most common AWS questions. 
+
+40
+00:03:50,164 --> 00:03:55,064
+And the answers, of course, they'll all just be my opinions, but I don't know, I'm hoping that it might be 
+
+41
+00:03:55,164 --> 00:04:01,064
+a cool little module. Then that'll be done. Anyway, that's enough of that, right. 
+
+42
+00:04:01,164 --> 00:04:06,064
+Time to go and actually start learning about AWS virtual private clouds. 
+
+43
+00:04:06,164 --> 00:04:12,064
+And as we can see here, I'm going to start the ball rolling in the next module by introducing the high level concept 
+
+44
+00:04:12,164 --> 00:04:15,164
+and running through the major technologies that we're going to be configuring. 
+
+

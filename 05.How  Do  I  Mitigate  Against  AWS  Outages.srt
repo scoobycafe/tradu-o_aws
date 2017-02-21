@@ -1,0 +1,93 @@
+1
+00:00:01,000 --> 00:00:06,162
+Anybody else with a question. Yeah, yep, you. Hello there Nigel. 
+
+2
+00:00:06,262 --> 00:00:14,162
+I'm Mike from the Northeast of England and I want to know, how do I plan against AWS going down? 
+
+3
+00:00:14,262 --> 00:00:21,162
+Whoa, okay. So we're talking about disaster recovery here. Sometimes we call it business continuity. 
+
+4
+00:00:21,262 --> 00:00:26,162
+And you know what? It's probably a mini course on its own. But I suppose, build your apps okay, 
+
+5
+00:00:26,262 --> 00:00:31,162
+and design your infrastructure so that you spread your services across as much of AWS as possible. 
+
+6
+00:00:31,262 --> 00:00:36,162
+I mean, we've talked in the course about things like using multiple availability zones. 
+
+7
+00:00:36,262 --> 00:00:43,162
+So if you've got two front end web servers doing the same thing, stick them both in separate availability zones. 
+
+8
+00:00:43,262 --> 00:00:46,162
+That way if one zone goes down, the other web server is going to survive. 
+
+9
+00:00:46,262 --> 00:00:51,162
+But you know what? You might need to take things even further, so like in all the enterprise environments 
+
+10
+00:00:51,262 --> 00:00:57,162
+I've worked in, we've had two data centers, sometimes more. But they've always been geographically dispersed, 
+
+11
+00:00:57,262 --> 00:01:07,162
+so at least 20 or 25 miles apart. So, in AWS terms, you might want to run services out of like EU-West 1 
+
+12
+00:01:07,262 --> 00:01:14,162
+in Ireland as well as EU-Central in Frankfurt. Or maybe some of your services in an EU region and some 
+
+13
+00:01:14,262 --> 00:01:21,162
+in a US region. And all of this takes planning, obviously. Usually day 1 planning with the app guys 
+
+14
+00:01:21,262 --> 00:01:26,162
+and the infa guys actually talking to each other. But this really is the only way to protect your business 
+
+15
+00:01:26,262 --> 00:01:32,162
+against an entire region going down and this has happened and it will happen again. 
+
+16
+00:01:32,262 --> 00:01:38,162
+So if you're running mission critical stuff and you take your business seriously, like who doesn't? 
+
+17
+00:01:38,262 --> 00:01:44,162
+Then spread your risk as widely as possible. Don't stick all of your eggs into like US-East and then feel a grief 
+
+18
+00:01:44,262 --> 00:01:52,162
+when US-East goes belly up, right. And to mitigate against the whole of AWS going away, I suppose it's feasible 
+
+19
+00:01:52,262 --> 00:01:59,162
+to spread your risk over multiple cloud providers, so maybe AWS and Google Cloud platform or AWS 
+
+20
+00:01:59,262 --> 00:02:05,162
+and Microsoft Azure. Though I'd say, at least at the time of recording, that's like uber bleeding edge stuff, 
+
+21
+00:02:05,262 --> 00:02:08,162
+but I imagine it's going to get more and more common and easier to do in the future. 
+
+22
+00:02:08,262 --> 00:02:15,162
+So keep your eye out for things like that. Whatever you're doing though, yeah, make sure your CIDR blocks 
+
+23
+00:02:15,262 --> 00:02:18,262
+don't overlap with your on-prem corporate networks, yeah. 
+
+

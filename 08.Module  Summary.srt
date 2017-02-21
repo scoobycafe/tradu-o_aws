@@ -1,0 +1,181 @@
+1
+00:00:00,599 --> 00:00:07,098
+Alright then, what did we cover in this module? Well I know this much, we spent a bunch more time on VPC 
+
+2
+00:00:07,198 --> 00:00:14,098
+config than I expected at first. Never mind though. We kicked things off by building a new VPC again, 
+
+3
+00:00:14,198 --> 00:00:21,098
+but this time without the help of the wizard. We called it podcast and we gave it a /16 CIDR block of addresses. 
+
+4
+00:00:21,198 --> 00:00:27,098
+Now I know we said this as well, right, we said be careful when choosing the CIDR block because if you want to go 
+
+5
+00:00:27,198 --> 00:00:33,098
+hook your VPC up to let's say your corporate network over a VPN at some time in the future or maybe you want to 
+
+6
+00:00:33,198 --> 00:00:40,098
+create a pairing connection to another VPC, these are probably only going to work if the CIDR blocks 
+
+7
+00:00:40,198 --> 00:00:49,098
+of the two networks don't overlap. So make sure they're not both, for instance, 10.0.0.0, I keep running out of 
+
+8
+00:00:49,198 --> 00:00:56,098
+zeros here, 10, 3 zeros, /16. If they're both the same, you're going to have problems when you try and connect them. 
+
+9
+00:00:56,198 --> 00:01:03,098
+And we also pointed out stuff like VPCs are per region, yeah. Yes, they span multiple availability zones, 
+
+10
+00:01:03,198 --> 00:01:07,098
+but those availability zones all need to be in the same region. 
+
+11
+00:01:07,198 --> 00:01:13,098
+We can't have a single VPC spanning multiple regions, at least not at the time of recording. 
+
+12
+00:01:13,198 --> 00:01:19,098
+Then we covered off some of the VPC related options. DHCP options sets was one of them, right. 
+
+13
+00:01:19,198 --> 00:01:25,098
+Now we said these are tied to our AWS account so we can attach them to any of our VPCs. 
+
+14
+00:01:25,198 --> 00:01:33,098
+And they let us manage whether or not our instances will be able to, let's say, resolve DNS names to IP addresses, 
+
+15
+00:01:33,198 --> 00:01:37,098
+and that there's not a kosher AWS style icon for DHCP options sets, right. 
+
+16
+00:01:37,198 --> 00:01:41,098
+I'm not even sure they've got one. But there were some other options as well. 
+
+17
+00:01:41,198 --> 00:01:50,098
+So we can use DHCP options sets to configure things like NTP servers, yes, and the DNS name suffix 
+
+18
+00:01:50,198 --> 00:01:56,098
+that gets applied to our instance host names. Then after all of that, we finally got around to creating 
+
+19
+00:01:56,198 --> 00:02:03,098
+a couple of subnets, just a nice little way of carving up our larger VPC network into smaller, more discrete, 
+
+20
+00:02:03,198 --> 00:02:12,098
+and more manageable sub-networks. And like we just inferred a second ago, these exist within a single VPC, 
+
+21
+00:02:12,198 --> 00:02:19,098
+so within a single region. But the important thing is, right, they are tied to a single availability zone 
+
+22
+00:02:19,198 --> 00:02:28,098
+and that's important because subnets are a great way for us to pin services down to a particular availability zone. 
+
+23
+00:02:28,198 --> 00:02:33,098
+So, want to spin up an instance or a service in a particular availability zone? 
+
+24
+00:02:33,198 --> 00:02:40,098
+No worries. What we do is we spin it up in a subnet that's in that zone, dead simple. 
+
+25
+00:02:40,198 --> 00:02:45,098
+So far though, we've just been slinging everything into a single subnet and a single availability zone. 
+
+26
+00:02:45,198 --> 00:02:51,098
+But later on we'll definitely get into how we leverage subnets and availability zones to build high availability 
+
+27
+00:02:51,198 --> 00:02:57,098
+into our apps. Anyway, then we looked at routers and route tables. 
+
+28
+00:02:57,198 --> 00:03:08,098
+We said that every VPC automatically gets an implied router. Implied, implying, or suggesting it's just there. 
+
+29
+00:03:08,198 --> 00:03:11,098
+We don't need to create it, indeed we can't create it nor can we delete it. 
+
+30
+00:03:11,198 --> 00:03:18,098
+It really is just there. All we need to do is manage the route table entries that get associated 
+
+31
+00:03:18,198 --> 00:03:23,098
+with each of our subnets. Remember we said these route tables are like the directions or the road signs 
+
+32
+00:03:23,198 --> 00:03:30,098
+that point traffic down the different routes. So a route table, and you know, that one there on the screen 
+
+33
+00:03:30,198 --> 00:03:35,098
+is not helping us at all. Yeah, this one's tons better. See, it even looks a bit like a road sign. 
+
+34
+00:03:35,198 --> 00:03:45,098
+So, hey, I want to talk to a device with an address somewhere in this VPC, so on 10.0.0.0/16, hit the local route, 
+
+35
+00:03:45,198 --> 00:03:52,098
+anything else, that's what the all zeros here means, go and use this igw router here instead. 
+
+36
+00:03:52,198 --> 00:03:58,098
+And Amazon promises, those are my words actually not theirs, that this router is always going to be there 
+
+37
+00:03:58,198 --> 00:04:06,098
+and that it's not going to be a bottle neck. Cool, okay, but on the flip side, it's pretty much invisible to us, 
+
+38
+00:04:06,198 --> 00:04:10,098
+we've got zero insight into how it actually works or how it's performing. 
+
+39
+00:04:10,198 --> 00:04:14,098
+We've just got to trust Amazon and that's a sticky point for a lot of people. 
+
+40
+00:04:14,198 --> 00:04:19,098
+I mean I don't even like it personally, but it's just the way it is. 
+
+41
+00:04:19,198 --> 00:04:25,098
+What else did we say? Oh yeah, we said every VPC has got a main route table, which is just like a default 
+
+42
+00:04:25,198 --> 00:04:32,098
+route table for that VPC. We can tweak it if we want and we can even change which table is the main table. 
+
+43
+00:04:32,198 --> 00:04:39,098
+So we do have some choices there. But you know what? I reckon that's pretty much the bulk of what we learned. 
+
+44
+00:04:39,198 --> 00:04:45,098
+Next up, we're going to take what we've learned about routing here and hook our public subnet up to the internet 
+
+45
+00:04:45,198 --> 00:04:48,198
+as well as a bunch more cool stuff. But for me, right, this is where I think it really starts getting interesting. 
+
+

@@ -1,0 +1,77 @@
+1
+00:00:00,599 --> 00:00:02,987
+Now if we scroll over to the right here, 
+
+2
+00:00:03,087 --> 00:00:09,987
+I want to point this out first, the VPC that we just created is not a default VPC and there's actually no way 
+
+3
+00:00:10,087 --> 00:00:15,987
+that we can make it a default VPC. Well, at least there's not at the time of recording, right. 
+
+4
+00:00:16,087 --> 00:00:22,987
+Now what this basically means is if we want to launch instances into our new VPC, we've got to manually select it 
+
+5
+00:00:23,087 --> 00:00:29,987
+when launching the instance. In fact, let me just show you (Loading). 
+
+6
+00:00:30,087 --> 00:00:37,987
+Ubuntu, okay, right. See here, a new instance is automatically going to get launched into the region's 
+
+7
+00:00:38,087 --> 00:00:42,987
+default VPC, they call it network over here, yeah, but really they're named VPC. 
+
+8
+00:00:43,087 --> 00:00:49,987
+Well, I guess VPC basically is a network. But the point is, if we want to launch the instance into our VPC, 
+
+9
+00:00:50,087 --> 00:00:54,987
+then we need to manually go in here and pick it from the drop down. 
+
+10
+00:00:55,087 --> 00:01:00,987
+We don't want to bother doing that right now though. Back to VPCs, what else about default? 
+
+11
+00:01:01,087 --> 00:01:07,987
+Yeah, I think we already said, every region's got one default VPC and that gets automatically created 
+
+12
+00:01:08,087 --> 00:01:13,987
+for us by AWS and there's no way to change that. So even if we delete it, which we absolutely can, 
+
+13
+00:01:14,087 --> 00:01:20,987
+well then our region just ends up with no default VPC. Then later on if we suddenly decide, uh that was a mistake 
+
+14
+00:01:21,087 --> 00:01:27,987
+and we really do want one, well we need to go with our begging bowl and go and beg to Amazon to recreate it for us. 
+
+15
+00:01:28,087 --> 00:01:32,987
+And you know what? It's been like this since like forever, since VPCs came along in fact. 
+
+16
+00:01:33,087 --> 00:01:37,987
+And I'm pretty staggered to be honest that it's not changed yet. I mean, maybe by the time you're watching it 
+
+17
+00:01:38,087 --> 00:01:45,987
+it has, but right now, like summer 2015, that's the crack. We can't set a VPC to be a default, so I'd probably 
+
+18
+00:01:46,087 --> 00:01:53,987
+say, right, just leave the default VPC in each region alone. We're certainly not going to use them in this course. 
+
+19
+00:01:54,087 --> 00:01:57,087
+Okay, but if we look down here, right, it's easy to read a summary of our new VPC. 
+
+

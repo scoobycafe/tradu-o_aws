@@ -1,0 +1,21 @@
+1
+00:00:01,000 --> 00:00:08,728
+Next question. Yeah, thanks Nigel. Prof here from the Reckoner's, when it comes to VPCs, should I put 
+
+2
+00:00:08,828 --> 00:00:15,728
+all of my different environments in a single VPC? So like, dev, test, UAT, and production, 
+
+3
+00:00:15,828 --> 00:00:26,728
+all in the same VPC? Okay, pretty simple. No. Nein. Non. Mio, kaveva, het. 
+
+4
+00:00:26,828 --> 00:00:34,728
+It really is as simple as that. No. Separate environments like that totally belong in their own VPCs. 
+
+5
+00:00:34,828 --> 00:00:38,828
+Life will just be so much easier that way. 
+
+

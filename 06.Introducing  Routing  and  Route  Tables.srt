@@ -1,0 +1,153 @@
+1
+00:00:00,599 --> 00:00:02,948
+Routing, routing, routing. 
+
+2
+00:00:03,048 --> 00:00:07,948
+The first thing to note is exactly where the route is drawn on the diagram. 
+
+3
+00:00:08,048 --> 00:00:16,948
+It's at the VPC level, so one per VPC. And if we add a couple of lines to it, yeah, we can see how it routes 
+
+4
+00:00:17,048 --> 00:00:22,948
+traffic between our two subnets. That's the job of the router, right, to let instances or containers on one subnet 
+
+5
+00:00:23,048 --> 00:00:32,948
+talk with other subnets, conceptually it's mega simple. Then, in each subnet we have a routing table. 
+
+6
+00:00:33,048 --> 00:00:39,948
+These tell us how to get traffic from one subnet to another. I think maybe we need an analogy here. 
+
+7
+00:00:40,048 --> 00:00:44,948
+I suppose we could say that the routing tables are a bit like directions, maybe road signs or something, yeah, 
+
+8
+00:00:45,048 --> 00:00:52,948
+and the routers themselves are the roads. Now don't stress if that's not making sense right now. 
+
+9
+00:00:53,048 --> 00:00:57,948
+It totally will as we progress, especially as we start looking at how to get out onto the internet. 
+
+10
+00:00:58,048 --> 00:01:01,948
+For now though, route tables are like directions, where do I want to go? 
+
+11
+00:01:02,048 --> 00:01:07,948
+Another subnet? Okay, hit this router. I want to go to the internet, okay, hit another router. 
+
+12
+00:01:08,048 --> 00:01:13,948
+The routers themselves being like roads. Anyway the next thing to point out is that our AWS router 
+
+13
+00:01:14,048 --> 00:01:21,948
+is like 100% totally hip software defined goodness. I can guarantee they're not giving you some Juniper 
+
+14
+00:01:22,048 --> 00:01:27,948
+or Cisco router in there, no way. This is bona fide software defined networking. 
+
+15
+00:01:28,048 --> 00:01:31,948
+We don't need to worry about the state of the router, so is it up, it is down? 
+
+16
+00:01:32,048 --> 00:01:36,948
+How are the power supply units? What's the temperature? All of that kind of stuff, no concern of ours. 
+
+17
+00:01:37,048 --> 00:01:41,948
+We don't need to think about how to configure it for high availability, we don't need to manage port counts, 
+
+18
+00:01:42,048 --> 00:01:48,948
+nothing like that. We just need to care about the rules that tell it where to send packets, that's the 
+
+19
+00:01:49,048 --> 00:01:56,948
+route table entries, the directions, yeah. I mean, look here in the UI, there ain't no option for routers 
+
+20
+00:01:57,048 --> 00:02:03,948
+or router configs, just this route tables option here. But before we look at route tables, okay, this business 
+
+21
+00:02:04,048 --> 00:02:07,948
+of not being able to log on to the router and the likes is a two-edged sword. 
+
+22
+00:02:08,048 --> 00:02:13,948
+On the one hand, yeah, it makes our lives a lot simpler, no networking voodoo to stress about, but on 
+
+23
+00:02:14,048 --> 00:02:17,948
+the other hand we've got a lot less control. Um, you know what? I can see how this kind of stuff is a bit 
+
+24
+00:02:18,048 --> 00:02:24,948
+of a worry for some people. I mean, for instance, we can't get stats directly from the router, what the heck? 
+
+25
+00:02:25,048 --> 00:02:30,948
+I mean we can't even ping the thing, right. So it's good and it's not so good at the same time. 
+
+26
+00:02:31,048 --> 00:02:37,948
+Now, if we go over to subnets here and our public subnet and hit the Route Table tab, right, we can see 
+
+27
+00:02:38,048 --> 00:02:44,948
+our route table's ID, rtb-22b whatever, yeah, I mean that is crying out for a friendly name. 
+
+28
+00:02:45,048 --> 00:02:50,948
+But down here, we can see the route table entries or in this case entry in a singular, right now our route table 
+
+29
+00:02:51,048 --> 00:02:59,948
+has only got a single lonely entry and that 10.0.0.0/16 address, come on, that should look familiar by now, 
+
+30
+00:03:00,048 --> 00:03:08,948
+it's the network we assigned to our VPC. Now, this combo here of the VPC CIDR block plus the target called local, 
+
+31
+00:03:09,048 --> 00:03:14,948
+this is the route or the direction if we keep with our analogy, that traffic needs to take if it wants to talk 
+
+32
+00:03:15,048 --> 00:03:21,948
+to another device within our VPC. Should be pretty easy to remember since the target says local. 
+
+33
+00:03:22,048 --> 00:03:27,948
+And you know what? Every route table gets this entry and I don't think we can even delete it, so from a 
+
+34
+00:03:28,048 --> 00:03:34,948
+routing perspective, every device that we spin up in any subnet has got access to directions telling it 
+
+35
+00:03:35,048 --> 00:03:42,948
+how to get to every other device in our VPC. And I stress, okay, this is from a routing perspective 
+
+36
+00:03:43,048 --> 00:03:47,948
+because, yeah, we can use things like network access control lists or security groups to lock things down 
+
+37
+00:03:48,048 --> 00:03:53,948
+and disallow traffic and the likes, but as far as network routing goes, this route table entry here 
+
+38
+00:03:54,048 --> 00:03:57,048
+means we're all family within our VPC. 
+
+

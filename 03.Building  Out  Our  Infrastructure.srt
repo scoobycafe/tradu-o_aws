@@ -1,0 +1,109 @@
+1
+00:00:00,599 --> 00:00:06,325
+But check out the diagram, right. If you've been following along from the start you're probably thinking, 
+
+2
+00:00:06,425 --> 00:00:10,325
+hang on, there's like a ton of stuff on there that we haven't even got yet. 
+
+3
+00:00:10,425 --> 00:00:18,325
+I mean it's not stuff that we haven't covered, it's just stuff that we have covered, but we haven't built yet. 
+
+4
+00:00:18,425 --> 00:00:25,325
+I'm not explaining this well. Just as an example, right, so we've only got one public subnet and one private subnet 
+
+5
+00:00:25,425 --> 00:00:30,325
+and we've not built any web servers yet either. So that's what we're going to do right now, build all of this 
+
+6
+00:00:30,425 --> 00:00:36,325
+missing stuff. But I'm going to leverage the marvels of video editing so we can literally wiz through it 
+
+7
+00:00:36,425 --> 00:00:39,325
+like superman style. So first up, 
+
+8
+00:00:39,425 --> 00:00:45,325
+I'm going to create a couple of security groups and seeing as how I've clean a few things up, I don't need 
+
+9
+00:00:45,425 --> 00:00:57,325
+any of these anymore (Typing). Okay, don't care about the default one, that's fine. 
+
+10
+00:00:57,425 --> 00:01:03,325
+Now two new security groups, one for HTTP traffic, and another for SSH. 
+
+11
+00:01:03,425 --> 00:01:08,325
+Now we need a couple of subnets, but let's rename these first to tack on the availability zone, because that's 
+
+12
+00:01:08,425 --> 00:01:14,325
+going to become really important from now on. Now we want to know the public one, make sure it's got an 
+
+13
+00:01:14,425 --> 00:01:19,325
+internet gateway associated with the public NACL that we created before, and I reckon that one's ready. 
+
+14
+00:01:19,425 --> 00:01:24,325
+Now under the private one, you keeping up? We'll make sure it's not connected to the internet, no, 
+
+15
+00:01:24,425 --> 00:01:29,325
+give it the wide open NACL for now, oh man, flying through it like this is good. 
+
+16
+00:01:29,425 --> 00:01:34,325
+We've already got our four subnets, two public, both in separate availability zones, and two private, 
+
+17
+00:01:34,425 --> 00:01:42,325
+also both in separate availability zones. So, if, let's say, I don't know, a fracture in the space time continuum 
+
+18
+00:01:42,425 --> 00:01:50,325
+opened up and swallowed up eu-west 1b, well, who cares about that, right, we've got our service, or we will 
+
+19
+00:01:50,425 --> 00:01:55,325
+have our services I should say, running in 1b and 1a, so we'd hardly even notice. 
+
+20
+00:01:55,425 --> 00:02:02,325
+Anyway, we need a couple of web servers now and this time I'm going to create those with the wave of my hand, 
+
+21
+00:02:02,425 --> 00:02:09,325
+and there they are. So two web servers, right, one in each of our public subnets, and they're essentially 
+
+22
+00:02:09,425 --> 00:02:14,325
+the same. Both of them have just got a single webpage that's almost identical except for the fact that 
+
+23
+00:02:14,425 --> 00:02:19,325
+each has got some individual text on there so we can tell which one it is, because we're going to need that 
+
+24
+00:02:19,425 --> 00:02:25,325
+when we start using the load balancer in a second. But before we use the load balancer, right, if I grab 
+
+25
+00:02:25,425 --> 00:02:31,325
+1a's IP address and lash that into a browser session, there we go, Server 1a. 
+
+26
+00:02:31,425 --> 00:02:39,325
+And the same again for 1b, magic, same again, but with its own unique identifier. 
+
+27
+00:02:39,425 --> 00:02:42,425
+Cool. All of that done. Let's go and build ourselves an elastic load balancer. 
+
+

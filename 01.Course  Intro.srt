@@ -1,0 +1,101 @@
+1
+00:00:00,599 --> 00:00:09,9
+Ok, bem-vindos a este curso sobre AWS VPC Operations. Obrigado por escolher o curso e posso dizer, um especial
+
+2
+00:00:10,000 --> 00:00:14,9
+bem-vindo de volta para quem tomou qualquer um dos meus cursos anteriores e está voltando para mais. 
+
+3
+00:00:15,000 --> 00:00:20,9
+Sinceramente, aprecio o seu apoio. Agora então, oh sim, 
+
+4
+00:00:21,000 --> 00:00:27,9
+Amazon Web Services. Quero dizer, sem dúvida, uma das plataformas de tecnologias mais legais e mais importantes 
+
+5
+00:00:28,000 --> 00:00:38,9
+no mundo, como sempre. Quero dizer, é mágico, tão maciçamente legal, mas literalmente moldando o futuro do mundo de TI. 
+
+6
+00:00:39,000 --> 00:00:44,9
+E dentro da AWS, nuvens privadas virtuais estão lá no centro. 
+
+7
+00:00:45,000 --> 00:00:51,9
+They're a proper foundational building block, I'd say right. If you want to be any good at AWS, you have got to 
+
+8
+00:00:52,000 --> 00:00:59,9
+know VPCs and I love them, right. I mean, using AWS and VPCs you can literally build yourself your own 
+
+9
+00:01:00,000 --> 00:01:07,9
+world class data center for virtual machines in the cloud and it's so flippin' easy and cheap. 
+
+10
+00:01:08,000 --> 00:01:12,9
+So just to set some expectations, right, we're going to go from literally nothing 
+
+11
+00:01:13,000 --> 00:01:19,9
+like a blank canvas, right, so no previous experience with AWS is needed, and we're going to go all the way 
+
+12
+00:01:20,000 --> 00:01:23,9
+through building a work VPC, like that data center in the cloud I just mentioned. 
+
+13
+00:01:24,000 --> 00:01:30,9
+So we'll build multiple networks or subnets in different locations for high availability, we'll configure 
+
+14
+00:01:31,000 --> 00:01:37,9
+high speed, highly available internet access, and we'll build load balancers and VPN connections, and all 
+
+15
+00:01:38,000 --> 00:01:41,9
+that kind of stuff, right. And while we're doing it, we'll play around with virtual machines and we'll 
+
+16
+00:01:42,000 --> 00:01:47,9
+share some simple web servers to help round out the demos in the labs that we do. 
+
+17
+00:01:48,000 --> 00:01:55,9
+Oh, and we'll secure it alright with some fundamental security technologies that Amazon provides for us. 
+
+18
+00:01:56,000 --> 00:02:00,9
+And you know what? It's going to be something like, I don't know, 3, 4, 5 hour course, we'll see, 
+
+19
+00:02:01,000 --> 00:02:07,9
+but the point being, in the space of like less than a handful of hours we're going to build a full on working 
+
+20
+00:02:08,000 --> 00:02:16,9
+secured data center of sorts, right, in the cloud. So highly available, high performance, running virtual machines. 
+
+21
+00:02:17,000 --> 00:02:23,9
+And like I said, literally for pennies. And you know what? I'm like still amazed by that because when I cut 
+
+22
+00:02:24,000 --> 00:02:30,9
+my teeth in IT, that kind of thing took months or years and it cost an arm and a leg. 
+
+23
+00:02:31,000 --> 00:02:34,9
+So I'm really excited to be teaching this course and I'm really excited for you. 
+
+24
+00:02:35,000 --> 00:02:40,9
+I think it's going to be the bizzo, an awesome course about an awesome technology, perfect combination. 
+
+25
+00:02:41,000 --> 00:02:44,000
+Okay now then, a quick bit about me before we rock and roll with the course. 
+
+

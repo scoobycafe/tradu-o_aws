@@ -1,0 +1,193 @@
+1
+00:00:00,599 --> 00:00:07,531
+First up, right, let's just see the concept, you know, in case load balancing is like totally new to you 
+
+2
+00:00:07,631 --> 00:00:13,531
+or maybe it's just a bit of a gray area for you. One of those, you know, where you're maybe not so confident about it, 
+
+3
+00:00:13,631 --> 00:00:16,531
+but you don't really want to ask anyone in case you look a bit daft. 
+
+4
+00:00:16,631 --> 00:00:22,531
+Hey, we've all been there at one time or another, right. So a dead simple diagram. 
+
+5
+00:00:22,631 --> 00:00:29,531
+Two availability zones, eu-west 1b and eu-west 1a. Okay, I obviously got those the wrong way around 
+
+6
+00:00:29,631 --> 00:00:36,531
+when cutting and pasting, never mind. Two availability zones, so two data centers, yeah, with a bunch of 
+
+7
+00:00:36,631 --> 00:00:42,531
+instances in each. Now let's say for arguments sake, okay, these are internet facing web servers 
+
+8
+00:00:42,631 --> 00:00:50,531
+and they're all serving up the same web front end for an app, well what we love to do, right, is balance 
+
+9
+00:00:50,631 --> 00:00:57,531
+incoming traffic from the internet across all of these instances and have it rigged up in a way so that if an instance 
+
+10
+00:00:57,631 --> 00:01:04,531
+goes down or even a whole availability zone, so a major incident, yeah, we don't skip a beat. 
+
+11
+00:01:04,631 --> 00:01:09,531
+We've have it so that the surviving infrastructure just carries on. 
+
+12
+00:01:09,631 --> 00:01:16,531
+Sounds the bizzo, yeah. Well, meet the elastic load balancer and a fancy new icon for us as well, right. 
+
+13
+00:01:16,631 --> 00:01:25,531
+Well, this guy or gal, this becomes our internet facing component, so almost like a single point of contact 
+
+14
+00:01:25,631 --> 00:01:32,531
+for our farm of web front end servers that we've got. Then as such it knows about all of our web server instances 
+
+15
+00:01:32,631 --> 00:01:40,531
+behind it, so that as requests come in it balances those requests over all the instances it knows about. 
+
+16
+00:01:40,631 --> 00:01:45,531
+You know what? A bit like at airport security, yeah, where there's a bunch of lines queuing to go through 
+
+17
+00:01:45,631 --> 00:01:51,531
+the checkpoint and often there's someone there directing you to the shortest line, only they usually send you 
+
+18
+00:01:51,631 --> 00:01:59,531
+to the longest line, right, or at least they do with me. Well, elastic load balancing works a bit like that. 
+
+19
+00:01:59,631 --> 00:02:05,531
+Directing and balancing incoming traffic over multiple instances behind it. 
+
+20
+00:02:05,631 --> 00:02:11,531
+And if we look closely enough, we can see that it's load balancing across availability zones, so our instances 
+
+21
+00:02:11,631 --> 00:02:19,531
+don't need to be all in the same availability zone, though I should point out they do need to be in the same VPC, 
+
+22
+00:02:19,631 --> 00:02:24,531
+at least at the time of recording they do. And obviously, knock-on effect to that means it only works 
+
+23
+00:02:24,631 --> 00:02:31,531
+for AWS services, so we can get carried away and start load balancing across multiple cloud providers 
+
+24
+00:02:31,631 --> 00:02:38,531
+like Microsoft Azure and Google Cloud platform. And that extends even to on-prem for that matter, right. 
+
+25
+00:02:38,631 --> 00:02:48,531
+So ELB right now is only for load balancing across infrastructure within a single VPC in the AWS cloud. 
+
+26
+00:02:48,631 --> 00:02:53,531
+And it can do health checks too. So it keeps an eye on the instances that it knows about behind it 
+
+27
+00:02:53,631 --> 00:02:58,531
+so that if and when any of them stop responding, they get taken out of the load balancing config, 
+
+28
+00:02:58,631 --> 00:03:03,531
+though actually no, they don't really get taken out of the config, they just get marked as down 
+
+29
+00:03:03,631 --> 00:03:10,531
+and the ELB no longer sends requests to them. But because they're still in the config, once they're back up 
+
+30
+00:03:10,631 --> 00:03:16,531
+and running, they can automatically be brought back into play. What else? 
+
+31
+00:03:16,631 --> 00:03:22,531
+Ah, yeah, it integrates with auto scaling as well. So as in when auto scaling, as long as we've got it 
+
+32
+00:03:22,631 --> 00:03:28,531
+configured, yeah, decides that we need more web servers spinning up, they can all be added into the ELB config 
+
+33
+00:03:28,631 --> 00:03:35,531
+and start having traffic balanced over them as well. Sounds the absolute bizzo to me. 
+
+34
+00:03:35,631 --> 00:03:37,531
+So what are we actually going to build? 
+
+35
+00:03:37,631 --> 00:03:43,531
+Well, we're going to introduce an elastic load balancer into our VPC and we're going to configure it 
+
+36
+00:03:43,631 --> 00:03:50,531
+to listen for incoming web traffic and balance those requests across instances in two public facing subnets, 
+
+37
+00:03:50,631 --> 00:03:56,531
+and that's magic, but we're only scratching the surface here. We can add a ton more to the mix. 
+
+38
+00:03:56,631 --> 00:04:02,531
+Maybe we could start load balancing internal traffic from our front end web servers to a distributed database 
+
+39
+00:04:02,631 --> 00:04:10,531
+back end in a couple of highly available private subnets. This way we could lose an entire availability zone 
+
+40
+00:04:10,631 --> 00:04:17,531
+or anything in it and keep on rocking. All this stuff down here that's not been effected, it just keeps ticking. 
+
+41
+00:04:17,631 --> 00:04:25,531
+Because remember, availability zones don't effect or impact each other, or at least they shouldn't. 
+
+42
+00:04:25,631 --> 00:04:30,531
+So losing one is not such a massive deal, I mean it is a big deal, right, because your remaining infrastructure 
+
+43
+00:04:30,631 --> 00:04:35,531
+is probably going to struggle to manage the entire load on its own, but it's certainly not going to take 
+
+44
+00:04:35,631 --> 00:04:43,531
+your entire application or your entire business down with it, and that is a monster sized boon, right. 
+
+45
+00:04:43,631 --> 00:04:50,531
+So I reckon the things to grasp and learn, right, are elastic load balancers are resilient and they're not tied 
+
+46
+00:04:50,631 --> 00:04:57,531
+to an availability zone. So losing one, an availability zone, yeah, isn't going to take the elastic load balancer 
+
+47
+00:04:57,631 --> 00:05:03,531
+service out of play, and assuming we've got our app set up properly, we stay in business. 
+
+48
+00:05:03,631 --> 00:05:07,631
+And that there to me is a pretty sweet highly available design. Should we go and build it? 
+
+

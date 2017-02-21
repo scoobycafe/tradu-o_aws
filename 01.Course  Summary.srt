@@ -1,0 +1,173 @@
+1
+00:00:00,599 --> 00:00:06,9
+Okay so congratulations on completing the course. Seriously well done. 
+
+2
+00:00:07,000 --> 00:00:13,9
+And I know if you've followed the course from start to finish you'll be well and truly down with AWS VPCs. 
+
+3
+00:00:14,000 --> 00:00:19,9
+And if this stuff was all new to you when you started the course, then man I am properly chuffed for you, 
+
+4
+00:00:20,000 --> 00:00:25,9
+that means I'm pleased for you. Sometimes I forget not everybody understands the phrases and things I use. 
+
+5
+00:00:26,000 --> 00:00:30,9
+Anyway, AWS and cloud computing in general, it's the future, right. 
+
+6
+00:00:31,000 --> 00:00:35,9
+And this stuff that we've learned, honestly it's going to position you so well for the future of IT. 
+
+7
+00:00:36,000 --> 00:00:41,9
+I'm super excited for you. Also, right, a massive thanks for watching the course. 
+
+8
+00:00:42,000 --> 00:00:48,9
+Now I know I've said this in the previous module, right, but I really do put a huge amount of effort and time 
+
+9
+00:00:49,000 --> 00:00:55,9
+and energy into making these courses, so I genuinely am made up when you guys watch them, like them, and learn 
+
+10
+00:00:56,000 --> 00:01:00,9
+from them. You know what? My kids would like to personally thank you for putting food on the table 
+
+11
+00:01:01,000 --> 00:01:06,9
+at Shay Poulton. But you know what? As much as I am actually certain that I've created a great course 
+
+12
+00:01:07,000 --> 00:01:11,9
+for you here, and don't take that the wrong way, right, but I really, really want your feedback, 
+
+13
+00:01:12,000 --> 00:01:17,9
+good and bad. You know what? If you want the next course that I do to be better than this one, 
+
+14
+00:01:18,000 --> 00:01:22,9
+then I need you to tell me how I can do things better. So do me a favor please and leave comments 
+
+15
+00:01:23,000 --> 00:01:27,9
+on the courses discussion board on Pluralsight.com and ping me on Twitter and the likes. 
+
+16
+00:01:28,000 --> 00:01:32,9
+I do try and answer all questions and I really do appreciate all feedback. 
+
+17
+00:01:33,000 --> 00:01:38,9
+Anyway, what next for you? Well on the topic of AWS, we've already got a bunch of stuff on Pluralsight, 
+
+18
+00:01:39,000 --> 00:01:46,9
+just whack AWS into the search bar and you won't go wrong. But in particular, right, one course that I'm 
+
+19
+00:01:47,000 --> 00:01:47,9
+fairly excited about is called 
+
+20
+00:01:48,000 --> 00:01:55,9
+AWS Certified Sysops Admin Associate or it will be when it's released, right, and it's by Elias Khnaser 
+
+21
+00:01:56,000 --> 00:01:59,9
+who's one my favorite video trainers and he's a really great guy. 
+
+22
+00:02:00,000 --> 00:02:04,9
+Anyway, this course is actually partway through production right now, so by the time you're watching this 
+
+23
+00:02:05,000 --> 00:02:10,9
+it might well be out, but if it's not, keep an eye out for it, right, because it's not going to be far away. 
+
+24
+00:02:11,000 --> 00:02:14,9
+I mean, it covers a bunch of what's covered in this course, and you know what? 
+
+25
+00:02:15,000 --> 00:02:20,9
+I always think that that's good, like a second opinion or the same subject, right, but delivered in a different way 
+
+26
+00:02:21,000 --> 00:02:24,9
+and by a different person. It's quite often a good way to solidify what you're learning. 
+
+27
+00:02:25,000 --> 00:02:29,9
+But the Sysops Admin course here covers a bit more stuff than just the VPC stuff that we've covered, 
+
+28
+00:02:30,000 --> 00:02:37,9
+so a broader range of AWS material. But I'd say, right, the VPC related stuff, it covers it in slightly less 
+
+29
+00:02:38,000 --> 00:02:43,9
+detail than we've done in this course, but I really think the two courses compliment each other. 
+
+30
+00:02:44,000 --> 00:02:47,9
+Anyway, that's me just trying to look out for you there by suggesting another great course. 
+
+31
+00:02:48,000 --> 00:02:48,9
+But don't forget, right, 
+
+32
+00:02:49,000 --> 00:02:55,9
+Pluralsight is building what promises to be probably the most comprehensive library of top quality 
+
+33
+00:02:56,000 --> 00:03:01,9
+AWS training videos with more being released all the time, so keep your eyes peeling. 
+
+34
+00:03:02,000 --> 00:03:08,9
+Now one last shameful personal plug, but if you like AWS, right, then if you're not already into it 
+
+35
+00:03:09,000 --> 00:03:10,9
+I reckon you're going to love Docker. 
+
+36
+00:03:11,000 --> 00:03:18,9
+And well, as it happens, you'd think I planned this, but I've got a cracking course on Docker that I think you'd love. 
+
+37
+00:03:19,000 --> 00:03:24,9
+But don't put off by the title, right, if you're a proper Docker newbie, it is a proper soup to nuts course 
+
+38
+00:03:25,000 --> 00:03:33,9
+on the core Docker engine. So it takes you from zero to, well not quite hero, but well competent with Docker. 
+
+39
+00:03:34,000 --> 00:03:38,9
+And that can only be a good thing for your career as well. And I'm also talking to the guys at Pluralsight 
+
+40
+00:03:39,000 --> 00:03:44,9
+about potentially doing more Docker courses. Now, we never promise anything, right, so just so that we don't 
+
+41
+00:03:45,000 --> 00:03:50,9
+let you down if anything goes wrong, but keep your eyes peeled, there's tons of great stuff in the pipelines 
+
+42
+00:03:51,000 --> 00:03:55,9
+and you know what? Yeah, that's probably all. 
+
+43
+00:03:56,000 --> 00:03:59,000
+Thanks again and congrats again. Now go and rock it with Amazon Web Services. 
+
+

@@ -1,0 +1,209 @@
+1
+00:00:00,599 --> 00:00:08,187
+So, every VPC gets one of these crazy cryptic AWS names, but see how we can see the friendly name here as well? 
+
+2
+00:00:08,287 --> 00:00:15,187
+Seriously, name your stuff or you're going to lose your mind. We've got state information, the network 
+
+3
+00:00:15,287 --> 00:00:22,187
+that we assigned it, and then DHCP options set, this one's new to us. 
+
+4
+00:00:22,287 --> 00:00:28,187
+Well, you know how, actually maybe you don't, okay, come on let's just back up a smidge. 
+
+5
+00:00:28,287 --> 00:00:36,187
+I suppose, right, what DHCP is most famous for is dynamically assigning IP addresses to devices on a network, 
+
+6
+00:00:36,287 --> 00:00:41,187
+so every machine on an IP network needs an IP address in order to communicate. 
+
+7
+00:00:41,287 --> 00:00:48,187
+Well, instead of ours manually assigning every machine a unique address, most of the time we just conscript DHCP 
+
+8
+00:00:48,287 --> 00:00:56,187
+into managing all of that for us. So we give DHCP a pool of IP addresses and pretty much say, hey 
+
+9
+00:00:56,287 --> 00:01:02,187
+any time a new system appears on the network and asks for an address, go ahead and lease it one. 
+
+10
+00:01:02,287 --> 00:01:07,187
+Bingo. And it takes care of a bunch of other stuff too like making sure that we don't assign the same address 
+
+11
+00:01:07,287 --> 00:01:15,187
+to two devices and all of that jazz. And that's cool and all, but DHCP, oh, dynamic host configuration protocol, 
+
+12
+00:01:15,287 --> 00:01:21,187
+in case you're wondering what it stands for, well it can assign a bunch more than just IP addresses. 
+
+13
+00:01:21,287 --> 00:01:26,187
+So let' take a look at this options set, handy those little hyper links. 
+
+14
+00:01:26,287 --> 00:01:35,187
+Well, we can see how this options set is also going to assign a domain name of eu-west-1.compute.internal 
+
+15
+00:01:35,287 --> 00:01:41,187
+and it's going to tell the instances to use, well, as the name clearly suggests, Amazon's own DNS servers. 
+
+16
+00:01:41,287 --> 00:01:48,187
+In fact, Amazon provided DNS is actually a DNS server that sits on the second address in your VPC's network, 
+
+17
+00:01:48,287 --> 00:01:59,187
+so in our VPC with 10.0.0.0/16, it's going to be sitting on 10.0.0.2. 
+
+18
+00:01:59,287 --> 00:02:02,187
+But I'm getting ahead of myself here, so we'll park that for now. 
+
+19
+00:02:02,287 --> 00:02:10,187
+What I'm saying though is that DHCP options set let us do stuff like, well you know what, let's just go and see. 
+
+20
+00:02:10,287 --> 00:02:18,187
+Okay, so we could say, well let's do this first. Okay, so we could say, intechwetrustpodcast.com, 
+
+21
+00:02:18,287 --> 00:02:25,187
+so that all of our instances get a host name in the intechwetrustpodcast.com domain, try saying that. 
+
+22
+00:02:25,287 --> 00:02:31,187
+We could point it to Google's famous DNS server and we can point it to an NTP server for accurate time too, 
+
+23
+00:02:31,287 --> 00:02:38,187
+and I totally just made that address up, right. And seriously, right, if you need to configure nasty old 
+
+24
+00:02:38,287 --> 00:02:44,187
+NetBIOS stuff, oh man, you really want to drag yourself out of the 90's. 
+
+25
+00:02:44,287 --> 00:02:48,187
+So a bunch of stuff that they can manage and configure, okay, but it's worth knowing. 
+
+26
+00:02:48,287 --> 00:02:57,187
+DHCP options sets are associated with your AWS account. So they're not limited to the scope of let's say 
+
+27
+00:02:57,287 --> 00:03:06,187
+a VPC or a region or anything like that, no, and it's totally possible to have multiple sets of DHCP options set, 
+
+28
+00:03:06,287 --> 00:03:12,187
+try saying that, good grief, but any VPC can only have one assigned to it. 
+
+29
+00:03:12,287 --> 00:03:25,187
+So I can't assign two DHCP options sets to this new podcast VPC, but I totally can assign this single, 
+
+30
+00:03:25,287 --> 00:03:31,187
+I'm just going to call it a set this time, to multiple VPCs. In fact, that's actually how I've got things now. 
+
+31
+00:03:31,287 --> 00:03:36,187
+Hopefully that made sense, if it didn't, right, rewind about 30 seconds and listen to it again, if it still 
+
+32
+00:03:36,287 --> 00:03:43,187
+doesn't make sense after that, then call me out on Twitter and we can chat about it live. 
+
+33
+00:03:43,287 --> 00:03:47,187
+But for the crappy part, why oh why is there always a crappy part? 
+
+34
+00:03:47,287 --> 00:03:52,187
+Even in like the awesome world of AWS there's still annoying stuff. 
+
+35
+00:03:52,287 --> 00:03:57,187
+Though, I've got to be careful here, I could be totally wrong about this by the time that you're watching the course. 
+
+36
+00:03:57,287 --> 00:04:03,187
+But at the time of recording, once you create a DHCP options set, you can't modify it. 
+
+37
+00:04:03,287 --> 00:04:11,187
+In fact, look, there's no modify option, just delete. Alright, if we go back to our VPC again, oh yeah, 
+
+38
+00:04:11,287 --> 00:04:19,187
+one more thing about DHCP options sets. I'm taking loads more time here on VPCs than I was expecting to. 
+
+39
+00:04:19,287 --> 00:04:26,187
+If we change the DHCP options set that we've got associated with a VPC, we don't necessarily need to reboot 
+
+40
+00:04:26,287 --> 00:04:33,187
+our instances. So what happens is, right, when an instance gets its IP config from a DHCP option set 
+
+41
+00:04:33,287 --> 00:04:37,187
+it gets it on a lease and then every so often it needs to renew that lease. 
+
+42
+00:04:37,287 --> 00:04:45,187
+Well, when that time comes to renew the lease, any instance is going to pick up the new options. 
+
+43
+00:04:45,287 --> 00:04:52,187
+There we go, DHCP options sets. Now route table, just a quick and dirty for now, okay. 
+
+44
+00:04:52,287 --> 00:04:57,187
+Route tables basically tell us how to navigate around our VPC and after the internet as well, which we'll see 
+
+45
+00:04:57,287 --> 00:05:02,187
+in the next module. Think of them as kind of like maps or directions, yeah. 
+
+46
+00:05:02,287 --> 00:05:08,187
+Then we've got network ACL, another one that we're going to cover later, but for now it's basically a list of what 
+
+47
+00:05:08,287 --> 00:05:15,187
+traffic gets allowed and what traffic gets blocked. Tenancy, we already know about that. 
+
+48
+00:05:15,287 --> 00:05:21,187
+And then finally, DNS resolution and DNS host names. Do we want our hosts to be able to look up DNS names 
+
+49
+00:05:21,287 --> 00:05:30,187
+and resolve them to IP addresses? And then do we want instances in this VPC to get assigned DNS host names? 
+
+50
+00:05:30,287 --> 00:05:36,187
+So map their IP addresses to friendlier, more readable DNS names? 
+
+51
+00:05:36,287 --> 00:05:43,187
+Well, we want yes on both of these counts. So if we go up to Actions up here, Edit DNS Hostnames, 
+
+52
+00:05:43,287 --> 00:05:46,287
+Yes, and Save. Wowzers! Finally, we can go and create some subnets. 
+
+

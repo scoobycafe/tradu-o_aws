@@ -1,0 +1,101 @@
+1
+00:00:00,326 --> 00:00:08,226
+Okay, so we've got two VPCs, more actually, but for this demo we've got our podcast VPC that we've been using 
+
+2
+00:00:08,326 --> 00:00:12,226
+throughout the course, yeah, and I've created another one called blog. 
+
+3
+00:00:12,326 --> 00:00:22,226
+I don't know, blogs and podcasts, yeah, only our blog VPC here belongs to one of my other AWS accounts. 
+
+4
+00:00:22,326 --> 00:00:29,226
+One can never have too many AWS accounts, seriously. So yeah, it's absolutely possible to configure 
+
+5
+00:00:29,326 --> 00:00:37,226
+peering connections between VPCs owned by different AWS accounts, they've just got to be in the same region, right. 
+
+6
+00:00:37,326 --> 00:00:45,226
+Now over here in the podcast VPC, we've got a Linux instance in a public subnet and at the start of the demo 
+
+7
+00:00:45,326 --> 00:00:52,226
+we're going to set it up pinging another instance over here in a private subnet in the blog VPC. 
+
+8
+00:00:52,326 --> 00:00:58,226
+And at first, right, because this old boy over here has only got a private IP, it's going to fail, 
+
+9
+00:00:58,326 --> 00:01:07,226
+get no replies. But then from over here, we're going to create a peering request and to do that we need 
+
+10
+00:01:07,326 --> 00:01:16,226
+the AWS account ID that owns the remote VPC plus the ID of the VPC that we want to peer up with. 
+
+11
+00:01:16,326 --> 00:01:23,226
+And of course, I've got things rigged up so that they're both in the eu-west region and I've got totally separate 
+
+12
+00:01:23,326 --> 00:01:32,226
+CIDR blocks. Anyway, once that connection request is made it's going to pop up in this VPC dashboard over here. 
+
+13
+00:01:32,326 --> 00:01:38,226
+Once we approve that, it'll trigger the creation of our peering connection objects. 
+
+14
+00:01:38,326 --> 00:01:45,226
+Then all we need to do is update our routing tables. Now then, this bit like totally depends on how you've got 
+
+15
+00:01:45,326 --> 00:01:53,226
+your routing set up. We've got it set up so that each VPC has got a couple of custom routing tables, 
+
+16
+00:01:53,326 --> 00:01:57,226
+one of them is attached to all public subnets where the route to the internet and all and the other 
+
+17
+00:01:57,326 --> 00:02:03,226
+is attached to all the private subnets, no route to the internet. 
+
+18
+00:02:03,326 --> 00:02:09,226
+So what we're going to do in our podcast VPC is add a route to the route table attached to the public subnet 
+
+19
+00:02:09,326 --> 00:02:16,226
+and if you can see that, which oh my goodness if you can, hello superman vision, for the rest of us though 
+
+20
+00:02:16,326 --> 00:02:25,226
+it's basically the network of the remote blog VPC and a target of the new peering connection object. 
+
+21
+00:02:25,326 --> 00:02:31,226
+Then over on this side we do the same, only this time for a private subnet, adding the network of the podcast VPC 
+
+22
+00:02:31,326 --> 00:02:40,226
+back over here and a target of the same connection object, which for the record is named the same on both ends. 
+
+23
+00:02:40,326 --> 00:02:45,226
+Then, if all goes to plan, we'll pull up that pinging Linux instance right before we save those final 
+
+24
+00:02:45,326 --> 00:02:52,226
+routing changes and we should see the ping springing to life. So that's the plan. 
+
+25
+00:02:52,326 --> 00:02:55,326
+Who's excited? I am. Let's go and do it. 
+
+

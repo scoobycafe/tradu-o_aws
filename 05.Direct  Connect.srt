@@ -1,0 +1,413 @@
+1
+00:00:01,000 --> 00:00:08,401
+So, there is another way of hooking your corporate network up to your AWS VPCs and it's like, well certainly 
+
+2
+00:00:08,501 --> 00:00:13,401
+in my opinion at least, it's the more enterprise class way to do it, the posh way, you know, 
+
+3
+00:00:13,501 --> 00:00:21,401
+like VPNs are maybe connections for the common man or woman, whereas this, this is for the serious customer. 
+
+4
+00:00:21,501 --> 00:00:27,401
+So it's like more reliable, gives you better and more consistent throughput, lower latency, just an all around 
+
+5
+00:00:27,501 --> 00:00:33,401
+better, more high grade option. Oh, and it's called Direct Connect. 
+
+6
+00:00:33,501 --> 00:00:36,401
+Maybe I should have left that off the slide and given like a drum roll or something. 
+
+7
+00:00:36,501 --> 00:00:44,401
+And it's called Direct Connect. Anyway, the name's like a total gimme. 
+
+8
+00:00:44,501 --> 00:00:50,401
+So it tells us pretty much exactly what it does, which is instead of using the internet as the network 
+
+9
+00:00:50,501 --> 00:00:57,401
+in between our office over here and our VPC, we string a dedicated cable between the two. 
+
+10
+00:00:57,501 --> 00:01:02,401
+Now that's like the mega high level, of course, and we'll look into the detail in uno momento. 
+
+11
+00:01:02,501 --> 00:01:07,401
+But to grasp the big picture, that's pretty much what we need. So, get rid of the internet here, 
+
+12
+00:01:07,501 --> 00:01:11,401
+we don't need that, I mean like it's totally overrated, right? Who needs the internet? 
+
+13
+00:01:11,501 --> 00:01:17,401
+Anyway, we replace it with a dedicated cable and as simple as that, right, we've got ourselves 
+
+14
+00:01:17,501 --> 00:01:22,401
+a nice little connection into AWS, but one without all the baggage that comes with the internet, 
+
+15
+00:01:22,501 --> 00:01:27,401
+so you know, without all the bad guys lurking around every corner trying to nick your data and without 
+
+16
+00:01:27,501 --> 00:01:34,401
+all of the internet traffic jams at rush hour that give us that like totally random performance. 
+
+17
+00:01:34,501 --> 00:01:44,401
+Well, Direct Connect makes pretty much all of that go away. But, and there's always a but, for me at least, okay, 
+
+18
+00:01:44,501 --> 00:01:50,401
+that but lies in the fact that lashing the piece of string or the network circuit between ourselves and AWS, 
+
+19
+00:01:50,501 --> 00:01:56,401
+ah it's not quite as simple as that diagram makes out. I mean it's not mega hard or anything, but you've got 
+
+20
+00:01:56,501 --> 00:02:03,401
+to go through a third party, so you can't just run a cable from one of your own routers directly into AWS. 
+
+21
+00:02:03,501 --> 00:02:11,401
+No. You've got to go through like an AWS Direct Connect access point of sorts or a point of presence or POP, 
+
+22
+00:02:11,501 --> 00:02:18,401
+but all that basically is is a colo data center that's got dedicated network pipes into AWS. 
+
+23
+00:02:18,501 --> 00:02:23,401
+So for example, right, I'm in the UK, yeah, meaning a bunch of people that I work with run their AWS stuff 
+
+24
+00:02:23,501 --> 00:02:32,401
+in the Ireland region, eu-west 1. So, when they need a Direct Connect connection, a Direct Connect connection, 
+
+25
+00:02:32,501 --> 00:02:38,401
+yeah, try saying that 10 times while chewing on a sweet, but anyway, they tend to use the TeleCity data centers 
+
+26
+00:02:38,501 --> 00:02:44,401
+in the London Docklands. The reason being, right, TeleCity, who's got a handful of data centers 
+
+27
+00:02:44,501 --> 00:02:51,401
+in the Docklands area, have got high speed dedicated pipes directly from their own data centers into the 
+
+28
+00:02:51,501 --> 00:02:58,401
+AWS Ireland region. Now, I know maybe all of you don't have infrastructure backgrounds, so I don't want to assume 
+
+29
+00:02:58,501 --> 00:03:03,401
+that you just know what all of that stuff is. So, stick with me, right, while I back up just a second. 
+
+30
+00:03:03,501 --> 00:03:09,401
+A colo data center, right, it's basically a data center facility with space to rent. 
+
+31
+00:03:09,501 --> 00:03:14,401
+So, a company like TeleCity or Equinix or whoever, right, there's tons of them, yeah. 
+
+32
+00:03:14,501 --> 00:03:20,401
+Well they build like a mahoosive data center with top notch facilities, all the bells and whistles, yeah, 
+
+33
+00:03:20,501 --> 00:03:27,401
+and then they rent space out. So maybe they rent out a whole or a room or a cabinet or a caged area, right. 
+
+34
+00:03:27,501 --> 00:03:34,401
+Each of those being like a mini data center, but each one being sold or rented out to different customers. 
+
+35
+00:03:34,501 --> 00:03:40,401
+What we end up with is a big old data center with a bunch of different companies using it. 
+
+36
+00:03:40,501 --> 00:03:45,401
+Anyway, a select group of these colo data centers, and colo is just short for collocation because we have 
+
+37
+00:03:45,501 --> 00:03:51,401
+multiple companies using them, yeah, well a select group of those have got dedicated network connections 
+
+38
+00:03:51,501 --> 00:04:00,401
+from their data centers directly into AWS. Magic. So, I guess it's pretty easy to get your head around this, 
+
+39
+00:04:00,501 --> 00:04:07,401
+right, if you're already in one of those select few colos, in fact actually, if we jump quickly over to our 
+
+40
+00:04:07,501 --> 00:04:15,401
+AWS console here, we go into Direct Connect down here. Look here, we're in Ireland, right? 
+
+41
+00:04:15,501 --> 00:04:22,401
+So there's only two colos to choose from, TeleCity and Eircom, I hope I pronounced that right. 
+
+42
+00:04:22,501 --> 00:04:29,401
+But if we jump over here to US West Oregon, right, oh good option. 
+
+43
+00:04:29,501 --> 00:04:36,401
+So there's Euqinix and SUPERNAP. Now I say it's a good option, right, because as a geek I've kind of drooled 
+
+44
+00:04:36,501 --> 00:04:43,401
+over SUPERNAP facilities in the past, proper like, I don't know, uber data centers. 
+
+45
+00:04:43,501 --> 00:04:48,401
+Very cool to Google and research some time if you're into data centers, SUPERNAP, I'm telling you. 
+
+46
+00:04:48,501 --> 00:04:53,401
+Anyway, you're usually going to find like a couple of colo options, so those AWS Direct Connect 
+
+47
+00:04:53,501 --> 00:04:59,401
+points of presence, yeah, a couple per region is normal. I don't know, maybe they'll be more in the future, 
+
+48
+00:04:59,501 --> 00:05:01,401
+but for now it's usually a couple per region. 
+
+49
+00:05:01,501 --> 00:05:06,401
+Anyway, what I was going to say was, if you're already located in one of those, so you've got your infrastructure 
+
+50
+00:05:06,501 --> 00:05:11,401
+and your kit and your servers and stuff in there, then you kind of sort it or so it would seem. 
+
+51
+00:05:11,501 --> 00:05:17,401
+I mean, surely it can't be that hard to string up some fiber between some of your kit, already in the colo, yeah, 
+
+52
+00:05:17,501 --> 00:05:20,401
+over to one of the routers with access to AWS that the colo provides. 
+
+53
+00:05:20,501 --> 00:05:25,401
+And that's ideal, right? It's basically a fiber cross connect. 
+
+54
+00:05:25,501 --> 00:05:29,401
+So not wickedly hard. Yeah it's going to cost you and you're going to need some networking know how 
+
+55
+00:05:29,501 --> 00:05:34,401
+to be able to do it. Because you're already on site, it's pretty simple. 
+
+56
+00:05:34,501 --> 00:05:38,401
+Cool and all, but what if you're not already in one of those sites? 
+
+57
+00:05:38,501 --> 00:05:43,401
+I don't know, maybe you are in a colo, just not one that's been blessed with connectivity to AWS. 
+
+58
+00:05:43,501 --> 00:05:49,401
+Well, no massive issue actually, it's still totally doable. All you've got to do is work with a Telco provider, 
+
+59
+00:05:49,501 --> 00:05:57,401
+so like Colt or AT&T or Verizon or whoever's in your area and on the list of AWS approved partners, 
+
+60
+00:05:57,501 --> 00:06:02,401
+then what can happen is, these guys can hook you up from your facility or colo into one of those 
+
+61
+00:06:02,501 --> 00:06:09,401
+Direct Connect POPs. So here's you over her in your colo, right, with no access to Direct Connect. 
+
+62
+00:06:09,501 --> 00:06:15,401
+But let's say Colt, right, and substitute those guys with whoever's relevant in your area, these guys 
+
+63
+00:06:15,501 --> 00:06:22,401
+are on the AWS list and have got connectivity into your colo and connectivity into the Direct Connect 
+
+64
+00:06:22,501 --> 00:06:27,401
+point of presence, meaning they can basically act like a middle man, getting you access over here 
+
+65
+00:06:27,501 --> 00:06:33,401
+where you need it. Now obviously there's more to it than that, okay, but conceptually, so long as I did 
+
+66
+00:06:33,501 --> 00:06:38,401
+a half decent job at least, you should pretty grasp the idea of Direct Connect. 
+
+67
+00:06:38,501 --> 00:06:43,401
+Now, I think we did say that it's an alternative way of getting your office access to your VPC, 
+
+68
+00:06:43,501 --> 00:06:52,401
+so instead of using a VPN. Meaning, as a result, all access to resources is done via private IPs again. 
+
+69
+00:06:52,501 --> 00:06:58,401
+So you totally need to make sure that the network addresses of your office and your VPC don't overlap, 
+
+70
+00:06:58,501 --> 00:07:01,401
+because it ain't using the internet, we're on private IPs again here. 
+
+71
+00:07:01,501 --> 00:07:07,401
+I just can't stress this enough, right, when you're getting started with VPCs, treat them like regular 
+
+72
+00:07:07,501 --> 00:07:14,401
+corporate networks, make sure they've got their own documented and separate IP ranges. 
+
+73
+00:07:14,501 --> 00:07:19,401
+Anyway, right, it can also work alongside a VPN, sort of, right. 
+
+74
+00:07:19,501 --> 00:07:25,401
+It's just got to be in an active passive formation. This means that while your Direct Connect link is up 
+
+75
+00:07:25,501 --> 00:07:31,401
+that's going to get used and your VPN, your secure connection over the internet, it's going to be ignored. 
+
+76
+00:07:31,501 --> 00:07:36,401
+But then as soon as your Direct Connect link goes down, your VPN connection kicks in and takes over. 
+
+77
+00:07:36,501 --> 00:07:43,401
+So the two can work together for high availability. But, right, speaking of Direct Connect links going down, 
+
+78
+00:07:43,501 --> 00:07:49,401
+they're like totally not redundant by design, okay. So if you want some sort of high redundancy 
+
+79
+00:07:49,501 --> 00:07:55,401
+within Direct Connect, you're going to need two of them, each with their own dedicated fiber cross connect. 
+
+80
+00:07:55,501 --> 00:08:03,401
+Now then, to do it, right, Direct Connect has got its own icon and its own link from here in the AWS console. 
+
+81
+00:08:03,501 --> 00:08:11,401
+Then, under Connections here, we go to Create Connection. Now we give our connection a name (Typing) 
+
+82
+00:08:11,501 --> 00:08:18,401
+and that'll do for us. Then we get to choose which POP we use, we're in Ireland, so it's either TeleCity 
+
+83
+00:08:18,501 --> 00:08:25,401
+or Eircom and if they're not an option, then we can hit this link here, but we'll go with TeleCity 
+
+84
+00:08:25,501 --> 00:08:30,401
+and we'll have a 10Gbps connection please, I mean, 1Gbps it's like so last year, in fact where's the 
+
+85
+00:08:30,501 --> 00:08:37,401
+100Gbps connections, Amazon? Anyway, we'll create that. Okay so there it is and it's details. 
+
+86
+00:08:37,501 --> 00:08:44,401
+State, requested. Now then, in the real world, right, like as opposed to the alternative reality that I'm 
+
+87
+00:08:44,501 --> 00:08:49,401
+creating this course from, well we'd need to go and get the cross connect in place now. 
+
+88
+00:08:49,501 --> 00:08:53,401
+And that's going to look something like this, okay. We're going to need to speak to our colo or 
+
+89
+00:08:53,501 --> 00:08:59,401
+network provider and we'll give them the authorization email that we'll get from Amazon. 
+
+90
+00:08:59,501 --> 00:09:04,401
+Because yeah, we get an authorization email from them now that we're created that connection request. 
+
+91
+00:09:04,501 --> 00:09:09,401
+And then once we given them that, we go through the motions of physically cabling it all up, yeah. 
+
+92
+00:09:09,501 --> 00:09:15,401
+Once that's done, that state there is going to change from requested and this Create Virtual Interface 
+
+93
+00:09:15,501 --> 00:09:21,401
+spot in here, that's going to light up. Then you're going to create a virtual interface for every VPC 
+
+94
+00:09:21,501 --> 00:09:28,401
+that you want to be reachable over your Direct Connect link. So if you've got four VPCs, you might want to 
+
+95
+00:09:28,501 --> 00:09:34,401
+create four virtual interfaces, assuming you want all four to be reachable over Direct Connect. 
+
+96
+00:09:34,501 --> 00:09:39,401
+But I'm going to let you down again, that's beyond the scope of this course, because as awesome as my 
+
+97
+00:09:39,501 --> 00:09:44,401
+consulting company is, yeah, I'm not yet on the Fortune 100 list. 
+
+98
+00:09:44,501 --> 00:09:49,401
+So I've not bothered to get myself kit in the Direct Connect POP yet and plus, from here on in, right, 
+
+99
+00:09:49,501 --> 00:09:57,401
+it's all networking mumbo jumbo like VLANs and BGP ASNs and router configs and the likes. 
+
+100
+00:09:57,501 --> 00:10:02,401
+But I reckon, right, that's enough to make us cool with Direct Connect, a rich man or woman's VPN, 
+
+101
+00:10:02,501 --> 00:10:06,401
+if you will. I don't know, you want a direct connection into AWS? 
+
+102
+00:10:06,501 --> 00:10:11,401
+You're too important for the internet? Then Direct Connect is the option for you. 
+
+103
+00:10:11,501 --> 00:10:15,501
+But, charges to apply. And on that note, I think we'll go and summarize what we've learned in this module. 
+
+
