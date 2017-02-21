@@ -24,78 +24,78 @@ E dentro da AWS, nuvens privadas virtuais estão lá no centro.
 
 7
 00:00:45,000 --> 00:00:51,9
-They're a proper foundational building block, I'd say right. If you want to be any good at AWS, you have got to 
+Eles são um bom alicerce fundamental, eu diria certo. Se você quer ser bom na AWS, você tem que 
 
 8
 00:00:52,000 --> 00:00:59,9
-know VPCs and I love them, right. I mean, using AWS and VPCs you can literally build yourself your own 
+Conheço VPCs e eu os amo, certo. Quero dizer, usando AWS e VPCs você pode construir literalmente o seu próprio 
 
 9
 00:01:00,000 --> 00:01:07,9
-world class data center for virtual machines in the cloud and it's so flippin' easy and cheap. 
+centro de dados de classe mundial para máquinas virtuais na nuvem e é tão fácil e barato. 
 
 10
 00:01:08,000 --> 00:01:12,9
-So just to set some expectations, right, we're going to go from literally nothing 
+Então, apenas para definir algumas expectativas, certo, vamos de literalmente nada 
 
 11
 00:01:13,000 --> 00:01:19,9
-like a blank canvas, right, so no previous experience with AWS is needed, and we're going to go all the way 
+como uma tela em branco, certo, então nenhuma experiência anterior com a AWS é necessária, e nós iremos percorrer todo o caminho 
 
 12
 00:01:20,000 --> 00:01:23,9
-through building a work VPC, like that data center in the cloud I just mentioned. 
+através da construção de um VPC trabalho, como o centro de dados na nuvem que acabei de mencionar. 
 
 13
 00:01:24,000 --> 00:01:30,9
-So we'll build multiple networks or subnets in different locations for high availability, we'll configure 
+Então, vamos construir várias redes ou sub-redes em diferentes locais para alta disponibilidade, vamos configurar 
 
 14
 00:01:31,000 --> 00:01:37,9
-high speed, highly available internet access, and we'll build load balancers and VPN connections, and all 
+alta velocidade, altamente disponível acesso à Internet, e vamos construir balanceadores de carga e conexões VPN, e todo
 
 15
 00:01:38,000 --> 00:01:41,9
-that kind of stuff, right. And while we're doing it, we'll play around with virtual machines and we'll 
+esse tipo de coisa, certo. E enquanto nós estamos fazendo isso, vamos brincar com máquinas virtuais e nós vamos 
 
 16
 00:01:42,000 --> 00:01:47,9
-share some simple web servers to help round out the demos in the labs that we do. 
+compartilhar alguns servidores web simples para ajudar a completar as demos nos laboratórios que fazemos. 
 
 17
 00:01:48,000 --> 00:01:55,9
-Oh, and we'll secure it alright with some fundamental security technologies that Amazon provides for us. 
+Ah, e vamos garantir que tudo bem com algumas tecnologias de segurança fundamentais que a Amazon fornece para nós. 
 
 18
 00:01:56,000 --> 00:02:00,9
-And you know what? It's going to be something like, I don't know, 3, 4, 5 hour course, we'll see, 
+E sabe de uma coisa? Vai ser algo como, eu não sei, 3, 4, 5 horas de curso, vamos ver, 
 
 19
 00:02:01,000 --> 00:02:07,9
-but the point being, in the space of like less than a handful of hours we're going to build a full on working 
+Mas o ponto é, no espaço de como menos de um punhado de horas que vamos construir um completo sobre o trabalho 
 
 20
 00:02:08,000 --> 00:02:16,9
-secured data center of sorts, right, in the cloud. So highly available, high performance, running virtual machines. 
+seguro centro de dados de tipos, à direita, na nuvem. Tão altamente disponível, de alto desempenho, executando máquinas virtuais. 
 
 21
 00:02:17,000 --> 00:02:23,9
-And like I said, literally for pennies. And you know what? I'm like still amazed by that because when I cut 
+E como eu disse, literalmente por tostões. E sabe de uma coisa? Eu sou como ainda espantado por isso porque quando eu cortei 
 
 22
 00:02:24,000 --> 00:02:30,9
-my teeth in IT, that kind of thing took months or years and it cost an arm and a leg. 
+meus dentes na TI, esse tipo de coisa levou meses ou anos e custou um braço e uma perna. 
 
 23
 00:02:31,000 --> 00:02:34,9
-So I'm really excited to be teaching this course and I'm really excited for you. 
+Então eu estou realmente animado para estar ensinando este curso e estou muito animado para você. 
 
 24
 00:02:35,000 --> 00:02:40,9
-I think it's going to be the bizzo, an awesome course about an awesome technology, perfect combination. 
+Eu penso que está indo ser o bizzo, um curso impressionante sobre uma tecnologia impressionante, combinação perfeita. 
 
 25
 00:02:41,000 --> 00:02:44,000
-Okay now then, a quick bit about me before we rock and roll with the course. 
+Ok, agora, então, um pouco sobre mim antes de nós rock and roll com o curso. 
 
 
